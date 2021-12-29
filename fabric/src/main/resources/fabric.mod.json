@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "entranced",
+  "version": "${version}",
+  "name": "Entranced",
+  "description": "An enchantment mod",
+  "authors": [
+    "ShaksterNano"
+  ],
+  "contact": {
+    "homepage": "https://github.com/ShakterNano/Entranced",
+    "sources": "https://github.com/ShakterNano/Entranced",
+    "issues": "https://github.com/ShakterNano/Entranced/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/entranced/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.shaksternano.entranced.fabric.EntrancedFabric"
+    ]
+  },
+  "mixins": [
+    "entranced-common.mixins.json",
+    "entranced-fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17",
+    "architectury": ">=3.0.39",
+    "cloth-config": ">=6.0.42"
+  }
+}

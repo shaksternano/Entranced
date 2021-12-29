@@ -1,2 +1,2 @@
 # Entranced
- An enchantment mod
+An enchantment mod
