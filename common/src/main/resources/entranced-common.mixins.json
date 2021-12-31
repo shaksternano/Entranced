@@ -1,12 +1,51 @@
 {
-  "required": true,
-  "package": "io.github.shaksternano.entranced.mixin",
-  "compatibilityLevel": "JAVA_16",
-  "mixins": [
-  ],
-  "client": [
-  ],
-  "injectors": {
-    "defaultRequire": 1
+    "required": true,
+    "package": "io.github.shaksternano.entranced.mixin.commonloader",
+    "compatibilityLevel": "JAVA_16",
+    "mixins": [
+        "commonside.accessor.BucketItemAccessor",
+        "commonside.accessor.DimensionTypeAccessor",
+        "commonside.accessor.ItemAccessor",
+        "commonside.enchantment.EnchantmentMixin",
+        "commonside.enchantment.frenzy.ItemStackMixin",
+        "commonside.enchantment.imperishable.AbstractBlockStateMixin",
+        "commonside.enchantment.imperishable.AnvilScreenHandlerMixin",
+        "commonside.enchantment.imperishable.EntityMixin",
+        "commonside.enchantment.imperishable.ItemDispenserBehaviorMixin",
+        "commonside.enchantment.imperishable.ItemEntityMixin",
+        "commonside.enchantment.imperishable.ItemStackMixin",
+        "commonside.enchantment.imperishable.MobEntityMixin",
+        "commonside.enchantment.imperishable.PersistentProjectileEntityMixin",
+        "commonside.enchantment.imperishable.TridentEntityMixin",
+        "commonside.enchantment.imperishable.TripwireBlockMixin",
+        "commonside.enchantment.infinity.InfinityEnchantmentMixin",
+        "commonside.enchantment.infinity.bucket.AbstractFurnaceBlockEntityMixin",
+        "commonside.enchantment.infinity.bucket.BucketItemMixin",
+        "commonside.enchantment.infinity.bucket.ItemDispenserBehaviorMixin",
+        "commonside.enchantment.infinity.bucket.ItemUsageContextMixin",
+        "commonside.enchantment.infinity.bucket.MilkBucketItemMixin",
+        "commonside.enchantment.infinity.bucket.RecipeMixin",
+        "commonside.invoker.LivingEntityInvoker",
+        "commonside.retainenchantment.block.AbstractBlockMixin",
+        "commonside.retainenchantment.block.BlockEntityMixin",
+        "commonside.retainenchantment.block.BlockItemMixin",
+        "commonside.retainenchantment.item.BrewingStandBlockEntityMixin",
+        "commonside.retainenchantment.item.BucketItemMixin",
+        "commonside.retainenchantment.item.HoneyBottleItemMixin",
+        "commonside.retainenchantment.item.ItemDispenserBehaviorMixin",
+        "commonside.retainenchantment.item.ItemUsageMixin",
+        "commonside.retainenchantment.item.MilkBucketItemMixin",
+        "commonside.retainenchantment.item.PotionItemMixin",
+        "commonside.retainenchantment.item.RecipeMixin",
+        "commonside.retainenchantment.item.StewItemMixin",
+        "commonside.retainenchantment.item.SuspiciousStewItemMixin"
+    ],
+    "client": [
+        "client.debug.MinecraftClientMixin",
+        "client.enchantment.imperishable.AnvilScreenMixin",
+        "client.invoker.MinecraftClientInvoker"
+    ],
+    "injectors": {
+        "defaultRequire": 1
   }
 }

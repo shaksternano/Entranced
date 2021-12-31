@@ -4,26 +4,43 @@
   "version": "${version}",
   "name": "Entranced",
   "description": "An enchantment mod",
+
   "authors": [
     "ShaksterNano"
   ],
+
   "contact": {
     "homepage": "https://github.com/ShakterNano/Entranced",
     "sources": "https://github.com/ShakterNano/Entranced",
     "issues": "https://github.com/ShakterNano/Entranced/issues"
   },
+
   "license": "MIT",
   "icon": "assets/entranced/icon.png",
   "environment": "*",
+
   "entrypoints": {
     "main": [
-      "io.github.shaksternano.entranced.fabric.EntrancedFabric"
+      "io.github.shaksternano.entranced.commonside.fabric.EntrancedFabric"
+    ],
+    "client": [
+      "io.github.shaksternano.entranced.client.fabric.EntrancedFabricClient"
+    ],
+    "modmenu": [
+      "io.github.shaksternano.entranced.client.integration.fabric.ModMenuIntegration"
     ]
   },
+
   "mixins": [
     "entranced-common.mixins.json",
     "entranced-fabric.mixins.json"
   ],
+
+  "custom": {
+    "notify_gradle_properties_url": "https://raw.githubusercontent.com/ShakterNano/Entranced/1.18/gradle.properties",
+    "notify_gradle_properties_key": "mod_version"
+  },
+
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",
