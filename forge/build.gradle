@@ -44,17 +44,17 @@ shadowJar {
     exclude "fabric.mod.json"
 
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    classifier "forge-dev-shadow"
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
+    classifier "forge"
 }
 
 jar {
-    classifier "dev"
+    classifier "forge-dev"
 }
 
 sourcesJar {
