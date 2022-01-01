@@ -1,12 +1,15 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.1"
 }
+
 loom {
     forge {
         mixinConfig "entranced-common.mixins.json"
         mixinConfig "entranced-forge.mixins.json"
     }
 }
+
+archivesBaseName = "${rootProject.archives_base_name}-forge-mc${rootProject.minecraft_version}"
 
 architectury {
     platformSetupLoomIde()
@@ -44,17 +47,17 @@ shadowJar {
     exclude "fabric.mod.json"
 
     configurations = [project.configurations.shadowCommon]
-    classifier "forge-dev-shadow"
+    classifier "dev-shadow"
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier "forge"
+    classifier null
 }
 
 jar {
-    classifier "forge-dev"
+    classifier "dev"
 }
 
 sourcesJar {

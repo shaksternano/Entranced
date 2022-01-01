@@ -8,6 +8,8 @@ dependencies {
     modApi("me.shedaniel.cloth:cloth-config:${rootProject.cloth_config_version}")
 }
 
+archivesBaseName = "${rootProject.archives_base_name}-common-mc${rootProject.minecraft_version}"
+
 architectury {
     common()
 }

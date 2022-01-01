@@ -32,4 +32,4 @@ jobs:
           path: |
             common/build/libs/
             fabric/build/libs/
-            forge/build/libs
+            forge/build/libs/
