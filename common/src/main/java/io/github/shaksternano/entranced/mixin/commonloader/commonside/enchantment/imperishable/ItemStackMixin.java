@@ -11,22 +11,18 @@ import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ElytraItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
+import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -55,6 +51,7 @@ abstract class ItemStackMixin {
     @Inject(method = "damage(ILjava/util/Random;Lnet/minecraft/server/network/ServerPlayerEntity;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;setDamage(I)V"), locals = LocalCapture.CAPTURE_FAILSOFT, cancellable = true)
     private void imperishableDurability(int amount, Random random, @Nullable ServerPlayerEntity player, CallbackInfoReturnable<Boolean> cir, int newDamage) {
         ItemStack stack = (ItemStack) (Object) this;
+
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (!(getItem() instanceof ElytraItem)) {
                 if (isDamageable()) {
@@ -86,6 +83,7 @@ abstract class ItemStackMixin {
     @Inject(method = "isSuitableFor", at = @At("HEAD"), cancellable = true)
     private void imperishableSuitableFor(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         ItemStack stack = (ItemStack) (Object) this;
+
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (EnchantmentUtil.isBrokenImperishable(stack)) {
                 cir.setReturnValue(false);
@@ -98,6 +96,7 @@ abstract class ItemStackMixin {
     @Inject(method = "getMiningSpeedMultiplier", at = @At("HEAD"), cancellable = true)
     private void imperishableNoDurabilitySpeed(BlockState state, CallbackInfoReturnable<Float> cir) {
         ItemStack stack = (ItemStack) (Object) this;
+
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (EnchantmentUtil.isBrokenImperishable(stack)) {
                 cir.setReturnValue(1.0F);
@@ -110,6 +109,7 @@ abstract class ItemStackMixin {
     @Inject(method = "getAttributeModifiers", at = @At("HEAD"), cancellable = true)
     private void imperishableAttributeModifiers(EquipmentSlot equipmentSlot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir) {
         ItemStack stack = (ItemStack) (Object) this;
+
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (EnchantmentUtil.isBrokenImperishable(stack)) {
                 cir.setReturnValue(ImmutableMultimap.of());
@@ -117,51 +117,22 @@ abstract class ItemStackMixin {
         }
     }
 
-    // Item specific right click block actions are cancelled if the item has Imperishable and is at 0 durability.
-    @SuppressWarnings("ConstantConditions")
-    @Inject(method = "useOnBlock", at = @At("HEAD"), cancellable = true)
-    private void imperishableUseOnBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
-        ItemStack stack = (ItemStack) (Object) this;
-        if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
-            PlayerEntity player = context.getPlayer();
-            boolean userIsCreative = false;
-            if (player != null) {
-                userIsCreative = player.isCreative();
-            }
-
-            if (!userIsCreative) {
-                if (EnchantmentUtil.isBrokenImperishable(stack)) {
-                    cir.setReturnValue(ActionResult.PASS);
-                }
-            }
-        }
-    }
-
-    // Item specific right click entity are cancelled if the item has Imperishable and is at 0 durability.
-    @SuppressWarnings("ConstantConditions")
-    @Inject(method = "useOnEntity", at = @At("HEAD"), cancellable = true)
-    private void imperishableUseOnEntity(PlayerEntity user, LivingEntity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        ItemStack stack = (ItemStack) (Object) this;
-        if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
-            if (!user.isCreative()) {
-                if (EnchantmentUtil.isBrokenImperishable(stack)) {
-                    cir.setReturnValue(ActionResult.PASS);
-                }
-            }
-        }
-    }
-
     // Adds "(Broken)" to the name of an item with Imperishable at 0 durability.
     @SuppressWarnings("ConstantConditions")
-    @Inject(method = "getName", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "getName", at = @At("RETURN"))
     private void imperishableBrokenName(CallbackInfoReturnable<Text> cir) {
         ItemStack stack = (ItemStack) (Object) this;
-        if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
-            if (EnchantmentUtil.isBrokenImperishable(stack)) {
-                TranslatableText broken = new TranslatableText("item.name." + EntrancedEnchantments.IMPERISHABLE.getTranslationKey() + ".broken");
-                broken.formatted(Formatting.RED);
 
-                cir.setReturnValue(((MutableText) cir.getReturnValue()).append(broken));
+        // Prevent circular method calls when Silent Gear is installed.
+        if (!Registry.ITEM.getId(getItem()).getNamespace().equals("silentgear")) {
+            if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
+                if (EnchantmentUtil.isBrokenImperishable(stack)) {
+                    if (cir.getReturnValue() instanceof MutableText returnText) {
+                        TranslatableText brokenText = new TranslatableText("item.name." + EntrancedEnchantments.IMPERISHABLE.getTranslationKey() + ".broken");
+                        brokenText.formatted(Formatting.RED);
+                        returnText.append(brokenText);
+                    }
+                }
             }
         }
     }

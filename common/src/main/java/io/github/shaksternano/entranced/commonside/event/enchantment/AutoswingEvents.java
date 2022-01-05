@@ -18,7 +18,7 @@ public final class AutoswingEvents {
         /*
         The player will automatically attack when the next fully charged attack is
         available if the item in their main hand has the Autoswing enchantment.
-        */
+         */
         ClientTickEvent.CLIENT_POST.register(client -> {
             PlayerEntity player = client.player;
 

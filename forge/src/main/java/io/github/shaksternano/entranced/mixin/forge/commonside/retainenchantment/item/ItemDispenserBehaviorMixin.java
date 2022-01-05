@@ -1,4 +1,4 @@
-package io.github.shaksternano.entranced.mixin.commonloader.commonside.retainenchantment.item;
+package io.github.shaksternano.entranced.mixin.forge.commonside.retainenchantment.item;
 
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
@@ -12,7 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemDispenserBehavior.class)
 abstract class ItemDispenserBehaviorMixin {
 
-    // Buckets retain their enchantments when used in a dispenser.
+    /*
+    Buckets retain their enchantments when used in a dispenser.
+    Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.ItemDispenserBehaviorMixin#dispenserTransferEnchantments
+     */
     @Inject(method = "dispense", at = @At("RETURN"))
     private void dispenserTransferEnchantments(BlockPointer blockPointer, ItemStack itemStack, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack itemStack2 = cir.getReturnValue();

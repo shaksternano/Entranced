@@ -18,7 +18,10 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
     private NbtElement entranced$enchantments;
     private Integer entranced$repairCost;
 
-    // Adds enchantments and repair cost to NBT, for example this will allow the enchantments and repair cost to be shown when the /data command is used.
+    /*
+    Adds enchantments and repair cost to NBT, for example this will allow the
+    enchantments and repair cost to be shown when the /data command is used.
+     */
     @Inject(method = "writeNbt", at = @At("RETURN"))
     private void getEnchantmentsForNbt(NbtCompound nbt, CallbackInfo ci) {
         if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
@@ -32,7 +35,10 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
         }
     }
 
-    // Sets the enchantments and repair cost from NBT, for example when the enchantments and repair cost are specified when using the /setblock command.
+    /*
+    Sets the enchantments and repair cost from NBT, for example when the
+    enchantments and repair cost are specified when using the /setblock command.
+     */
     @Inject(method = "readNbt", at = @At("RETURN"))
     private void setEnchantmentsFromNbt(NbtCompound nbt, CallbackInfo ci) {
         if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
@@ -47,6 +53,10 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
         }
     }
 
+    /*
+    Sets the enchantments and repair cost of the shulker box item dropped when a
+    Shulker Box with enchantments and repair cost is broken by a player in creative mode.
+     */
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "setStackNbt", at = @At("RETURN"))
     private void setBlockEntityItemEnchantments(ItemStack stack, CallbackInfo ci) {

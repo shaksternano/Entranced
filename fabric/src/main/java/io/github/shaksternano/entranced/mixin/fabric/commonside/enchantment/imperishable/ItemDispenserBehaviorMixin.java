@@ -1,4 +1,4 @@
-package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantment.imperishable;
+package io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.imperishable;
 
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
@@ -17,7 +17,10 @@ abstract class ItemDispenserBehaviorMixin {
 
     @Shadow protected abstract ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack);
 
-    // Dispensing an item is cancelled if that item has Imperishable and is at 0 durability.
+    /*
+    Dispensing an item is cancelled if that item has Imperishable and is at 0 durability.
+    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.imperishable.ItemDispenserBehaviorMixin#dispenseBrokenImperishable
+     */
     @Redirect(method = "dispense", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/dispenser/ItemDispenserBehavior;dispenseSilently(Lnet/minecraft/util/math/BlockPointer;Lnet/minecraft/item/ItemStack;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack dispenseBrokenImperishable(ItemDispenserBehavior thisBehavior, BlockPointer pointer, ItemStack stack) {
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {

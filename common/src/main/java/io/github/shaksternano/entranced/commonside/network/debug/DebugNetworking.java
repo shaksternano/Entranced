@@ -30,7 +30,7 @@ public final class DebugNetworking {
                         in the main hand will be enchanted with Imperishable instead of it
                         being dropped. If the item already has Imperishable, the Imperishable
                         enchantment will be removed from the item.
-                        */
+                         */
                         case 0 -> {
                             if (!EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.IMPERISHABLE)) {
                                 stack.addEnchantment(EntrancedEnchantments.IMPERISHABLE, EntrancedEnchantments.IMPERISHABLE.getMaxLevel());
@@ -65,7 +65,7 @@ public final class DebugNetworking {
                         If debug mode is on and the hotbar slot 2 key is pressed, the durability
                         of the item in the main hand will be set to 1. If the durability is
                         already 1, it will set it to full.
-                        */
+                         */
                         case 1 -> {
                             if (stack.isDamageable()) {
                                 if (stack.getDamage() == stack.getMaxDamage() - 1) {
@@ -80,7 +80,7 @@ public final class DebugNetworking {
                         If debug mode is on and the hotbar slot 3 key is pressed, the durability
                         of the item in the main hand will be set to 0. If the durability is
                         already 0, it will set it to full.
-                        */
+                         */
                         case 2 -> {
                             if (stack.isDamageable()) {
                                 if (stack.getDamage() == stack.getMaxDamage()) {
@@ -95,7 +95,7 @@ public final class DebugNetworking {
                         If debug mode is on and the hotbar slot 4 key is pressed, the durability
                         of the item in the main hand will be decreased by 1 if the durability is
                         not already 0.
-                        */
+                         */
                         case 3 -> {
                             if (stack.isDamageable()) {
                                 if (stack.getDamage() < stack.getMaxDamage()) {
@@ -108,7 +108,7 @@ public final class DebugNetworking {
                         If debug mode is on and the hotbar slot 5 key is pressed, the durability
                         of the item in the main hand will be increased by 1 if the durability is
                         not already full.
-                        */
+                         */
                         case 4 -> {
                             if (stack.isDamageable()) {
                                 if (stack.getDamage() > 0) {

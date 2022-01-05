@@ -12,7 +12,10 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(PowderSnowBucketItem.class)
 abstract class PowderSnowBucketItemMixin {
 
-    // Powder snow buckets retain their enchantments when placing powder snow.
+    /*
+    Powder snow buckets retain their enchantments when placing powder snow.
+    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.retainenchantment.item.PowderSnowBucketItemMixin#placeTransferEnchantments
+     */
     @ModifyArgs(method = "useOnBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;setStackInHand(Lnet/minecraft/util/Hand;Lnet/minecraft/item/ItemStack;)V"))
     private void placeTransferEnchantments(Args args, ItemUsageContext context) {
         ItemStack stack = context.getStack();

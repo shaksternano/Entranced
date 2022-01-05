@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.commonside.event.enchantment;
 
 import dev.architectury.event.CompoundEventResult;
+import dev.architectury.event.EventResult;
 import dev.architectury.event.events.client.ClientTooltipEvent;
 import dev.architectury.event.events.common.InteractionEvent;
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
@@ -8,6 +9,7 @@ import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantment
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Wearable;
 import net.minecraft.text.LiteralText;
@@ -23,12 +25,13 @@ public final class ImperishableEvents {
         // Item specific right click actions are cancelled if the item has Imperishable and is at 0 durability.
         InteractionEvent.RIGHT_CLICK_ITEM.register((player, hand) -> {
             ItemStack stack = player.getStackInHand(hand);
+
             if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
                 if (!player.isCreative() && !player.isSpectator()) {
                     // Still allow a wearable item to be equipped even if the item is broken.
                     if (!(stack.getItem() instanceof Wearable)) {
                         if (EnchantmentUtil.isBrokenImperishable(stack)) {
-                            return CompoundEventResult.interruptTrue(stack);
+                            return CompoundEventResult.interruptFalse(stack);
                         }
                     }
                 }
@@ -36,6 +39,12 @@ public final class ImperishableEvents {
 
             return CompoundEventResult.pass();
         });
+
+        // Item specific right click block actions are cancelled if the item has Imperishable and is at 0 durability.
+        InteractionEvent.RIGHT_CLICK_BLOCK.register((player, hand, pos, face) -> imperishableCancelInteract(player, player.getStackInHand(hand)));
+
+        // Item specific right click entity are cancelled if the item has Imperishable and is at 0 durability.
+        InteractionEvent.INTERACT_ENTITY.register((player, entity, hand) -> imperishableCancelInteract(player, player.getStackInHand(hand)));
     }
 
     @Environment(EnvType.CLIENT)
@@ -50,6 +59,7 @@ public final class ImperishableEvents {
                         int index = 0;
                         while (index < lines.size() && !inserted) {
                             Text line = lines.get(index);
+
                             if (line instanceof TranslatableText translatableLine) {
                                 if (translatableLine.getKey().equals("item.durability")) {
                                     lines.add(index, new TranslatableText("item.tooltip." + EntrancedEnchantments.IMPERISHABLE.getTranslationKey() + ".broken").formatted(Formatting.RED));
@@ -62,6 +72,7 @@ public final class ImperishableEvents {
                         }
                     }
 
+                    // When !context.isAdvanced()
                     if (!inserted) {
                         lines.add(LiteralText.EMPTY);
                         lines.add(new TranslatableText("item.tooltip." + EntrancedEnchantments.IMPERISHABLE.getTranslationKey() + ".broken").formatted(Formatting.RED));
@@ -69,5 +80,18 @@ public final class ImperishableEvents {
                 }
             }
         });
+    }
+
+    // Item specific interactions are cancelled if the item has Imperishable and is at 0 durability.
+    private static EventResult imperishableCancelInteract(PlayerEntity player, ItemStack stack) {
+        if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
+            if (!player.isCreative() && !player.isSpectator()) {
+                if (EnchantmentUtil.isBrokenImperishable(stack)) {
+                    return EventResult.interruptFalse();
+                }
+            }
+        }
+
+        return EventResult.pass();
     }
 }

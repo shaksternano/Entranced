@@ -1,11 +1,18 @@
 {
     "required": true,
     "package": "io.github.shaksternano.entranced.mixin.forge",
+    "minVersion": "0.7",
     "compatibilityLevel": "JAVA_16",
     "mixins": [
+        "client.enchantment.imperishable.AnvilScreenMixin",
+        "commonside.enchantment.imperishable.ItemDispenserBehaviorMixin",
+        "commonside.enchantment.imperishable.ShearsItemMixin",
+        "commonside.enchantment.imperishable.SwordItemMixin",
+        "commonside.enchantment.infinity.bucket.ItemDispenserBehaviorMixin",
         "commonside.enchantment.infinity.bucket.PowderSnowBucketItemMixin",
-        "commonside.retainenchantment.item.AbstractFurnaceBlockEntityMixin",
-        "commonside.retainenchantment.item.PowderSnowBucketItemMixin"
+        "commonside.retainenchantment.item.ItemDispenserBehaviorMixin",
+        "commonside.retainenchantment.item.PowderSnowBucketItemMixin",
+        "commonside.IForgeItemMixin"
     ],
     "client": [
     ],

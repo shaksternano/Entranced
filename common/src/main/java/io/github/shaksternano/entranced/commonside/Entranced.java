@@ -37,6 +37,7 @@ public final class Entranced {
         EntrancedEvents.registerClientEvents();
     }
 
+    // Registers the config class.
     private static void registerConfig() {
         AutoConfig.register(EntrancedConfig.class, JanksonConfigSerializer::new).registerSaveListener((configHolder, modConfig) -> {
             EnchantmentAllowLists.initAllowLists();

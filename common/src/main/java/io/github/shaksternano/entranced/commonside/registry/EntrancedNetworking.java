@@ -9,11 +9,13 @@ public final class EntrancedNetworking {
 
     private EntrancedNetworking() {}
 
+    // Registers logical server side receivers.
     public static void registerServerReceivers() {
         DebugNetworking.registerServerReceivers();
 
     }
 
+    // Registers client side receivers.
     @Environment(EnvType.CLIENT)
     public static void registerClientReceivers() {
         ImperishableNetworking.registerClientReceivers();

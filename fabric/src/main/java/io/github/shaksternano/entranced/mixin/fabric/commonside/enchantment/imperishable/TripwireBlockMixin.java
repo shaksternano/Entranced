@@ -1,4 +1,4 @@
-package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantment.imperishable;
+package io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.imperishable;
 
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
@@ -15,7 +15,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(TripwireBlock.class)
 abstract class TripwireBlockMixin {
 
-    // Shears with Imperishable at 0 durability can't disarm tripwires.
+    /*
+    Shears with the Imperishable enchantment at 0 durability can't disarm tripwires.
+    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.imperishable.ShearsItemMixin#imperishableDisarmTripwire
+     */
     @Redirect(method = "onBreak", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isEmpty()Z"))
     private boolean imperishableDisarmTripwire(ItemStack getMainHandStack, World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!player.isCreative()) {

@@ -56,7 +56,7 @@ public final class ImperishableBlacklists {
     /*
     Returns true if an item is on the global blacklist or the blacklist
     for the specified protection type. Otherwise, returns false.
-    */
+     */
     private static boolean isItemBlacklisted(Item item, ProtectionType protectionType) {
         if (isItemBlacklistedGlobally(item)) {
             return true;
@@ -73,7 +73,7 @@ public final class ImperishableBlacklists {
     /*
     Returns true if the specified item is not blacklisted and Imperishable is set
     to protect from the specified protection type. Otherwise, returns false.
-    */
+     */
     public static boolean isItemProtected(Item item, ProtectionType protectionType) {
         return protectionType.PROTECTION_ENABLED && !isItemBlacklisted(item, protectionType);
     }
@@ -86,7 +86,7 @@ public final class ImperishableBlacklists {
     /*
     Protection types and their associated item ID blacklists
     from config and boolean enabled value from config.
-    */
+     */
     public enum ProtectionType {
         DESPAWN_PROTECTION(Entranced.getConfig()::getImperishableDespawnProtectionBlacklist, Entranced.getConfig().isImperishablePreventsDespawn()),
         DAMAGE_PROTECTION(Entranced.getConfig()::getImperishableDamageProtectionBlacklist, Entranced.getConfig().isImperishableProtectsFromDamage()),

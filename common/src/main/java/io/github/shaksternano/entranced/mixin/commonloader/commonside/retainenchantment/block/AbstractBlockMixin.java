@@ -20,14 +20,17 @@ import java.util.List;
 abstract class AbstractBlockMixin {
 
     // Block entities that have enchantments retain those enchantments when broken.
-    @Inject(method = "getDroppedStacks", at = @At("TAIL"))
+    @Inject(method = "getDroppedStacks", at = @At("RETURN"))
     private void setDroppedItemStackEnchantments(BlockState state, LootContext.Builder builder, CallbackInfoReturnable<List<ItemStack>> cir) {
         if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
             if (state.getBlock() instanceof BlockWithEntity) {
                 List<ItemStack> stacks = cir.getReturnValue();
 
                 for (ItemStack stack : stacks) {
-                    // Checks if the dropped item is the same as the broken block entity, for example an Ender Chest doesn't drop an Ender Chest when broken without silk touch.
+                    /*
+                    Checks if the dropped item is the same as the broken block entity, for example
+                    an Ender Chest doesn't drop an Ender Chest when broken without silk touch.
+                     */
                     if (stack.isOf(state.getBlock().asItem())) {
                         BlockEntity blockEntity = builder.get(LootContextParameters.BLOCK_ENTITY);
                         BlockEntityUtil.setDroppedItemStackEnchantments(blockEntity, stack);

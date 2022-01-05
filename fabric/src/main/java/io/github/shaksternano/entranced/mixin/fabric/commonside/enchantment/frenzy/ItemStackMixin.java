@@ -1,4 +1,4 @@
-package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantment.frenzy;
+package io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.frenzy;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -23,9 +23,13 @@ import java.util.Iterator;
 @Mixin(ItemStack.class)
 abstract class ItemStackMixin {
 
-    // Increases the player's attack speed if the item they are holding in their main hand has the Frenzy enchantment.
+    /*
+    Increases the player's attack speed if the item they are holding
+    in their main hand has the Frenzy enchantment.
+    Forge equivalent is io.github.shaksternano.entranced.commonside.event.enchantment.forge.FrenzyEvents#frenzyIncreaseAttackSpeed
+     */
     @Inject(method = "getAttributeModifiers", at = @At("RETURN"), cancellable = true)
-    private void frenzyAttackSpeed(EquipmentSlot slot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir) {
+    private void frenzyIncreaseAttackSpeed(EquipmentSlot slot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir) {
         ItemStack stack = (ItemStack) (Object) this;
         if (slot == EquipmentSlot.MAINHAND) {
             if (EntrancedEnchantments.FRENZY.isEnabled()) {

@@ -47,6 +47,7 @@ public final class CollectionUtil {
         }
     }
 
+    // Outputs and logs if there is an invalid Identifier.
     private static void notifyInvalidId(String id, String idType) {
         Entranced.LOGGER.info("\"" + id + "\" in " + Entranced.MOD_ID + ".json5 is not a valid " + idType + " ID!");
     }

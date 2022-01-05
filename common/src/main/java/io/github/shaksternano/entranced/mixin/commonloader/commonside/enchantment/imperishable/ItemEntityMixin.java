@@ -17,8 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemEntity.class)
 abstract class ItemEntityMixin extends EntityMixin {
 
-    @Shadow private int itemAge;
-
     @Shadow public abstract ItemStack getStack();
 
     // Items with Imperishable are invulnerable to all damage sources.
@@ -35,20 +33,6 @@ abstract class ItemEntityMixin extends EntityMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void checkImperishable(CallbackInfo ci) {
         if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
-            // Items with Imperishable don't despawn.
-            if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
-                if (!world.isClient) {
-                    if (itemAge >= 1) {
-                        itemAge = 0;
-                    }
-                } else {
-                    // itemAge on the client affects an item entity's visual spin, so reset it infrequently.
-                    if (itemAge >= 3000) {
-                        itemAge = 0;
-                    }
-                }
-            }
-
             // Items with Imperishable float up to the world's minimum Y if their Y coordinate is below the world's minimum Y.
             if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
                 if (getY() < world.getBottomY()) {

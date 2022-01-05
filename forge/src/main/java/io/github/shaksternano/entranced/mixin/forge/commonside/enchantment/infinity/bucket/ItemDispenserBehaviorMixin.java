@@ -1,4 +1,4 @@
-package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantment.infinity.bucket;
+package io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.infinity.bucket;
 
 import io.github.shaksternano.entranced.commonside.util.BucketUtil;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
@@ -12,7 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemDispenserBehavior.class)
 abstract class ItemDispenserBehaviorMixin {
 
-    // The ItemStack being dispensed doesn't change if it is a bucket with Infinity.
+    /*
+    The ItemStack being dispensed doesn't change if it is a bucket with Infinity.
+    Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.infinity.bucket.ItemDispenserBehaviorMixin#dispenseInfinity
+     */
     @Inject(method = "dispense", at = @At("RETURN"), cancellable = true)
     private void dispenseInfinity(BlockPointer blockPointer, ItemStack itemStack, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack bucketStack = BucketUtil.infinityBucketKeepFluid(itemStack);

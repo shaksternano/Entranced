@@ -1,6 +1,5 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantment.imperishable;
 
-import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
 import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -8,11 +7,10 @@ import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(AnvilScreenHandler.class)
 abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
@@ -23,15 +21,10 @@ abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
     }
 
     // Removing "(Broken)" at the end of the name of an item with Imperishable at 0 durability in an anvil will not register as renamed.
-    @Redirect(method = "updateResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/text/Text;getString()Ljava/lang/String;"))
-    private String imperishableBrokenUpdateResult(Text getName) {
-        String trimmedName = getName.getString();
+    @ModifyArg(method = "updateResult", at = @At(value = "INVOKE", target = "Ljava/lang/String;equals(Ljava/lang/Object;)Z"))
+    private Object imperishableBrokenUpdateResult(Object oldName) {
         ItemStack stack = input.getStack(0);
-
-        if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
-            trimmedName = ImperishableEnchantment.itemNameRemoveBroken(getName, stack);
-        }
-
-        return trimmedName;
+        String trimmedName = ImperishableEnchantment.itemNameRemoveBroken((String) oldName, stack);
+        return trimmedName == null ? oldName : trimmedName;
     }
 }
