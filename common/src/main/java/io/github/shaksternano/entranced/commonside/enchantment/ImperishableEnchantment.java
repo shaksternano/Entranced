@@ -7,9 +7,9 @@ import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public final class ImperishableEnchantment extends ConfigurableEnchantment {
 
@@ -59,16 +59,14 @@ public final class ImperishableEnchantment extends ConfigurableEnchantment {
     }
 
     // Removes the "(Broken)" string from the name of tools with Imperishable at 0 durability, so it doesn't mess with anvil renaming.
-    @Nullable
     public static String itemNameRemoveBroken(String name, ItemStack stack) {
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (EnchantmentUtil.isBrokenImperishable(stack)) {
-                TranslatableText broken = new TranslatableText("item.name." + EntrancedEnchantments.IMPERISHABLE.getTranslationKey() + ".broken");
-                int brokenLength = broken.getString().length();
-                return name.substring(0, name.length() - brokenLength);
+                Text broken = new TranslatableText("item.name." + EntrancedEnchantments.IMPERISHABLE.getTranslationKey() + ".broken");
+                return name.replace(broken.getString(), "");
             }
         }
 
-        return null;
+        return name;
     }
 }

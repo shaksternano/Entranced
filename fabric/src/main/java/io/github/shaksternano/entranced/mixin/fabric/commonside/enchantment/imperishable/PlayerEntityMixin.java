@@ -5,7 +5,6 @@ import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.objectweb.asm.Opcodes;

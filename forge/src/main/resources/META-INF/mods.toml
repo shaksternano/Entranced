@@ -4,39 +4,39 @@ issueTrackerURL = "https://github.com/ShakterNano/Entranced/issues"
 license = "MIT"
 
 [[mods]]
-modId = "entranced"
-version = "${version}"
-displayName = "Entranced"
-authors = "ShaksterNano"
-description = '''
-An enchantment mod
-'''
-#logoFile = ""
+    modId = "entranced"
+    version = "${version}"
+    displayName = "Entranced"
+    authors = "ShaksterNano"
+    description = '''
+    An enchantment mod
+    '''
+    #logoFile = ""
 
 [[dependencies.entranced]]
-modId = "forge"
-mandatory = true
-versionRange = "[38,)"
-ordering = "NONE"
-side = "BOTH"
+    modId = "forge"
+    mandatory = true
+    versionRange = "[38,)"
+    ordering = "NONE"
+    side = "BOTH"
 
 [[dependencies.entranced]]
-modId = "minecraft"
-mandatory = true
-versionRange = "[1.18,)"
-ordering = "NONE"
-side = "BOTH"
+    modId = "minecraft"
+    mandatory = true
+    versionRange = "[1.18,)"
+    ordering = "NONE"
+    side = "BOTH"
 
 [[dependencies.entranced]]
-modId = "architectury"
-mandatory = true
-versionRange = "[3.1.44,)"
-ordering = "AFTER"
-side = "BOTH"
+    modId = "architectury"
+    mandatory = true
+    versionRange = "[3.1.44,)"
+    ordering = "AFTER"
+    side = "BOTH"
 
 [[dependencies.entranced]]
-modId = "cloth_config"
-mandatory = true
-versionRange = "[6.0.43,)"
-ordering = "AFTER"
-side = "BOTH"
+    modId = "cloth_config"
+    mandatory = true
+    versionRange = "[6.0.43,)"
+    ordering = "AFTER"
+    side = "BOTH"

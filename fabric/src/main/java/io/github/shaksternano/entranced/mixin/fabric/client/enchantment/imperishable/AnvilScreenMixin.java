@@ -21,10 +21,6 @@ abstract class AnvilScreenMixin {
      */
     @ModifyArgs(method = "onSlotUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/widget/TextFieldWidget;setText(Ljava/lang/String;)V"))
     private void imperishableBrokenOnSlotUpdate(Args args, ScreenHandler handler, int slotId, ItemStack stack) {
-        String trimmedName = ImperishableEnchantment.itemNameRemoveBroken(args.get(0), stack);
-
-        if (trimmedName != null) {
-            args.set(0, trimmedName);
-        }
+        args.set(0, ImperishableEnchantment.itemNameRemoveBroken(args.get(0), stack));
     }
 }

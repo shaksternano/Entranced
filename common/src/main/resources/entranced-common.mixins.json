@@ -3,14 +3,15 @@
     "package": "io.github.shaksternano.entranced.mixin.commonloader",
     "minVersion": "0.7",
     "compatibilityLevel": "JAVA_16",
+    "plugin": "io.github.shaksternano.entranced.mixin.commonloader.EntrancedMixinPlugin",
     "mixins": [
+        "commonside.accessor.AbstractBlockAccessor",
         "commonside.accessor.BucketItemAccessor",
         "commonside.accessor.DimensionTypeAccessor",
         "commonside.accessor.ItemAccessor",
         "commonside.enchantment.EnchantmentMixin",
         "commonside.enchantment.imperishable.AnvilScreenHandlerMixin",
         "commonside.enchantment.imperishable.EntityMixin",
-        "commonside.enchantment.imperishable.GrindstoneScreenHandlerMixin",
         "commonside.enchantment.imperishable.ItemEntityMixin",
         "commonside.enchantment.imperishable.ItemStackMixin",
         "commonside.enchantment.imperishable.PersistentProjectileEntityMixin",
@@ -40,5 +41,5 @@
     ],
     "injectors": {
         "defaultRequire": 1
-  }
+    }
 }

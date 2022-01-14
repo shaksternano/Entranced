@@ -3,6 +3,7 @@ package io.github.shaksternano.entranced.commonside.registry;
 import io.github.shaksternano.entranced.commonside.event.enchantment.AutoswingEvents;
 import io.github.shaksternano.entranced.commonside.event.enchantment.EnchantmentEvents;
 import io.github.shaksternano.entranced.commonside.event.enchantment.ImperishableEvents;
+import io.github.shaksternano.entranced.commonside.event.enchantment.MlgEvents;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
@@ -21,5 +22,6 @@ public final class EntrancedEvents {
     public static void registerClientEvents() {
         AutoswingEvents.registerClientEvents();
         ImperishableEvents.registerClientEvents();
+        MlgEvents.registerClientEvents();
     }
 }

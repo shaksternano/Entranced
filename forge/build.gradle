@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.1"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 loom {
@@ -25,14 +25,23 @@ configurations {
 }
 
 dependencies {
-    forge "net.minecraftforge:forge:${rootProject.forge_version}"
+    forge("net.minecraftforge:forge:${rootProject.forge_version}")
     // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury-forge:${rootProject.architectury_api_version}"
+    modApi("dev.architectury:architectury-forge:${rootProject.architectury_api_version}")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 
     modApi("me.shedaniel.cloth:cloth-config-forge:${rootProject.cloth_config_version}")
+
+    implementation("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}") {
+        transitive = false
+    }
+    annotationProcessor("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}") {
+        transitive = false
+    }
+    forgeRuntimeLibrary("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}")
+    shadow("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}")
 }
 
 processResources {
@@ -48,6 +57,8 @@ shadowJar {
 
     configurations = [project.configurations.shadowCommon]
     classifier "dev-shadow"
+
+    relocate("com.llamalad7.mixinextras", "${rootProject.maven_group}.mixinextras")
 }
 
 remapJar {

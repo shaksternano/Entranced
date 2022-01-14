@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.1"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 archivesBaseName = "${rootProject.archives_base_name}-fabric-mc${rootProject.minecraft_version}"
@@ -18,8 +18,8 @@ configurations {
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+    modImplementation("net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}")
+    modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}")
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-fabric:${rootProject.architectury_api_version}"
 
@@ -30,7 +30,15 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-    modImplementation "com.terraformersmc:modmenu:${rootProject.modmenu_version}"
+    modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}")
+
+    implementation("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}") {
+        transitive = false
+    }
+    annotationProcessor("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}") {
+        transitive = false
+    }
+    include("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}")
 }
 
 processResources {
