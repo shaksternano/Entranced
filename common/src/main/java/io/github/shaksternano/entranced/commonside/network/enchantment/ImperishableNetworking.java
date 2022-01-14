@@ -30,7 +30,7 @@ public final class ImperishableNetworking {
                     Item item = Item.byRawId(itemId);
 
                     if (ImperishableBlacklists.isItemProtected(item, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
-                        ((LivingEntityInvoker) player).invokePlayEquipmentBreakEffects(new ItemStack(item));
+                        ((LivingEntityInvoker) player).entranced$invokePlayEquipmentBreakEffects(new ItemStack(item));
                     }
                 }
             });

@@ -40,7 +40,7 @@ public final class FrenzyEventsForge {
 
                     event.removeAttribute(EntityAttributes.GENERIC_ATTACK_SPEED);
                     event.addModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(
-                            ItemAccessor.getAttackSpeedModifierId(),
+                            ItemAccessor.entranced$getAttackSpeedModifierId(),
                             "Weapon modifier",
                             FrenzyEnchantment.getAttackSpeed(stack, attackSpeed),
                             EntityAttributeModifier.Operation.ADDITION

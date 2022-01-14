@@ -11,7 +11,7 @@ public final class EnchantmentEvents {
     public static void registerServerEvents() {
         // Initialises all enchantment blacklists and whitelists when the world loads.
         LifecycleEvent.SERVER_LEVEL_LOAD.register(world -> {
-            if (world.getDimension().equals(DimensionTypeAccessor.getOverworld())) {
+            if (world.getDimension().equals(DimensionTypeAccessor.entranced$getOverworld())) {
                 EnchantmentAllowLists.initAllowLists();
             }
         });

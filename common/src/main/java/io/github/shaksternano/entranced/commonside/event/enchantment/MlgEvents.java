@@ -34,7 +34,7 @@ public final class MlgEvents {
 
                             for (int fallDistance = 0; fallDistance <= player.getSafeFallDistance(); fallDistance++) {
                                 Block block = player.world.getBlockState(player.getBlockPos().down(fallDistance)).getBlock();
-                                if (((AbstractBlockAccessor) block).isCollidable()) {
+                                if (((AbstractBlockAccessor) block).entranced$isCollidable()) {
                                     safeFall = true;
                                     break;
                                 }
@@ -49,7 +49,7 @@ public final class MlgEvents {
                                     Item item = stack.getItem();
                                     if (!stack.isEmpty()) {
                                         if (item instanceof FluidModificationItem) {
-                                            if (!(item instanceof BucketItem && !(((BucketItemAccessor) item).getFluid() instanceof FlowableFluid))) {
+                                            if (!(item instanceof BucketItem && !(((BucketItemAccessor) item).entranced$getFluid() instanceof FlowableFluid))) {
                                                 if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.MLG)) {
                                                     inventoryIndex = newIndex;
                                                     break;

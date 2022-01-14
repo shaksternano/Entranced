@@ -14,7 +14,7 @@ public abstract class BucketItemMixin {
 
     // Fluids in buckets with Infinity don't go away when placing the fluid.
     @Inject(method = "getEmptiedStack", at = @At("HEAD"), cancellable = true)
-    private static void infinityEntityBucket(ItemStack stack, PlayerEntity player, CallbackInfoReturnable<ItemStack> cir) {
+    private static void entranced$infinityEntityBucket(ItemStack stack, PlayerEntity player, CallbackInfoReturnable<ItemStack> cir) {
         if (!player.getAbilities().creativeMode) {
             ItemStack bucketStack = BucketUtil.infinityBucketKeepFluid(stack);
 

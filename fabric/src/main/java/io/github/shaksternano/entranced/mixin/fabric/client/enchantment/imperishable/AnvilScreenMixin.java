@@ -17,10 +17,10 @@ abstract class AnvilScreenMixin {
 
     /*
     An item with imperishable at 0 durability in an anvil will not have "(Broken)" at the end if its name.
-    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.client.enchantment.imperishable.AnvilScreenMixin#imperishableBrokenOnSlotUpdate
+    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.client.enchantment.imperishable.AnvilScreenMixin#entranced$imperishableBrokenOnSlotUpdate
      */
     @ModifyArgs(method = "onSlotUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/widget/TextFieldWidget;setText(Ljava/lang/String;)V"))
-    private void imperishableBrokenOnSlotUpdate(Args args, ScreenHandler handler, int slotId, ItemStack stack) {
+    private void entranced$imperishableBrokenOnSlotUpdate(Args args, ScreenHandler handler, int slotId, ItemStack stack) {
         args.set(0, ImperishableEnchantment.itemNameRemoveBroken(args.get(0), stack));
     }
 }

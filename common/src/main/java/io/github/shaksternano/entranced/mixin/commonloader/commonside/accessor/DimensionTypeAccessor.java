@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface DimensionTypeAccessor {
 
     @Accessor("OVERWORLD")
-    static DimensionType getOverworld() {
+    static DimensionType entranced$getOverworld() {
         throw new AssertionError();
     }
 }

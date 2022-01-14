@@ -1,19 +1,19 @@
 package io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.imperishable;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
 
+@SuppressWarnings("unused")
 @Mixin(PlayerEntity.class)
 abstract class PlayerEntityMixin extends LivingEntity {
 
@@ -27,23 +27,13 @@ abstract class PlayerEntityMixin extends LivingEntity {
 
     /*
     Swords with the Imperishable enchantment at 0 durability can't perform sweeping attacks.
-    Fabric equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.imperishable.SwordItemMixin#imperishableSwordSweeping
+    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.imperishable.SwordItemMixin#entranced$imperishableSwordSweeping
      */
-    @Redirect(method = "attack", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerEntity;onGround:Z", opcode = Opcodes.GETFIELD), slice = @Slice(
+    @ModifyExpressionValue(method = "attack", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerEntity;onGround:Z", opcode = Opcodes.GETFIELD), slice = @Slice(
             from = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerEntity;horizontalSpeed:F", opcode = Opcodes.GETFIELD),
             to = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I")
     ))
-    private boolean imperishableSwordSweeping(PlayerEntity thisPlayer) {
-        ItemStack stack = getMainHandStack();
-
-        if (!isCreative()) {
-            if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
-                if (EnchantmentUtil.isBrokenImperishable(stack)) {
-                    return false;
-                }
-            }
-        }
-
-        return onGround;
+    private boolean entranced$imperishableSwordSweeping(boolean onGround) {
+        return onGround && !(!isCreative() && ImperishableBlacklists.isItemProtected(getMainHandStack(), ImperishableBlacklists.ProtectionType.BREAK_PROTECTION) && EnchantmentUtil.isBrokenImperishable(getMainHandStack()));
     }
 }

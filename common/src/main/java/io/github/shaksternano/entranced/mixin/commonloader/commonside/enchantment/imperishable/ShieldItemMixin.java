@@ -14,13 +14,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ShieldItem.class)
 abstract class ShieldItemMixin extends Item {
 
+    @SuppressWarnings("unused")
     private ShieldItemMixin(Settings settings) {
         super(settings);
     }
 
     // Shields with the Imperishable enchantment at 0 durability can't block.
     @Inject(method = "getUseAction", at = @At("HEAD"), cancellable = true)
-    private void imperishableShield(ItemStack stack, CallbackInfoReturnable<UseAction> cir) {
+    private void entranced$imperishableShield(ItemStack stack, CallbackInfoReturnable<UseAction> cir) {
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (EnchantmentUtil.isBrokenImperishable(stack)) {
                 cir.setReturnValue(super.getUseAction(stack));

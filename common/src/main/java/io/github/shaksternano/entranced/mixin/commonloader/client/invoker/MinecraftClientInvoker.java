@@ -10,6 +10,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(MinecraftClient.class)
 public interface MinecraftClientInvoker {
 
-    @Invoker
-    void invokeDoAttack();
+    @Invoker("doAttack")
+    void entranced$invokeDoAttack();
 }

@@ -15,10 +15,10 @@ abstract class BrewingStandBlockEntityMixin {
 
     /*
     Items retain their enchantments when used as brewing stand ingredients.
-    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.IForgeItemMixin#getContainerItem
+    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.IForgeItemMixin#entranced$getContainerItem
      */
     @ModifyVariable(method = "craft", at = @At("STORE"), ordinal = 1)
-    private static ItemStack brewingStandTransferEnchantments(ItemStack newItemStack, World world, BlockPos pos, DefaultedList<ItemStack> slots) {
+    private static ItemStack entranced$brewingStandTransferEnchantments(ItemStack newItemStack, World world, BlockPos pos, DefaultedList<ItemStack> slots) {
         ItemStack itemStack = slots.get(3);
         EnchantmentUtil.copyEnchantments(itemStack, newItemStack);
         return newItemStack;

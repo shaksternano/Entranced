@@ -1,16 +1,14 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.accessor;
 
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import java.util.UUID;
+@Mixin(ItemStack.class)
+public interface ItemStackAccessor {
 
-@Mixin(Item.class)
-public interface ItemAccessor {
-
-    @Accessor("ATTACK_SPEED_MODIFIER_ID")
-    static UUID entranced$getAttackSpeedModifierId() {
+    @Accessor("REPAIR_COST_KEY")
+    static String entranced$getRepairCostKey() {
         throw new AssertionError();
     }
 }

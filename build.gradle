@@ -34,11 +34,6 @@ allprojects {
 
     repositories {
         maven {
-            name = "Shedaniel"
-            url = "https://maven.shedaniel.me"
-        }
-
-        maven {
             name = "TerraformersMC"
             url = "https://maven.terraformersmc.com/releases"
         }
@@ -49,11 +44,25 @@ allprojects {
         }
 
         maven {
+            name = "Progwml6"
+            url = "https://dvs1.progwml6.com/files/maven"
+        }
+
+        maven {
             name = "Curse Maven"
             url = "https://cursemaven.com"
             content {
                 includeGroup "curse.maven"
             }
+        }
+    }
+
+    dependencies {
+        implementation("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}") {
+            transitive = false
+        }
+        annotationProcessor("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}") {
+            transitive = false
         }
     }
 

@@ -15,10 +15,10 @@ abstract class SwordItemMixin {
 
     /*
     Swords with the Imperishable enchantment at 0 durability can't perform sweeping attacks.
-    Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.imperishable.PlayerEntityMixin#imperishableSwordSweeping
+    Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.imperishable.PlayerEntityMixin#entranced$imperishableSwordSweeping
      */
     @Inject(method = "canPerformAction", at = @At("HEAD"), cancellable = true)
-    private void imperishableSwordSweeping(ItemStack stack, ToolAction toolAction, CallbackInfoReturnable<Boolean> cir) {
+    private void entranced$imperishableSwordSweeping(ItemStack stack, ToolAction toolAction, CallbackInfoReturnable<Boolean> cir) {
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (EnchantmentUtil.isBrokenImperishable(stack)) {
                 cir.setReturnValue(false);

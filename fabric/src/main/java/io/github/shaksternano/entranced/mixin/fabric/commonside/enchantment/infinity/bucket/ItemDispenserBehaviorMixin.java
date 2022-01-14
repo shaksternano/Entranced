@@ -14,10 +14,10 @@ abstract class ItemDispenserBehaviorMixin {
 
     /*
     The ItemStack being dispensed doesn't change if it is a bucket with Infinity.
-    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.infinity.bucket.ItemDispenserBehaviorMixin#dispenseInfinity
+    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.infinity.bucket.ItemDispenserBehaviorMixin#entranced$dispenseInfinity
      */
     @Inject(method = "dispense", at = @At("RETURN"), cancellable = true)
-    private void dispenseInfinity(BlockPointer blockPointer, ItemStack itemStack, CallbackInfoReturnable<ItemStack> cir) {
+    private void entranced$dispenseInfinity(BlockPointer blockPointer, ItemStack itemStack, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack bucketStack = BucketUtil.infinityBucketKeepFluid(itemStack);
 
         if (bucketStack != null) {

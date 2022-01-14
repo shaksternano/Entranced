@@ -11,5 +11,5 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class EnchantmentMixin {
 
     @Inject(method = "isAcceptableItem", at = @At("HEAD"), cancellable = true)
-    protected void addAcceptableItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {}
+    protected void entranced$addAcceptableItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {}
 }

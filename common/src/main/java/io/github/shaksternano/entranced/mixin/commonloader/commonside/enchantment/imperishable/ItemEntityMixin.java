@@ -22,7 +22,7 @@ abstract class ItemEntityMixin extends EntityMixin {
     // Items with Imperishable are invulnerable to all damage sources.
     @SuppressWarnings("unused")
     @Override
-    protected void damageImperishable(DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
+    protected void entranced$damageImperishable(DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
         if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DAMAGE_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
                 cir.setReturnValue(true);
@@ -31,7 +31,7 @@ abstract class ItemEntityMixin extends EntityMixin {
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
-    private void checkImperishable(CallbackInfo ci) {
+    private void entranced$checkImperishable(CallbackInfo ci) {
         if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
             // Items with Imperishable float up to the world's minimum Y if their Y coordinate is below the world's minimum Y.
             if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
@@ -66,7 +66,7 @@ abstract class ItemEntityMixin extends EntityMixin {
 
     // Items with Imperishable don't appear on fire when in fire or lava.
     @Inject(method = "isFireImmune", at = @At("HEAD"), cancellable = true)
-    private void imperishableFireImmune(CallbackInfoReturnable<Boolean> cir) {
+    private void entranced$imperishableFireImmune(CallbackInfoReturnable<Boolean> cir) {
         if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DAMAGE_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
                 cir.setReturnValue(true);
@@ -77,7 +77,7 @@ abstract class ItemEntityMixin extends EntityMixin {
     // Items with Imperishable don't get removed when 64 blocks below the world's minimum Y position.
     @SuppressWarnings("unused")
     @Override
-    protected void imperishableInVoid(CallbackInfo ci) {
+    protected void entranced$imperishableInVoid(CallbackInfo ci) {
         if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
                 ci.cancel();

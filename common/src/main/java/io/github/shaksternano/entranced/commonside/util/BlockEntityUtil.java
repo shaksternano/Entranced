@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.commonside.util;
 
 import io.github.shaksternano.entranced.commonside.access.EnchantmentHolder;
+import io.github.shaksternano.entranced.mixin.commonloader.commonside.accessor.ItemStackAccessor;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtElement;
@@ -19,7 +20,7 @@ public final class BlockEntityUtil {
         }
 
         if (stack.hasNbt()) {
-            if (stack.getNbt().contains("RepairCost", 3)) {
+            if (stack.getNbt().contains(ItemStackAccessor.entranced$getRepairCostKey(), 3)) {
                 enchantmentHolder.entranced$setRepairCost(stack.getRepairCost());
             }
         }

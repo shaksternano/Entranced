@@ -3,6 +3,7 @@ package io.github.shaksternano.entranced.mixin.commonloader.commonside.retainenc
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.access.EnchantmentHolder;
 import io.github.shaksternano.entranced.commonside.util.BlockEntityUtil;
+import io.github.shaksternano.entranced.mixin.commonloader.commonside.accessor.ItemStackAccessor;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -23,14 +24,14 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
     enchantments and repair cost to be shown when the /data command is used.
      */
     @Inject(method = "writeNbt", at = @At("RETURN"))
-    private void getEnchantmentsForNbt(NbtCompound nbt, CallbackInfo ci) {
+    private void entranced$getEnchantmentsForNbt(NbtCompound nbt, CallbackInfo ci) {
         if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
             if (entranced$enchantments != null) {
-                nbt.put("Enchantments", entranced$enchantments);
+                nbt.put(ItemStack.ENCHANTMENTS_KEY, entranced$enchantments);
             }
 
             if (entranced$repairCost != null) {
-                nbt.putInt("RepairCost", entranced$repairCost);
+                nbt.putInt(ItemStackAccessor.entranced$getRepairCostKey(), entranced$repairCost);
             }
         }
     }
@@ -40,15 +41,15 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
     enchantments and repair cost are specified when using the /setblock command.
      */
     @Inject(method = "readNbt", at = @At("RETURN"))
-    private void setEnchantmentsFromNbt(NbtCompound nbt, CallbackInfo ci) {
+    private void entranced$setEnchantmentsFromNbt(NbtCompound nbt, CallbackInfo ci) {
         if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
-            NbtElement enchantments = nbt.get("Enchantments");
+            NbtElement enchantments = nbt.get(ItemStack.ENCHANTMENTS_KEY);
             if (enchantments != null) {
                 this.entranced$enchantments = enchantments.copy();
             }
 
-            if (nbt.contains("RepairCost", 3)) {
-                entranced$repairCost = nbt.getInt("RepairCost");
+            if (nbt.contains(ItemStackAccessor.entranced$getRepairCostKey(), 3)) {
+                entranced$repairCost = nbt.getInt(ItemStackAccessor.entranced$getRepairCostKey());
             }
         }
     }
@@ -59,7 +60,7 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
      */
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "setStackNbt", at = @At("RETURN"))
-    private void setBlockEntityItemEnchantments(ItemStack stack, CallbackInfo ci) {
+    private void entranced$setBlockEntityItemEnchantments(ItemStack stack, CallbackInfo ci) {
         if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
             BlockEntityUtil.setDroppedItemStackEnchantments((BlockEntity) (Object) this, stack);
         }

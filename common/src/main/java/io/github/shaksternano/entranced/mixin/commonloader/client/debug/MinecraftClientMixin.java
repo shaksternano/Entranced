@@ -20,7 +20,7 @@ abstract class MinecraftClientMixin {
 
     // For debugging.
     @Redirect(method = "handleInputEvents", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I", opcode = Opcodes.PUTFIELD), require = 0)
-    private void debugModeKeypress(PlayerInventory getInventory, int slot) {
+    private void entranced$debugModeKeypress(PlayerInventory getInventory, int slot) {
         if (Entranced.getConfig().isDebugMode()) {
             PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
             buf.writeInt(slot);

@@ -2,6 +2,7 @@ package io.github.shaksternano.entranced.commonside.util;
 
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
+import io.github.shaksternano.entranced.mixin.commonloader.commonside.accessor.ItemStackAccessor;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -28,12 +29,27 @@ public final class EnchantmentUtil {
     }
 
     // Copies the enchantments from one ItemStack to another.
+    @SuppressWarnings("ConstantConditions")
     public static void copyEnchantments(ItemStack stackToCopyFrom, ItemStack stackToCopyTo) {
         if (Entranced.getConfig().isRetainEnchantmentsMoreOften()) {
             if (stackToCopyFrom.hasEnchantments()) {
                 if (!stackToCopyTo.hasEnchantments()) {
                     NbtElement enchantmentsNbt = stackToCopyFrom.getEnchantments().copy();
                     stackToCopyTo.setSubNbt(ItemStack.ENCHANTMENTS_KEY, enchantmentsNbt);
+                }
+            }
+
+            if (stackToCopyFrom.getRepairCost() != 0) {
+                if (!stackToCopyTo.getNbt().contains(ItemStackAccessor.entranced$getRepairCostKey(), 3) || stackToCopyTo.getRepairCost() == 0) {
+                    stackToCopyTo.setRepairCost(stackToCopyFrom.getRepairCost());
+                }
+            }
+
+            if (stackToCopyFrom.hasCustomName()) {
+                if (!stackToCopyTo.hasCustomName()) {
+                    if (!isBrokenImperishable(stackToCopyTo)) {
+                        stackToCopyTo.setCustomName(stackToCopyFrom.getName());
+                    }
                 }
             }
         }

@@ -6,6 +6,7 @@
     "mixins": [
         "client.enchantment.imperishable.AnvilScreenMixin",
         "commonside.enchantment.frenzy.ItemStackMixin",
+        "commonside.enchantment.imperishable.GrindstoneScreenHandlerMixin",
         "commonside.enchantment.imperishable.ItemDispenserBehaviorMixin",
         "commonside.enchantment.imperishable.ItemEntityMixin",
         "commonside.enchantment.imperishable.PlayerEntityMixin",

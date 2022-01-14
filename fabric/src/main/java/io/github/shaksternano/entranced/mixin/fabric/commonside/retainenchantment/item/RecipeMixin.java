@@ -14,10 +14,10 @@ interface RecipeMixin<C extends Inventory> {
 
     /*
     Items retain their enchantments when using in a crafting recipe.
-    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.IForgeItemMixin#getContainerItem
+    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.IForgeItemMixin#entranced$getContainerItem
      */
     @ModifyArgs(method = "getRemainder", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/collection/DefaultedList;set(ILjava/lang/Object;)Ljava/lang/Object;"))
-    private void recipeTransferEnchantments(Args args, C inventory) {
+    private void entranced$recipeTransferEnchantments(Args args, C inventory) {
         int index = args.get(0);
         ItemStack originalStack = inventory.getStack(index);
         ItemStack newItemStack = args.get(1);

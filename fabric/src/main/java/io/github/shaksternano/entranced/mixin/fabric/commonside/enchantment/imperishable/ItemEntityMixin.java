@@ -29,10 +29,10 @@ abstract class ItemEntityMixin extends Entity {
 
     /*
     Item entities with Imperishable don't despawn.
-    Forge equivalent is io.github.shaksternano.entranced.commonside.event.enchantment.forge.ImperishableEvents#imperishableNoItemDespawn
+    Forge equivalent is io.github.shaksternano.entranced.commonside.event.enchantment.forge.ImperishableEvents#entranced$imperishableNoItemDespawn
      */
     @Inject(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/ItemEntity;itemAge:I", opcode = Opcodes.PUTFIELD))
-    private void imperishableNoItemDespawn(CallbackInfo ci) {
+    private void entranced$imperishableNoItemDespawn(CallbackInfo ci) {
         if (world.isClient || !EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE) || !ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
             itemAge++;
         }

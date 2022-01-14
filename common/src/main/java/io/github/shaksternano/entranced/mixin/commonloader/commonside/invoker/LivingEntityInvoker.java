@@ -8,6 +8,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(LivingEntity.class)
 public interface LivingEntityInvoker {
 
-    @Invoker
-    void invokePlayEquipmentBreakEffects(ItemStack stack);
+    @Invoker("playEquipmentBreakEffects")
+    void entranced$invokePlayEquipmentBreakEffects(ItemStack stack);
 }

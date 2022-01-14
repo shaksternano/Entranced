@@ -15,10 +15,10 @@ abstract class ShearsItemMixin {
 
     /*
     Shears with the Imperishable enchantment at 0 durability can't disarm tripwires.
-    Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.imperishable.TripwireBlockMixin#imperishableDisarmTripwire
+    Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.imperishable.TripwireBlockMixin#entranced$imperishableDisarmTripwire
      */
     @Inject(method = "canPerformAction", at = @At("HEAD"), cancellable = true)
-    private void imperishableDisarmTripwire(ItemStack stack, ToolAction toolAction, CallbackInfoReturnable<Boolean> cir) {
+    private void entranced$imperishableDisarmTripwire(ItemStack stack, ToolAction toolAction, CallbackInfoReturnable<Boolean> cir) {
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (EnchantmentUtil.isBrokenImperishable(stack)) {
                 cir.setReturnValue(false);

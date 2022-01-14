@@ -14,10 +14,10 @@ abstract class ItemDispenserBehaviorMixin {
 
     /*
     Buckets retain their enchantments when used in a dispenser.
-    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.retainenchantment.item.ItemDispenserBehaviorMixin#dispenserTransferEnchantments
+    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.retainenchantment.item.ItemDispenserBehaviorMixin#entranced$dispenserTransferEnchantments
      */
     @Inject(method = "dispense", at = @At("RETURN"))
-    private void dispenserTransferEnchantments(BlockPointer blockPointer, ItemStack itemStack, CallbackInfoReturnable<ItemStack> cir) {
+    private void entranced$dispenserTransferEnchantments(BlockPointer blockPointer, ItemStack itemStack, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack itemStack2 = cir.getReturnValue();
         EnchantmentUtil.copyEnchantments(itemStack, itemStack2);
     }

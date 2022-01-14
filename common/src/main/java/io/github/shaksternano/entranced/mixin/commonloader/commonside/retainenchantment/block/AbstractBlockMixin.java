@@ -21,7 +21,7 @@ abstract class AbstractBlockMixin {
 
     // Block entities that have enchantments retain those enchantments when broken.
     @Inject(method = "getDroppedStacks", at = @At("RETURN"))
-    private void setDroppedItemStackEnchantments(BlockState state, LootContext.Builder builder, CallbackInfoReturnable<List<ItemStack>> cir) {
+    private void entranced$setDroppedItemStackEnchantments(BlockState state, LootContext.Builder builder, CallbackInfoReturnable<List<ItemStack>> cir) {
         if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
             if (state.getBlock() instanceof BlockWithEntity) {
                 List<ItemStack> stacks = cir.getReturnValue();

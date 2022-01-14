@@ -22,10 +22,10 @@ interface IForgeItemMixin {
      * enchantment a copy of the original ItemStack.
      *
      * Fabric equivalents are:
-     *      io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.infinity.bucket.RecipeMixin#infinityKeepItem
-     *      io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.AbstractFurnaceBlockEntityMixin#furnaceFuelTransferEnchantments
-     *      io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.BrewingStandBlockEntityMixin#brewingStandTransferEnchantments
-     *      io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.RecipeMixin#recipeTransferEnchantments
+     *      io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.infinity.bucket.RecipeMixin#entranced$infinityKeepItem
+     *      io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.AbstractFurnaceBlockEntityMixin#entranced$furnaceFuelTransferEnchantments
+     *      io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.BrewingStandBlockEntityMixin#entranced$brewingStandTransferEnchantments
+     *      io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.RecipeMixin#entranced$recipeTransferEnchantments
      */
     @SuppressWarnings("deprecation")
     @Overwrite

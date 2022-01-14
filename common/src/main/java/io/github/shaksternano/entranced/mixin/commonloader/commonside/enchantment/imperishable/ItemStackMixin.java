@@ -49,7 +49,7 @@ abstract class ItemStackMixin {
     // Items don't break when they reach 0 durability.
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "damage(ILjava/util/Random;Lnet/minecraft/server/network/ServerPlayerEntity;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;setDamage(I)V"), locals = LocalCapture.CAPTURE_FAILSOFT, cancellable = true)
-    private void imperishableDurability(int amount, Random random, @Nullable ServerPlayerEntity player, CallbackInfoReturnable<Boolean> cir, int newDamage) {
+    private void entranced$imperishableDurability(int amount, Random random, @Nullable ServerPlayerEntity player, CallbackInfoReturnable<Boolean> cir, int newDamage) {
         ItemStack stack = (ItemStack) (Object) this;
 
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
@@ -81,7 +81,7 @@ abstract class ItemStackMixin {
     // Tool specific drops such cobblestone do not drop when mined by a tool with Imperishable at 0 durability.
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "isSuitableFor", at = @At("HEAD"), cancellable = true)
-    private void imperishableSuitableFor(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+    private void entranced$imperishableSuitableFor(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         ItemStack stack = (ItemStack) (Object) this;
 
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
@@ -94,7 +94,7 @@ abstract class ItemStackMixin {
     // Tools with Imperishable do not have increased mining speed when at 0 durability.
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "getMiningSpeedMultiplier", at = @At("HEAD"), cancellable = true)
-    private void imperishableNoDurabilitySpeed(BlockState state, CallbackInfoReturnable<Float> cir) {
+    private void entranced$imperishableNoDurabilitySpeed(BlockState state, CallbackInfoReturnable<Float> cir) {
         ItemStack stack = (ItemStack) (Object) this;
 
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
@@ -107,7 +107,7 @@ abstract class ItemStackMixin {
     // Items with Imperishable do not give bonus attributes such as attack damage on a sword when at 0 durability.
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "getAttributeModifiers", at = @At("HEAD"), cancellable = true)
-    private void imperishableAttributeModifiers(EquipmentSlot equipmentSlot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir) {
+    private void entranced$imperishableAttributeModifiers(EquipmentSlot equipmentSlot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir) {
         ItemStack stack = (ItemStack) (Object) this;
 
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
@@ -120,7 +120,7 @@ abstract class ItemStackMixin {
     // Adds "(Broken)" to the name of an item with Imperishable at 0 durability.
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "getName", at = @At("RETURN"))
-    private void imperishableBrokenName(CallbackInfoReturnable<Text> cir) {
+    private void entranced$imperishableBrokenName(CallbackInfoReturnable<Text> cir) {
         ItemStack stack = (ItemStack) (Object) this;
 
         // Prevent circular method calls when Silent Gear is installed.

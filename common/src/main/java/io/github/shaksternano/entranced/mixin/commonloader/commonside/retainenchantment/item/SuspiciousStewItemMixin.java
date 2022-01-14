@@ -15,7 +15,7 @@ abstract class SuspiciousStewItemMixin {
 
     // Suspicious stews retain their enchantments when eaten.
     @Inject(method = "finishUsing", at = @At("RETURN"))
-    private void consumeTransferEnchantments(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
+    private void entranced$consumeTransferEnchantments(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack consumedStack = cir.getReturnValue();
         EnchantmentUtil.copyEnchantments(stack, consumedStack);
     }

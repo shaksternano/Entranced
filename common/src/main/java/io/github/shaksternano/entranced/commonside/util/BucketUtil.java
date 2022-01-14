@@ -16,7 +16,7 @@ public final class BucketUtil {
 
     // Returns the bucket item equivalent that doesn't contain an entity.
     public static Item getNoEntityBucket(EntityBucketItem entityBucketItem) {
-        Fluid fluid = ((BucketItemAccessor) entityBucketItem).getFluid();
+        Fluid fluid = ((BucketItemAccessor) entityBucketItem).entranced$getFluid();
         Item bucketItem = fluid.getBucketItem();
 
         if (bucketItem == null) {

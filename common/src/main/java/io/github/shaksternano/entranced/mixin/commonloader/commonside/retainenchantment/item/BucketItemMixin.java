@@ -14,7 +14,7 @@ abstract class BucketItemMixin {
 
     // Buckets retain their enchantments when placing fluids.
     @Inject(method = "getEmptiedStack", at = @At("RETURN"), cancellable = true)
-    private static void placeTransferEnchantments(ItemStack stack, PlayerEntity player, CallbackInfoReturnable<ItemStack> cir) {
+    private static void entranced$placeTransferEnchantments(ItemStack stack, PlayerEntity player, CallbackInfoReturnable<ItemStack> cir) {
         if (!player.getAbilities().creativeMode) {
             ItemStack emptiedStack = cir.getReturnValue();
             EnchantmentUtil.copyEnchantments(stack, emptiedStack);

@@ -30,7 +30,7 @@ public final class AutoswingEvents {
                         if (crosshairTarget.getType() != HitResult.Type.BLOCK) {
                             if (player.getAttackCooldownProgress(0.0F) == 1.0F) {
                                 if (EnchantmentUtil.hasEnchantment(player.getMainHandStack(), EntrancedEnchantments.AUTOSWING)) {
-                                    ((MinecraftClientInvoker) client).invokeDoAttack();
+                                    ((MinecraftClientInvoker) client).entranced$invokeDoAttack();
                                 }
                             }
                         }

@@ -14,10 +14,10 @@ abstract class PowderSnowBucketItemMixin {
 
     /*
     Powder snow buckets retain their enchantments when placing powder snow.
-    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.retainenchantment.item.PowderSnowBucketItemMixin#placeTransferEnchantments
+    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.retainenchantment.item.PowderSnowBucketItemMixin#entranced$placeTransferEnchantments
      */
     @ModifyArgs(method = "useOnBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;setStackInHand(Lnet/minecraft/util/Hand;Lnet/minecraft/item/ItemStack;)V"))
-    private void placeTransferEnchantments(Args args, ItemUsageContext context) {
+    private void entranced$placeTransferEnchantments(Args args, ItemUsageContext context) {
         ItemStack stack = context.getStack();
         ItemStack getDefaultStack = args.get(1);
         EnchantmentUtil.copyEnchantments(stack, getDefaultStack);

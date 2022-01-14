@@ -19,7 +19,7 @@ abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
 
     // Tridents with Imperishable stop falling when they reach the world's minimum Y.
     @Inject(method = "tick", at = @At("TAIL"))
-    private void checkTridentImperishable(CallbackInfo ci) {
+    private void entranced$checkTridentImperishable(CallbackInfo ci) {
         if (ImperishableBlacklists.isItemProtected(tridentStack, ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(tridentStack, EntrancedEnchantments.IMPERISHABLE)) {
                 if (!isNoClip()) {
@@ -36,7 +36,7 @@ abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
 
     // Tridents with Imperishable don't despawn.
     @Inject(method = "age", at = @At("HEAD"), cancellable = true)
-    private void imperishableAge(CallbackInfo ci) {
+    private void entranced$imperishableAge(CallbackInfo ci) {
         if (ImperishableBlacklists.isItemProtected(tridentStack, ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(tridentStack, EntrancedEnchantments.IMPERISHABLE)) {
                 ci.cancel();
@@ -47,7 +47,7 @@ abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
     // Tridents with Imperishable don't get removed when 64 blocks below the world's minimum Y position.
     @SuppressWarnings("unused")
     @Override
-    protected void imperishableInVoid(CallbackInfo ci) {
+    protected void entranced$imperishableInVoid(CallbackInfo ci) {
         if (ImperishableBlacklists.isItemProtected(tridentStack, ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(tridentStack, EntrancedEnchantments.IMPERISHABLE)) {
                 ci.cancel();

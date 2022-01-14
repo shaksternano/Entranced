@@ -18,12 +18,12 @@ abstract class InfinityEnchantmentMixin extends EnchantmentMixin {
 
     // Infinity can be put on buckets.
     @Override
-    protected void addAcceptableItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+    protected void entranced$addAcceptableItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (Entranced.getConfig().isInfinityAllowedOnBuckets()) {
             Item item = stack.getItem();
 
             if (item instanceof BucketItemAccessor bucketItem) {
-                if (InfinityBucketWhitelists.isFluidWhitelisted(bucketItem.getFluid())) {
+                if (InfinityBucketWhitelists.isFluidWhitelisted(bucketItem.entranced$getFluid())) {
                     cir.setReturnValue(true);
                 }
             } else if (item instanceof PowderSnowBucketItem powderSnowBucketItem) {

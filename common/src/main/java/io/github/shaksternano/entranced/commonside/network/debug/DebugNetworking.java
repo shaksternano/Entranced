@@ -4,6 +4,7 @@ import dev.architectury.networking.NetworkManager;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
+import io.github.shaksternano.entranced.mixin.commonloader.commonside.accessor.ItemStackAccessor;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -38,8 +39,8 @@ public final class DebugNetworking {
                                 NbtList enchantmentNbtList = stack.getEnchantments();
 
                                 if (enchantmentNbtList.size() == 1) {
-                                    stack.removeSubNbt("Enchantments");
-                                    stack.removeSubNbt("RepairCost");
+                                    stack.removeSubNbt(ItemStack.ENCHANTMENTS_KEY);
+                                    stack.removeSubNbt(ItemStackAccessor.entranced$getRepairCostKey());
                                 } else {
                                     boolean removed = false;
                                     int index = 0;

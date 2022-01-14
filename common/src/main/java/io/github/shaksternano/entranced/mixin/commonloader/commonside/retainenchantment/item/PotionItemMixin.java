@@ -15,7 +15,7 @@ abstract class PotionItemMixin {
 
     // Potions retain their enchantments when drank.
     @Inject(method = "finishUsing", at = @At("RETURN"))
-    private void consumeTransferEnchantments(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
+    private void entranced$consumeTransferEnchantments(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack consumedStack = cir.getReturnValue();
         EnchantmentUtil.copyEnchantments(stack, consumedStack);
     }

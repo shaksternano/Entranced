@@ -23,7 +23,7 @@ abstract class ItemUsageContextMixin implements ItemStackHolder {
 
     // Remember the powder snow bucket ItemStack and its data.
     @Inject(method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/hit/BlockHitResult;)V", at = @At("RETURN"))
-    private void setInfinityPowderSnowBucket(World world, PlayerEntity player, Hand hand, ItemStack stack, BlockHitResult hit, CallbackInfo ci) {
+    private void entranced$setInfinityPowderSnowBucket(World world, PlayerEntity player, Hand hand, ItemStack stack, BlockHitResult hit, CallbackInfo ci) {
         if (stack.getItem() instanceof PowderSnowBucketItem) {
             if (EnchantmentUtil.isBucketAndHasInfinityAndBucketEnabled(stack)) {
                 entranced$infinityPowderSnowBucketStack = stack.copy();

@@ -45,16 +45,16 @@ abstract class EntityMixin {
     @Shadow public abstract void setVelocity(double x, double y, double z);
 
     @Inject(method = "isInvulnerableTo", at = @At("HEAD"), cancellable = true)
-    protected void damageImperishable(DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {}
+    protected void entranced$damageImperishable(DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {}
 
     @SuppressWarnings("CancellableInjectionUsage")
     @Inject(method = "tickInVoid", at = @At("HEAD"), cancellable = true)
-    protected void imperishableInVoid(CallbackInfo ci) {}
+    protected void entranced$imperishableInVoid(CallbackInfo ci) {}
 
     // Items with Imperishable stop falling when they reach the world's minimum Y.
     @SuppressWarnings("UnstableApiUsage")
     @ModifyVariable(method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;", at = @At("HEAD"), argsOnly = true)
-    private static List<VoxelShape> voidFloor(List<VoxelShape> collisions, @Nullable Entity entity) {
+    private static List<VoxelShape> entranced$voidFloor(List<VoxelShape> collisions, @Nullable Entity entity) {
         if (entity instanceof ItemEntity itemEntity) {
             ItemStack stack = itemEntity.getStack();
             if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
