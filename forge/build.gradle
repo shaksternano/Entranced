@@ -28,12 +28,16 @@ dependencies {
     forge("net.minecraftforge:forge:${rootProject.forge_version}")
     modApi("dev.architectury:architectury-forge:${rootProject.architectury_api_version}")
 
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+    common(project(path: ":common", configuration: "namedElements")) {
+        transitive = false
+    }
+    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) {
+        transitive = false
+    }
 
     modApi("me.shedaniel.cloth:cloth-config-forge:${rootProject.cloth_config_version}")
 
-    forgeRuntimeLibrary("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}") {
+    forgeDependencies(shadowCommon("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}")) {
         transitive = false
     }
 
@@ -56,7 +60,7 @@ shadowJar {
     configurations = [project.configurations.shadowCommon]
     classifier "dev-shadow"
 
-    relocate("com.llamalad7.mixinextras", "${rootProject.maven_group}.relocated.mixinextras")
+    relocate("com.llamalad7.mixinextras", "${rootProject.maven_group}.shadowed.mixinextras")
 }
 
 remapJar {
