@@ -58,12 +58,8 @@ allprojects {
     }
 
     dependencies {
-        implementation("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}") {
-            transitive = false
-        }
-        annotationProcessor("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}") {
-            transitive = false
-        }
+        implementation("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}")
+        annotationProcessor("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}")
     }
 
     tasks.withType(JavaCompile) {

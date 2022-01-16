@@ -15,6 +15,7 @@ abstract class MilkBucketItemMixin {
     // A milk bucket ItemStack with the Infinity enchantment doesn't have its count decremented.
     @ModifyExpressionValue(method = "finishUsing", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerAbilities;creativeMode:Z", opcode = Opcodes.GETFIELD))
     private boolean entranced$infinityNoDecrement(boolean creativeMode, ItemStack stack) {
+        // Will be equivalent to !creativeMode && !EnchantmentUtil.isBucketAndHasInfinityAndBucketEnabled(stack)
         return creativeMode || EnchantmentUtil.isBucketAndHasInfinityAndBucketEnabled(stack);
     }
 }
