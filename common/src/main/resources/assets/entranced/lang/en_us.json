@@ -63,6 +63,14 @@
     "text.autoconfig.entranced.option.infinity.blockWhitelist": "Block whitelist",
     "text.autoconfig.entranced.option.infinity.itemWhitelist": "Item whitelist",
 
+    "text.autoconfig.entranced.option.mlg": "MLG enchantment",
+    "text.autoconfig.entranced.option.mlg.enabled": "Enabled",
+    "text.autoconfig.entranced.option.mlg.rarity": "Enchantment rarity",
+    "text.autoconfig.entranced.option.mlg.treasure": "Is a treasure enchantment",
+    "text.autoconfig.entranced.option.mlg.soldByVillagers": "Villagers sell enchanted books",
+    "text.autoconfig.entranced.option.mlg.minPower": "Minimum XP level required for enchanting table",
+    "text.autoconfig.entranced.option.mlg.maxPowerAboveMin": "Maximum number of XP levels above minimum",
+
     "text.autoconfig.entranced.option.blockEntitiesStoreEnchantments": "Block entities keep enchantments",
     "text.autoconfig.entranced.option.retainEnchantmentsMoreOften": "Enchantments are kept more often"
 }

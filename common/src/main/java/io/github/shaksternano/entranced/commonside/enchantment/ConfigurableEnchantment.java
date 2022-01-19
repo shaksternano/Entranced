@@ -15,7 +15,10 @@ public abstract class ConfigurableEnchantment extends Enchantment {
 
     public ConfigurableEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
         super(weight, type, slotTypes);
-        EntrancedEnchantments.addEnchantmentToRegister(this);
+
+        if (isEnabled()) {
+            EntrancedEnchantments.addEnchantmentToRegister(this);
+        }
     }
 
     @Override

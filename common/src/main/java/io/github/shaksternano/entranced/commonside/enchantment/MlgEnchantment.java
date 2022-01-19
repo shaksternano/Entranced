@@ -1,5 +1,6 @@
 package io.github.shaksternano.entranced.commonside.enchantment;
 
+import io.github.shaksternano.entranced.commonside.Entranced;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.FluidModificationItem;
@@ -9,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public final class MlgEnchantment extends ConfigurableEnchantment {
 
     public MlgEnchantment() {
-        super(Rarity.RARE, EnchantmentTarget.VANISHABLE, EquipmentSlot.values());
+        super(Entranced.getConfig().getMlgRarity(), EnchantmentTarget.VANISHABLE, EquipmentSlot.values());
     }
 
     @Override
@@ -19,17 +20,17 @@ public final class MlgEnchantment extends ConfigurableEnchantment {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return Entranced.getConfig().isMlgEnabled();
     }
 
     @Override
     protected int minPower() {
-        return 10;
+        return Entranced.getConfig().getMlgMinPower();
     }
 
     @Override
     protected int maxPowerAboveMin() {
-        return 50;
+        return Entranced.getConfig().getMlgMaxPowerAboveMin();
     }
 
     @Override

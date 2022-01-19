@@ -13,8 +13,8 @@ public final class EntrancedEnchantments {
 
     private EntrancedEnchantments() {}
 
-    private static final Set<ConfigurableEnchantment> enchantmentsToRegister = new HashSet<>();
     private static final DeferredRegister<Enchantment> enchantments = DeferredRegister.create(Entranced.MOD_ID, Registry.ENCHANTMENT_KEY);
+    private static final Set<ConfigurableEnchantment> enchantmentsToRegister = new HashSet<>();
 
     public static final ConfigurableEnchantment AUTOSWING = new AutoswingEnchantment();
     public static final ConfigurableEnchantment FRENZY = new FrenzyEnchantment();
@@ -28,9 +28,7 @@ public final class EntrancedEnchantments {
     // Registers all the enchantments.
     public static void registerEnchantments() {
         for (ConfigurableEnchantment enchantment : enchantmentsToRegister) {
-            if (enchantment.isEnabled()) {
-                enchantments.register(enchantment.getId(), () -> enchantment);
-            }
+            enchantments.register(enchantment.getId(), () -> enchantment);
         }
 
         enchantments.register();

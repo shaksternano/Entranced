@@ -31,6 +31,10 @@ public final class EntrancedConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     private final InfinityCollapsible infinity = new InfinityCollapsible();
 
+    @ConfigEntry.Category("enchantment")
+    @ConfigEntry.Gui.CollapsibleObject
+    private final MlgCollapsible mlg = new MlgCollapsible();
+
     private static class AutoSwingCollapsible {
         @Comment("Is this enchantment enabled?\nMinecraft must be restarted for\nthis change to take full effect.\n\nDefault value is true.")
         private boolean enabled = true;
@@ -148,6 +152,26 @@ public final class EntrancedConfig implements ConfigData {
 
         @Comment("IDs of bucket items that are affected by Infinity.\nFor example \"minecraft:milk_bucket\".\n\nEmpty by default.")
         private final List<String> itemWhitelist = new ArrayList<>();
+    }
+
+    private static class MlgCollapsible {
+        @Comment("Is this enchantment enabled?\nMinecraft must be restarted for\nthis change to take full effect.\n\nDefault value is true.")
+        private boolean enabled = true;
+
+        @Comment("Rarity of the enchantment.\nMinecraft must be restarted for a\nchange of this option to take effect.\n\nOptions:\n  \"COMMON\"\n  \"UNCOMMON\"\n  \"RARE\"\n  \"VERY_RARE\"\n\nDefault value is \"RARE\".")
+        private Enchantment.Rarity rarity = Enchantment.Rarity.COMMON;
+
+        @Comment("Should this be a treasure enchant?\n\nDefault value is false.")
+        private boolean treasure = false;
+
+        @Comment("Should villagers sell enchanted\nbooks with this enchantment?\n\nDefault value is true.")
+        private boolean soldByVillagers = true;
+
+        @Comment("Minimum experience level required to get\n in an enchanting table.\n\nDefault value is 10.")
+        private int minPower = 5;
+
+        @Comment("Maximum number of levels above the minimum\nlevel to get in an enchanting table.\n\nDefault value is 50.")
+        private int maxPowerAboveMin = 50;
     }
 
     @ConfigEntry.Gui.Excluded
@@ -313,6 +337,30 @@ public final class EntrancedConfig implements ConfigData {
 
     public List<String> getInfinityItemWhitelist() {
         return infinity.itemWhitelist;
+    }
+
+    public boolean isMlgEnabled() {
+        return mlg.enabled;
+    }
+
+    public Enchantment.Rarity getMlgRarity() {
+        return mlg.rarity;
+    }
+
+    public boolean isMlgTreasure() {
+        return mlg.treasure;
+    }
+
+    public boolean isMlgSoldByVillagers() {
+        return mlg.soldByVillagers;
+    }
+
+    public int getMlgMinPower() {
+        return mlg.minPower;
+    }
+
+    public int getMlgMaxPowerAboveMin() {
+        return mlg.maxPowerAboveMin;
     }
 
     // Miscellaneous
