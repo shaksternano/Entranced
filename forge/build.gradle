@@ -37,7 +37,7 @@ dependencies {
 
     modApi("me.shedaniel.cloth:cloth-config-forge:${rootProject.cloth_config_version}")
 
-    forgeDependencies(shadowCommon("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}"))
+    forgeRuntimeLibrary(shadowCommon("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}"))
 
     modRuntimeOnly("curse.maven:enchantment-descriptions-250419:${rootProject.enchantment_descriptions_forge_id}")
 

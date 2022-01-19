@@ -18,12 +18,13 @@ public final class DebugNetworking {
     public static final Identifier DEBUG_HOTBAR_SLOT = new Identifier(Entranced.MOD_ID, "debug_hotbar_slot");
 
     public static void registerServerReceivers() {
+        // For debug mode.
         NetworkManager.registerReceiver(NetworkManager.clientToServer(), DEBUG_HOTBAR_SLOT, (buf, context) -> {
             int slot = buf.readInt();
+            PlayerEntity player = context.getPlayer();
 
             context.queue(() -> {
                 if (Entranced.getConfig().isDebugMode()) {
-                    PlayerEntity player = context.getPlayer();
                     ItemStack stack = player.getMainHandStack();
                     switch (slot) {
                         /*

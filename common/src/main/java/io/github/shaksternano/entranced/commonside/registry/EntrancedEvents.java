@@ -15,6 +15,7 @@ public final class EntrancedEvents {
     public static void registerServerEvents() {
         EnchantmentEvents.registerServerEvents();
         ImperishableEvents.registerServerEvents();
+        MlgEvents.registerServerEvents();
     }
 
     // Registers client side events.
@@ -22,6 +23,5 @@ public final class EntrancedEvents {
     public static void registerClientEvents() {
         AutoswingEvents.registerClientEvents();
         ImperishableEvents.registerClientEvents();
-        MlgEvents.registerClientEvents();
     }
 }
