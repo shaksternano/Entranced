@@ -19,6 +19,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.UpdateSelectedSlotS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Hand;
 
 public final class MlgEvents {
 
@@ -27,56 +28,71 @@ public final class MlgEvents {
     public static void registerServerEvents() {
         // A filled bucket with the MLG enchantment in the player's inventory will automatically get put in the player's hand when falling from a height that would damage the player.
         TickEvent.PLAYER_POST.register(player -> {
-            if (EntrancedEnchantments.MLG.isEnabled()) {
-                if (!player.world.isClient) {
+            if (!player.world.isClient) {
+                if (EntrancedEnchantments.MLG.isEnabled()) {
                     if (!player.isCreative() && !player.isSpectator()) {
                         if (!player.isOnGround()) {
-                            boolean safeFall = false;
+                            ItemStack mainHandStack = player.getMainHandStack();
 
-                            // Check for a fall that would damage the player.
-                            for (int fallDistance = 0; fallDistance <= player.getSafeFallDistance(); fallDistance++) {
-                                Block block = player.world.getBlockState(player.getBlockPos().down(fallDistance)).getBlock();
-                                if (((AbstractBlockAccessor) block).entranced$isCollidable()) {
-                                    safeFall = true;
-                                    break;
-                                }
-                            }
+                            if (!(mainHandStack.getItem() instanceof FluidModificationItem && !(mainHandStack.getItem() instanceof BucketItem && !(((BucketItemAccessor) mainHandStack.getItem()).entranced$getFluid() instanceof FlowableFluid)) && EnchantmentUtil.hasEnchantment(mainHandStack, EntrancedEnchantments.MLG))) {
+                                ItemStack offHandStack = player.getOffHandStack();
 
-                            if (!safeFall) {
-                                PlayerInventory inventory = player.getInventory();
+                                if (!(offHandStack.getItem() instanceof FluidModificationItem && !(offHandStack.getItem() instanceof BucketItem && !(((BucketItemAccessor) offHandStack.getItem()).entranced$getFluid() instanceof FlowableFluid)) && EnchantmentUtil.hasEnchantment(offHandStack, EntrancedEnchantments.MLG) && mainHandStack.isEmpty())) {
+                                    boolean safeFall = false;
 
-                                // Locate a filled bucket with the MLG enchantment in the player's inventory.
-                                int inventoryIndex = -1;
-                                for (int newIndex = 0; newIndex < inventory.main.size(); newIndex++) {
-                                    ItemStack stack = inventory.main.get(newIndex);
-                                    Item item = stack.getItem();
-                                    if (!stack.isEmpty()) {
-                                        if (item instanceof FluidModificationItem) {
-                                            if (!(item instanceof BucketItem && !(((BucketItemAccessor) item).entranced$getFluid() instanceof FlowableFluid))) {
-                                                if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.MLG)) {
-                                                    inventoryIndex = newIndex;
-                                                    break;
+                                    // Check for a fall that would damage the player.
+                                    for (int fallDistance = 0; fallDistance <= player.getSafeFallDistance(); fallDistance++) {
+                                        Block block = player.world.getBlockState(player.getBlockPos().down(fallDistance)).getBlock();
+                                        if (((AbstractBlockAccessor) block).entranced$isCollidable()) {
+                                            safeFall = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (!safeFall) {
+                                        if (offHandStack.getItem() instanceof FluidModificationItem && !(offHandStack.getItem() instanceof BucketItem && !(((BucketItemAccessor) offHandStack.getItem()).entranced$getFluid() instanceof FlowableFluid)) && EnchantmentUtil.hasEnchantment(offHandStack, EntrancedEnchantments.MLG) && !mainHandStack.isEmpty()) {
+                                            // Move the filled bucket with the MLG enchantment from the offhand to the main hand if there was an item in the main hand.
+                                            player.setStackInHand(Hand.OFF_HAND, mainHandStack);
+                                            player.setStackInHand(Hand.MAIN_HAND, offHandStack);
+                                            player.clearActiveItem();
+                                        } else {
+                                            PlayerInventory inventory = player.getInventory();
+
+                                            // Locate a filled bucket with the MLG enchantment in the player's inventory.
+                                            int inventoryIndex = -1;
+                                            for (int newIndex = 0; newIndex < inventory.main.size(); newIndex++) {
+                                                ItemStack stack = inventory.main.get(newIndex);
+                                                Item item = stack.getItem();
+                                                if (!stack.isEmpty()) {
+                                                    if (item instanceof FluidModificationItem) {
+                                                        if (!(item instanceof BucketItem && !(((BucketItemAccessor) item).entranced$getFluid() instanceof FlowableFluid))) {
+                                                            if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.MLG)) {
+                                                                inventoryIndex = newIndex;
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            // Put the filled bucket with the MLG enchantment in the player's hand.
+                                            if (inventoryIndex != -1) {
+                                                ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+
+                                                if (PlayerInventory.isValidHotbarIndex(inventoryIndex)) {
+                                                    PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+                                                    buf.writeInt(inventoryIndex);
+
+                                                    NetworkManager.sendToPlayer(serverPlayer, MlgNetworking.CLIENT_HOTBAR_SWAP, buf);
+                                                } else {
+                                                    serverPlayer.getInventory().swapSlotWithHotbar(inventoryIndex);
+
+                                                    serverPlayer.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(-2, 0, serverPlayer.getInventory().selectedSlot, serverPlayer.getInventory().getStack(serverPlayer.getInventory().selectedSlot)));
+                                                    serverPlayer.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(-2, 0, inventoryIndex, serverPlayer.getInventory().getStack(inventoryIndex)));
+                                                    serverPlayer.networkHandler.sendPacket(new UpdateSelectedSlotS2CPacket(serverPlayer.getInventory().selectedSlot));
                                                 }
                                             }
                                         }
-                                    }
-                                }
-
-                                // Put the filled bucket with the MLG enchantment in the player's hand.
-                                if (inventoryIndex != -1) {
-                                    ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-
-                                    if (PlayerInventory.isValidHotbarIndex(inventoryIndex)) {
-                                        PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-                                        buf.writeInt(inventoryIndex);
-
-                                        NetworkManager.sendToPlayer(serverPlayer, MlgNetworking.CLIENT_HOTBAR_SWAP, buf);
-                                    } else {
-                                        serverPlayer.getInventory().swapSlotWithHotbar(inventoryIndex);
-
-                                        serverPlayer.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(-2, 0, serverPlayer.getInventory().selectedSlot, serverPlayer.getInventory().getStack(serverPlayer.getInventory().selectedSlot)));
-                                        serverPlayer.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(-2, 0, inventoryIndex, serverPlayer.getInventory().getStack(inventoryIndex)));
-                                        serverPlayer.networkHandler.sendPacket(new UpdateSelectedSlotS2CPacket(serverPlayer.getInventory().selectedSlot));
                                     }
                                 }
                             }
