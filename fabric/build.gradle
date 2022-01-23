@@ -29,13 +29,14 @@ dependencies {
         transitive = false
     }
 
+    implementation(include("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}"))
+    annotationProcessor("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}")
+
     modApi("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
     modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}")
-
-    include("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}")
 
     modRuntimeOnly("curse.maven:enchantment-descriptions-250419:${rootProject.enchantment_descriptions_fabric_id}")
     modRuntimeOnly("curse.maven:tooltipfix-411557:${rootProject.tooltipfix_fabric_id}")

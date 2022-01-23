@@ -8,6 +8,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,8 +19,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 abstract class BlockEntityMixin implements EnchantmentHolder {
 
     @Unique
+    @Nullable
     private NbtElement entranced$enchantments;
     @Unique
+    @Nullable
     private Integer entranced$repairCost;
 
     /*
@@ -70,9 +73,10 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
     }
 
     @Unique
+    @Nullable
     @Override
     public NbtElement entranced$getEnchantments() {
-        return entranced$enchantments.copy();
+        return entranced$enchantments == null ? null : entranced$enchantments.copy();
     }
 
     @Unique
@@ -82,6 +86,7 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
     }
 
     @Unique
+    @Nullable
     @Override
     public Integer entranced$getRepairCost() {
         return entranced$repairCost;

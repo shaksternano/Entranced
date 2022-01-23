@@ -1,13 +1,13 @@
-package io.github.shaksternano.entranced.commonside.event.enchantment;
+package io.github.shaksternano.entranced.commonside.eventhook.enchantment;
 
 import dev.architectury.event.events.common.TickEvent;
 import dev.architectury.networking.NetworkManager;
 import io.github.shaksternano.entranced.commonside.network.enchantment.MlgNetworking;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
+import io.github.shaksternano.entranced.commonside.registry.EntrancedNetworking;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import io.github.shaksternano.entranced.mixin.commonloader.commonside.accessor.AbstractBlockAccessor;
 import io.github.shaksternano.entranced.mixin.commonloader.commonside.accessor.BucketItemAccessor;
-import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.FlowableFluid;
@@ -25,7 +25,7 @@ public final class MlgEvents {
 
     private MlgEvents() {}
 
-    public static void registerServerEvents() {
+    public static void registerServerEventHooks() {
         // A filled bucket with the MLG enchantment in the player's inventory will automatically get put in the player's hand when falling from a height that would damage the player.
         TickEvent.PLAYER_POST.register(player -> {
             if (!player.world.isClient) {
@@ -43,6 +43,7 @@ public final class MlgEvents {
                                     // Check for a fall that would damage the player.
                                     for (int fallDistance = 0; fallDistance <= player.getSafeFallDistance(); fallDistance++) {
                                         Block block = player.world.getBlockState(player.getBlockPos().down(fallDistance)).getBlock();
+
                                         if (((AbstractBlockAccessor) block).entranced$isCollidable()) {
                                             safeFall = true;
                                             break;
@@ -63,6 +64,7 @@ public final class MlgEvents {
                                             for (int newIndex = 0; newIndex < inventory.main.size(); newIndex++) {
                                                 ItemStack stack = inventory.main.get(newIndex);
                                                 Item item = stack.getItem();
+
                                                 if (!stack.isEmpty()) {
                                                     if (item instanceof FluidModificationItem) {
                                                         if (!(item instanceof BucketItem && !(((BucketItemAccessor) item).entranced$getFluid() instanceof FlowableFluid))) {
@@ -80,7 +82,7 @@ public final class MlgEvents {
                                                 ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
 
                                                 if (PlayerInventory.isValidHotbarIndex(inventoryIndex)) {
-                                                    PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+                                                    PacketByteBuf buf = EntrancedNetworking.createPacketByteBuf();
                                                     buf.writeInt(inventoryIndex);
 
                                                     NetworkManager.sendToPlayer(serverPlayer, MlgNetworking.CLIENT_HOTBAR_SWAP, buf);

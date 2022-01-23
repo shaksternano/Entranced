@@ -14,6 +14,16 @@ public final class MlgEnchantment extends ConfigurableEnchantment {
     }
 
     @Override
+    public boolean isTreasure() {
+        return Entranced.getConfig().isMlgTreasure();
+    }
+
+    @Override
+    public boolean isAvailableForEnchantedBookOffer() {
+        return Entranced.getConfig().isMlgSoldByVillagers();
+    }
+
+    @Override
     public boolean isAcceptableItem(ItemStack stack) {
         return stack.getItem() instanceof FluidModificationItem;
     }

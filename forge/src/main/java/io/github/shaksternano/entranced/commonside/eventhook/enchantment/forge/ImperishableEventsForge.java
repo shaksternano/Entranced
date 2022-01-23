@@ -1,4 +1,4 @@
-package io.github.shaksternano.entranced.commonside.event.enchantment.forge;
+package io.github.shaksternano.entranced.commonside.eventhook.enchantment.forge;
 
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;

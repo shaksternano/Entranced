@@ -1,4 +1,4 @@
-package io.github.shaksternano.entranced.commonside.event.enchantment.forge;
+package io.github.shaksternano.entranced.commonside.eventhook.enchantment.forge;
 
 import com.google.common.collect.Multimap;
 import io.github.shaksternano.entranced.commonside.enchantment.FrenzyEnchantment;

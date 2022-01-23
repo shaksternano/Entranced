@@ -7,8 +7,8 @@ import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
 import io.github.shaksternano.entranced.commonside.network.enchantment.ImperishableNetworking;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
+import io.github.shaksternano.entranced.commonside.registry.EntrancedNetworking;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
-import io.netty.buffer.Unpooled;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -62,7 +62,7 @@ abstract class ItemStackMixin {
                             if (player != null) {
                                 if (getDamage() < getMaxDamage() && newDamage == getMaxDamage()) {
                                     int itemId = Item.getRawId(getItem());
-                                    PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+                                    PacketByteBuf buf = EntrancedNetworking.createPacketByteBuf();
                                     buf.writeInt(itemId);
                                     NetworkManager.sendToPlayer(player, ImperishableNetworking.EQUIPMENT_BREAK_EFFECTS, buf);
                                 }

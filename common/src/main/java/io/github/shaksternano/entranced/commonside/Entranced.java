@@ -3,7 +3,7 @@ package io.github.shaksternano.entranced.commonside;
 import io.github.shaksternano.entranced.commonside.config.EnchantmentAllowLists;
 import io.github.shaksternano.entranced.commonside.config.EntrancedConfig;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
-import io.github.shaksternano.entranced.commonside.registry.EntrancedEvents;
+import io.github.shaksternano.entranced.commonside.registry.EntrancedEventHooks;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedNetworking;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
@@ -27,14 +27,14 @@ public final class Entranced {
     public static void init() {
         registerConfig();
         EntrancedNetworking.registerServerReceivers();
-        EntrancedEvents.registerServerEvents();
+        EntrancedEventHooks.registerServerEventHooks();
         EntrancedEnchantments.registerEnchantments();
     }
 
     @Environment(EnvType.CLIENT)
     public static void clientInit() {
         EntrancedNetworking.registerClientReceivers();
-        EntrancedEvents.registerClientEvents();
+        EntrancedEventHooks.registerClientEventHooks();
     }
 
     // Registers the config class.

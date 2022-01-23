@@ -1,4 +1,6 @@
 {
+    "container.enchant.entranced.applyCatalyst": "Apply enchanting catalyst",
+
     "enchantment.entranced.autoswing": "Autoswing",
     "enchantment.entranced.autoswing.desc": "Holding down the attack button will automatically attack when the attack indicator is full.",
 

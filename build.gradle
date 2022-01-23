@@ -1,6 +1,7 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
     id "dev.architectury.loom" version "0.10.0-SNAPSHOT" apply false
+    id 'io.github.juuxel.loom-quiltflower' version '1.5.0' apply false
 }
 
 architectury {
@@ -9,6 +10,7 @@ architectury {
 
 subprojects {
     apply plugin: "dev.architectury.loom"
+    apply plugin: "io.github.juuxel.loom-quiltflower"
 
     loom {
         silentMojangMappingsLicense()
@@ -34,18 +36,8 @@ allprojects {
 
     repositories {
         maven {
-            name = "TerraformersMC"
-            url = "https://maven.terraformersmc.com/releases"
-        }
-
-        maven {
             name = "JitPack"
             url = "https://jitpack.io"
-        }
-
-        maven {
-            name = "Progwml6"
-            url = "https://dvs1.progwml6.com/files/maven"
         }
 
         maven {
@@ -55,11 +47,16 @@ allprojects {
                 includeGroup "curse.maven"
             }
         }
-    }
 
-    dependencies {
-        implementation("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}")
-        annotationProcessor("com.github.LlamaLad7:MixinExtras:${rootProject.mixin_extras_version}")
+        maven {
+            name = "TerraformersMC"
+            url = "https://maven.terraformersmc.com/releases"
+        }
+
+        maven {
+            name = "Progwml6"
+            url = "https://dvs1.progwml6.com/files/maven"
+        }
     }
 
     tasks.withType(JavaCompile) {

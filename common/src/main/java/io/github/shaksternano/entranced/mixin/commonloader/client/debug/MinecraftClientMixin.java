@@ -3,7 +3,7 @@ package io.github.shaksternano.entranced.mixin.commonloader.client.debug;
 import dev.architectury.networking.NetworkManager;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.network.debug.DebugNetworking;
-import io.netty.buffer.Unpooled;
+import io.github.shaksternano.entranced.commonside.registry.EntrancedNetworking;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -22,7 +22,7 @@ abstract class MinecraftClientMixin {
     @Redirect(method = "handleInputEvents", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I", opcode = Opcodes.PUTFIELD), require = 0)
     private void entranced$debugModeKeypress(PlayerInventory getInventory, int slot) {
         if (Entranced.getConfig().isDebugMode()) {
-            PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+            PacketByteBuf buf = EntrancedNetworking.createPacketByteBuf();
             buf.writeInt(slot);
             NetworkManager.sendToServer(DebugNetworking.DEBUG_HOTBAR_SLOT, buf);
         } else {

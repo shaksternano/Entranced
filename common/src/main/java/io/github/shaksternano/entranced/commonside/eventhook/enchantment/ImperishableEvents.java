@@ -1,4 +1,4 @@
-package io.github.shaksternano.entranced.commonside.event.enchantment;
+package io.github.shaksternano.entranced.commonside.eventhook.enchantment;
 
 import dev.architectury.event.CompoundEventResult;
 import dev.architectury.event.EventResult;
@@ -21,7 +21,7 @@ public final class ImperishableEvents {
 
     private ImperishableEvents() {}
 
-    public static void registerServerEvents() {
+    public static void registerServerEventHooks() {
         // Item specific right click actions are cancelled if the item has Imperishable and is at 0 durability.
         InteractionEvent.RIGHT_CLICK_ITEM.register((player, hand) -> {
             ItemStack stack = player.getStackInHand(hand);
@@ -48,7 +48,7 @@ public final class ImperishableEvents {
     }
 
     @Environment(EnvType.CLIENT)
-    public static void registerClientEvents() {
+    public static void registerClientEventHooks() {
         // Adds a message to the tooltip of an item with Imperishable at 0 durability.
         ClientTooltipEvent.ITEM.register((stack, lines, context) -> {
             if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {

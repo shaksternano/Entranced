@@ -3,7 +3,7 @@ package io.github.shaksternano.entranced.commonside.forge;
 import dev.architectury.platform.forge.EventBuses;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.config.EntrancedConfig;
-import io.github.shaksternano.entranced.commonside.registry.forge.EntrancedEventsForge;
+import io.github.shaksternano.entranced.commonside.registry.forge.EntrancedEventHooksForge;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -26,7 +26,7 @@ public final class EntrancedForge {
 
     private void init() {
         EventBuses.registerModEventBus(Entranced.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
-        EntrancedEventsForge.registerServerEvents();
+        EntrancedEventHooksForge.registerServerEvents();
         Entranced.init();
     }
 

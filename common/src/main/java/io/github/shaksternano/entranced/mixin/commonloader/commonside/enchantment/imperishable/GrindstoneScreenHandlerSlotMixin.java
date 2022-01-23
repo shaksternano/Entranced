@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(targets = "net/minecraft/screen/GrindstoneScreenHandler$4")
-abstract class GrindstoneScreenHandlerMixin {
+abstract class GrindstoneScreenHandlerSlotMixin {
 
     // No extra experience is dropped when grinding the Imperishable enchantment and the item in the grindstone is at 0 durability.
     @Redirect(method = "getExperience(Lnet/minecraft/item/ItemStack;)I", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/Enchantment;isCursed()Z"))
