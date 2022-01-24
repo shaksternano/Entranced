@@ -11,7 +11,10 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(AbstractFurnaceBlockEntity.class)
 abstract class AbstractFurnaceBlockEntityMixin {
 
-    // A bucket ItemStack with Infinity doesn't have its count decremented when used as furnace fuel.
+    /**
+     * A bucket fuel with the {@link net.minecraft.enchantment.InfinityEnchantment}
+     * doesn't have its count decremented when used as furnace fuel.
+     */
     @WrapWithCondition(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"))
     private static boolean entranced$infinityNoDecrement(ItemStack itemStack, int amount) {
         return !EnchantmentUtil.isBucketAndHasInfinityAndBucketEnabled(itemStack);

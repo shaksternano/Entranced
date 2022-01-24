@@ -46,7 +46,10 @@ abstract class ItemStackMixin {
 
     @Shadow public abstract int getMaxDamage();
 
-    // Items don't break when they reach 0 durability.
+    /**
+     * Items with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * don't break when they reach 0 durability.
+     */
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "damage(ILjava/util/Random;Lnet/minecraft/server/network/ServerPlayerEntity;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;setDamage(I)V"), locals = LocalCapture.CAPTURE_FAILSOFT, cancellable = true)
     private void entranced$imperishableDurability(int amount, Random random, @Nullable ServerPlayerEntity player, CallbackInfoReturnable<Boolean> cir, int newDamage) {
@@ -78,7 +81,10 @@ abstract class ItemStackMixin {
         }
     }
 
-    // Tool specific drops such cobblestone do not drop when mined by a tool with Imperishable at 0 durability.
+    /**
+     * Tool specific drops such cobblestone do not drop when mined by a tool with the
+     * {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment} at 0 durability.
+     */
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "isSuitableFor", at = @At("HEAD"), cancellable = true)
     private void entranced$imperishableSuitableFor(BlockState state, CallbackInfoReturnable<Boolean> cir) {
@@ -91,7 +97,10 @@ abstract class ItemStackMixin {
         }
     }
 
-    // Tools with Imperishable do not have increased mining speed when at 0 durability.
+    /**
+     * Tools with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * do not have increased mining speed when at 0 durability.
+     */
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "getMiningSpeedMultiplier", at = @At("HEAD"), cancellable = true)
     private void entranced$imperishableNoDurabilitySpeed(BlockState state, CallbackInfoReturnable<Float> cir) {
@@ -104,7 +113,10 @@ abstract class ItemStackMixin {
         }
     }
 
-    // Items with Imperishable do not give bonus attributes such as attack damage on a sword when at 0 durability.
+    /**
+     * Items with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * do not give bonus attributes such as attack damage on a sword when at 0 durability.
+     */
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "getAttributeModifiers", at = @At("HEAD"), cancellable = true)
     private void entranced$imperishableAttributeModifiers(EquipmentSlot equipmentSlot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir) {
@@ -117,7 +129,10 @@ abstract class ItemStackMixin {
         }
     }
 
-    // Adds "(Broken)" to the name of an item with Imperishable at 0 durability.
+    /**
+     * Adds "(Broken)" to the name of an item with the
+     * {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment} at 0 durability.
+     */
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "getName", at = @At("RETURN"))
     private void entranced$imperishableBrokenName(CallbackInfoReturnable<Text> cir) {

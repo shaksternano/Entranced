@@ -19,7 +19,10 @@ abstract class ShieldItemMixin extends Item {
         super(settings);
     }
 
-    // Shields with the Imperishable enchantment at 0 durability can't block.
+    /**
+     * Shields with {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * at 0 durability can't block.
+     */
     @Inject(method = "getUseAction", at = @At("HEAD"), cancellable = true)
     private void entranced$imperishableShield(ItemStack stack, CallbackInfoReturnable<UseAction> cir) {
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {

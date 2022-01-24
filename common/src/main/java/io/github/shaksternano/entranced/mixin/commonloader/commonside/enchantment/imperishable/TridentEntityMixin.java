@@ -17,7 +17,10 @@ abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
 
     @Shadow private ItemStack tridentStack;
 
-    // Tridents with Imperishable stop falling when they reach the world's minimum Y.
+    /**
+     * Tridents with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * stop falling when they reach the world's minimum Y.
+     */
     @Inject(method = "tick", at = @At("TAIL"))
     private void entranced$checkTridentImperishable(CallbackInfo ci) {
         if (ImperishableBlacklists.isItemProtected(tridentStack, ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
@@ -34,7 +37,10 @@ abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
         }
     }
 
-    // Tridents with Imperishable don't despawn.
+    /**
+     * Tridents with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * don't despawn.
+     */
     @Inject(method = "age", at = @At("HEAD"), cancellable = true)
     private void entranced$imperishableAge(CallbackInfo ci) {
         if (ImperishableBlacklists.isItemProtected(tridentStack, ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
@@ -44,7 +50,10 @@ abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
         }
     }
 
-    // Tridents with Imperishable don't get removed when 64 blocks below the world's minimum Y position.
+    /**
+     * Tridents with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * don't get removed when 64 blocks below the world's minimum Y position.
+     */
     @SuppressWarnings("unused")
     @Override
     protected void entranced$imperishableInVoid(CallbackInfo ci) {
