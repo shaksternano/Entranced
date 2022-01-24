@@ -16,7 +16,9 @@ public final class ImperishableBlacklists {
     private static final Set<Item> globalBlacklist = new HashSet<>();
     private static final Map<ProtectionType, Set<Item>> blacklists = initBlacklistsMap();
 
-    // Creates a blacklist for every ProtectionType
+    /**
+     * Creates a blacklist for every ProtectionType
+     */
     private static Map<ProtectionType, Set<Item>> initBlacklistsMap() {
         Map<ProtectionType, Set<Item>> blacklists = new HashMap<>();
         for (ProtectionType protectionType : ProtectionType.values()) {
@@ -25,7 +27,9 @@ public final class ImperishableBlacklists {
         return blacklists;
     }
 
-    // Produces Item blacklists from the Item ID String blacklists in the config.
+    /**
+     * Produces Item blacklists from the Item ID String blacklists in the config.
+     */
     public static void initBlacklists() {
         globalBlacklist.clear();
         for (String itemId : Entranced.getConfig().getImperishableGlobalBlacklist()) {
@@ -43,19 +47,23 @@ public final class ImperishableBlacklists {
         }
     }
 
-    // Returns true if the item is on the global blacklist, otherwise, returns false.
+    /**
+     * @return True if the item is on the global blacklist, otherwise, returns false.
+     */
     public static boolean isItemBlacklistedGlobally(Item item) {
         return globalBlacklist.contains(item);
     }
 
-    // Convenience method.
+    /**
+     * Convenience method for {@link ImperishableBlacklists#isItemBlacklistedGlobally(Item)}
+     */
     public static boolean isItemBlacklistedGlobally(ItemStack stack) {
         return isItemBlacklistedGlobally(stack.getItem());
     }
 
-    /*
-    Returns true if an item is on the global blacklist or the blacklist
-    for the specified protection type. Otherwise, returns false.
+    /**
+     * @return True if an item is on the global blacklist or the blacklist
+     * for the specified protection type. Otherwise, returns false.
      */
     private static boolean isItemBlacklisted(Item item, ProtectionType protectionType) {
         if (isItemBlacklistedGlobally(item)) {
@@ -70,22 +78,24 @@ public final class ImperishableBlacklists {
         }
     }
 
-    /*
-    Returns true if the specified item is not blacklisted and Imperishable is set
-    to protect from the specified protection type. Otherwise, returns false.
+    /**
+     * @return True if the specified item is not blacklisted and Imperishable is set
+     * to protect from the specified protection type. Otherwise, returns false.
      */
     public static boolean isItemProtected(Item item, ProtectionType protectionType) {
         return protectionType.PROTECTION_ENABLED && !isItemBlacklisted(item, protectionType);
     }
 
-    // Convenience method.
+    /**
+     * Convenience method for {@link ImperishableBlacklists#isItemProtected(Item, ProtectionType)}.
+     */
     public static boolean isItemProtected(ItemStack stack, ProtectionType protectionType) {
         return isItemProtected(stack.getItem(), protectionType);
     }
 
-    /*
-    Protection types and their associated item ID blacklists
-    from config and boolean enabled value from config.
+    /**
+     * Protection types and their associated item ID blacklists
+     * from config and boolean enabled value from config.
      */
     public enum ProtectionType {
         DESPAWN_PROTECTION(Entranced.getConfig()::getImperishableDespawnProtectionBlacklist, Entranced.getConfig().isImperishablePreventsDespawn()),
@@ -98,7 +108,7 @@ public final class ImperishableBlacklists {
         private final boolean PROTECTION_ENABLED;
 
         ProtectionType(@NotNull Supplier<List<String>> itemIdBlacklistGetter, boolean protectionEnabled) {
-            this.ITEM_ID_BLACKLIST_GETTER = itemIdBlacklistGetter;
+            ITEM_ID_BLACKLIST_GETTER = itemIdBlacklistGetter;
             PROTECTION_ENABLED = protectionEnabled;
         }
     }

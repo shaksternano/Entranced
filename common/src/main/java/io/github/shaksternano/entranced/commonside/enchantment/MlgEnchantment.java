@@ -7,6 +7,10 @@ import net.minecraft.item.FluidModificationItem;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * A bucket that isn't empty and has this enchantment will be moved to the player's hand when the player falls
+ * from a height that would damage them.
+ */
 public final class MlgEnchantment extends ConfigurableEnchantment {
 
     public MlgEnchantment() {

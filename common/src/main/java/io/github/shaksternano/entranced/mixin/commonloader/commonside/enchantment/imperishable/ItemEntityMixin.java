@@ -19,7 +19,10 @@ abstract class ItemEntityMixin extends EntityMixin {
 
     @Shadow public abstract ItemStack getStack();
 
-    // Items with Imperishable are invulnerable to all damage sources.
+    /**
+     * Items with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * are invulnerable to all damage sources.
+     */
     @SuppressWarnings("unused")
     @Override
     protected void entranced$damageImperishable(DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
@@ -30,6 +33,9 @@ abstract class ItemEntityMixin extends EntityMixin {
         }
     }
 
+    /**
+     * Does various things based if the item has the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}.
+     */
     @Inject(method = "tick", at = @At("TAIL"))
     private void entranced$checkImperishable(CallbackInfo ci) {
         if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
@@ -64,7 +70,9 @@ abstract class ItemEntityMixin extends EntityMixin {
         }
     }
 
-    // Items with Imperishable don't appear on fire when in fire or lava.
+    /**
+     * Items with Imperishable don't appear on fire when in fire or lava.
+     */
     @Inject(method = "isFireImmune", at = @At("HEAD"), cancellable = true)
     private void entranced$imperishableFireImmune(CallbackInfoReturnable<Boolean> cir) {
         if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DAMAGE_PROTECTION)) {
@@ -74,7 +82,9 @@ abstract class ItemEntityMixin extends EntityMixin {
         }
     }
 
-    // Items with Imperishable don't get removed when 64 blocks below the world's minimum Y position.
+    /**
+     *  Items with Imperishable don't get removed when 64 blocks below the world's minimum Y position.
+     */
     @SuppressWarnings("unused")
     @Override
     protected void entranced$imperishableInVoid(CallbackInfo ci) {

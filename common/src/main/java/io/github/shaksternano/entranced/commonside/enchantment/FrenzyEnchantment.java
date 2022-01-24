@@ -10,6 +10,9 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Increases the attack speed of weapons.
+ */
 public final class FrenzyEnchantment extends ConfigurableEnchantment {
 
     public FrenzyEnchantment() {

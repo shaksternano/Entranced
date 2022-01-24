@@ -10,7 +10,9 @@ public final class BlockEntityUtil {
 
     private BlockEntityUtil() {}
 
-    // Copies the enchantments and repair cost of an ItemStack to a BlockEntity.
+    /**
+     * Copies the enchantments and repair cost of an {@link ItemStack} to a {@link BlockEntity}.
+     */
     @SuppressWarnings("ConstantConditions")
     public static void setBlockEntityEnchantments(BlockEntity blockEntity, ItemStack stack) {
         EnchantmentHolder enchantmentHolder = (EnchantmentHolder) blockEntity;
@@ -26,7 +28,9 @@ public final class BlockEntityUtil {
         }
     }
 
-    // Copies the enchantments and repair cost of a BlockEntity to an ItemStack.
+    /**
+     * Copies the enchantments and repair cost of a {@link BlockEntity} to an {@link ItemStack}.
+     */
     public static void setDroppedItemStackEnchantments(BlockEntity blockEntity, ItemStack stack) {
         EnchantmentHolder enchantmentHolder = (EnchantmentHolder) blockEntity;
 

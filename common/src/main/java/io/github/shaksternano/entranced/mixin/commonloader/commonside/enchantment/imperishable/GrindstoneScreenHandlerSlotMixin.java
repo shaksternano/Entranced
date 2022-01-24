@@ -12,7 +12,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(targets = "net/minecraft/screen/GrindstoneScreenHandler$4")
 abstract class GrindstoneScreenHandlerSlotMixin {
 
-    // No extra experience is dropped when grinding the Imperishable enchantment and the item in the grindstone is at 0 durability.
+    /**
+     * No extra experience is dropped when grinding the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * and the item in the grindstone is at 0 durability.
+     */
     @Redirect(method = "getExperience(Lnet/minecraft/item/ItemStack;)I", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/Enchantment;isCursed()Z"))
     private boolean entranced$imperishableNoGrindExperience(Enchantment enchantment, ItemStack stack) {
         return enchantment.isCursed() || (enchantment == EntrancedEnchantments.IMPERISHABLE && ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION) && EnchantmentUtil.isBrokenImperishable(stack));

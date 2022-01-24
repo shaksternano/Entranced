@@ -10,10 +10,13 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.hit.HitResult;
 
-public final class AutoswingEvents {
+public final class AutoswingEventHooks {
 
-    private AutoswingEvents() {}
+    private AutoswingEventHooks() {}
 
+    /**
+     * Registers client event hooks related to the {@link io.github.shaksternano.entranced.commonside.enchantment.AutoswingEnchantment}.
+     */
     @Environment(EnvType.CLIENT)
     public static void registerClientEventHooks() {
         /*

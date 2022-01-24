@@ -9,12 +9,16 @@ public final class BucketUtil {
 
     private BucketUtil() {}
 
-    // Returns true if the Item is some kind of bucket. Returns false otherwise.
+    /**
+     * @return True if the {@link  Item} is some kind of bucket. Returns false otherwise.
+     */
     public static boolean isBucket(Item item) {
         return item instanceof BucketItem || item instanceof MilkBucketItem || item instanceof PowderSnowBucketItem;
     }
 
-    // Returns the bucket item equivalent that doesn't contain an entity.
+    /**
+     * @return The bucket {@link Item} equivalent that doesn't contain an {@link net.minecraft.entity.Entity}.
+     */
     public static Item getNoEntityBucket(EntityBucketItem entityBucketItem) {
         Fluid fluid = ((BucketItemAccessor) entityBucketItem).entranced$getFluid();
         Item bucketItem = fluid.getBucketItem();
@@ -26,7 +30,9 @@ public final class BucketUtil {
         return bucketItem;
     }
 
-    // Bucket keeps its fluid is the Infinity enchantment is set to affect buckets.
+    /**
+     * Bucket keeps its {@link Fluid} if the {@link net.minecraft.enchantment.InfinityEnchantment} is set to affect buckets.
+     */
     @Nullable
     public static ItemStack infinityBucketKeepFluid(ItemStack bucketStack) {
         if (EnchantmentUtil.isBucketAndHasInfinityAndBucketEnabled(bucketStack)) {

@@ -1,10 +1,10 @@
 package io.github.shaksternano.entranced.commonside.registry;
 
-import io.github.shaksternano.entranced.commonside.eventhook.enchantingtablefilter.EnchantingScreenEvents;
-import io.github.shaksternano.entranced.commonside.eventhook.enchantment.AutoswingEvents;
-import io.github.shaksternano.entranced.commonside.eventhook.enchantment.EnchantmentEvents;
-import io.github.shaksternano.entranced.commonside.eventhook.enchantment.ImperishableEvents;
-import io.github.shaksternano.entranced.commonside.eventhook.enchantment.MlgEvents;
+import io.github.shaksternano.entranced.commonside.eventhook.enchantingtablefilter.EnchantingScreenEventHooks;
+import io.github.shaksternano.entranced.commonside.eventhook.enchantment.AutoswingEventHooks;
+import io.github.shaksternano.entranced.commonside.eventhook.enchantment.EnchantmentEventHooks;
+import io.github.shaksternano.entranced.commonside.eventhook.enchantment.ImperishableEventHooks;
+import io.github.shaksternano.entranced.commonside.eventhook.enchantment.MlgEventHooks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
@@ -12,18 +12,22 @@ public final class EntrancedEventHooks {
 
     private EntrancedEventHooks() {}
 
-    // Registers logical server side event hooks.
+    /**
+     * Registers logical server side event hooks.
+     */
     public static void registerServerEventHooks() {
-        EnchantmentEvents.registerServerEventHooks();
-        ImperishableEvents.registerServerEventHooks();
-        MlgEvents.registerServerEventHooks();
+        EnchantmentEventHooks.registerServerEventHooks();
+        ImperishableEventHooks.registerServerEventHooks();
+        MlgEventHooks.registerServerEventHooks();
     }
 
-    // Registers client side event hooks.
+    /**
+     * Registers client side event hooks.
+     */
     @Environment(EnvType.CLIENT)
     public static void registerClientEventHooks() {
-        AutoswingEvents.registerClientEventHooks();
-        ImperishableEvents.registerClientEventHooks();
-        EnchantingScreenEvents.registerClientEventHooks();
+        AutoswingEventHooks.registerClientEventHooks();
+        ImperishableEventHooks.registerClientEventHooks();
+        EnchantingScreenEventHooks.registerClientEventHooks();
     }
 }

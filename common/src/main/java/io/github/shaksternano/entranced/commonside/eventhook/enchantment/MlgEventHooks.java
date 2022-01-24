@@ -21,10 +21,13 @@ import net.minecraft.network.packet.s2c.play.UpdateSelectedSlotS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 
-public final class MlgEvents {
+public final class MlgEventHooks {
 
-    private MlgEvents() {}
+    private MlgEventHooks() {}
 
+    /**
+     * Registers logical server event hooks related to the {@link io.github.shaksternano.entranced.commonside.enchantment.MlgEnchantment}.
+     */
     public static void registerServerEventHooks() {
         // A filled bucket with the MLG enchantment in the player's inventory will automatically get put in the player's hand when falling from a height that would damage the player.
         TickEvent.PLAYER_POST.register(player -> {

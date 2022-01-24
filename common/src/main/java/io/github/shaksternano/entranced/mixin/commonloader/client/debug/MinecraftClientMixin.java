@@ -18,7 +18,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(value = MinecraftClient.class, priority = 0)
 abstract class MinecraftClientMixin {
 
-    // For debugging.
+    /**
+     * For debugging.
+     */
     @Redirect(method = "handleInputEvents", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I", opcode = Opcodes.PUTFIELD), require = 0)
     private void entranced$debugModeKeypress(PlayerInventory getInventory, int slot) {
         if (Entranced.getConfig().isDebugMode()) {

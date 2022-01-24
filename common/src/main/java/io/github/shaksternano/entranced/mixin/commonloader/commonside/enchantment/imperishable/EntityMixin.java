@@ -51,7 +51,10 @@ abstract class EntityMixin {
     @Inject(method = "tickInVoid", at = @At("HEAD"), cancellable = true)
     protected void entranced$imperishableInVoid(CallbackInfo ci) {}
 
-    // Items with Imperishable stop falling when they reach the world's minimum Y.
+    /**
+     * Items with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * stop falling when they reach the world's minimum Y.
+     */
     @SuppressWarnings("UnstableApiUsage")
     @ModifyVariable(method = "adjustMovementForCollisions(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Box;Lnet/minecraft/world/World;Ljava/util/List;)Lnet/minecraft/util/math/Vec3d;", at = @At("HEAD"), argsOnly = true)
     private static List<VoxelShape> entranced$voidFloor(List<VoxelShape> collisions, @Nullable Entity entity) {

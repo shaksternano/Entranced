@@ -17,6 +17,9 @@ public final class ImperishableNetworking {
 
     public static final Identifier EQUIPMENT_BREAK_EFFECTS = new Identifier(Entranced.MOD_ID, "equipment_break_effects");
 
+    /**
+     * Registers client receivers related to the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}.
+     */
     @Environment(EnvType.CLIENT)
     public static void registerClientReceivers() {
         // Plays item break effects when the durability of an item reaches 0.

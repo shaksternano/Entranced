@@ -17,22 +17,30 @@ public final class CollectionUtil {
 
     private CollectionUtil() {}
 
-    // Adds the item with the corresponding item ID to the set.
+    /**
+     * Adds the {@link Item} with the corresponding item ID to the set.
+     */
     public static void addItemToSet(String itemID, Set<Item> itemSet) {
         addToSet(itemID, itemSet, Registry.ITEM, Items.AIR, "item");
     }
 
-    // Adds the block with the corresponding block ID to the set.
+    /**
+     * Adds the {@link Block} with the corresponding block ID to the set.
+     */
     public static void addBlockToSet(String blockID, Set<Block> blockSet) {
         addToSet(blockID, blockSet, Registry.BLOCK, Blocks.AIR, "block");
     }
 
-    // Adds the fluid with the corresponding fluid ID to the set.
+    /**
+     * Adds the {@link Fluid} with the corresponding fluid ID to the set.
+     */
     public static void addFluidToSet(String fluidId, Set<Fluid> fluidSet) {
         addToSet(fluidId, fluidSet, Registry.FLUID, Fluids.EMPTY, "fluid");
     }
 
-    // Adds the registered object with the corresponding ID to the set.
+    /**
+     * Adds the registered object with the corresponding ID to the set.
+     */
     private static <T> void addToSet(String id, Set<T> set, Registry<T> registry, T defaultEntry, String idType) {
         try {
             T t = registry.get(new Identifier(id));
@@ -47,7 +55,9 @@ public final class CollectionUtil {
         }
     }
 
-    // Outputs and logs if there is an invalid Identifier.
+    /**
+     * Outputs and logs if there is an invalid {@link Identifier}.
+     */
     private static void notifyInvalidId(String id, String idType) {
         Entranced.LOGGER.info("\"" + id + "\" in " + Entranced.MOD_ID + ".json5 is not a valid " + idType + " ID!");
     }

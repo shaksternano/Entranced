@@ -1,13 +1,13 @@
 pluginManagement {
     repositories {
         maven {
-            name = "Fabric"
-            url = "https://maven.fabricmc.net"
+            name = "Architectury"
+            url = "https://maven.architectury.dev"
         }
 
         maven {
-            name = "Architectury"
-            url = "https://maven.architectury.dev"
+            name = "Fabric"
+            url = "https://maven.fabricmc.net"
         }
 
         maven {

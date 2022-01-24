@@ -11,7 +11,7 @@ public final class EntrancedEventHooksForge {
     public static void registerServerEvents() {
         IEventBus eventBus = MinecraftForge.EVENT_BUS;
 
-        eventBus.register(FrenzyEventsForge.class);
-        eventBus.register(ImperishableEventsForge.class);
+        eventBus.register(FrenzyEventHooksForge.class);
+        eventBus.register(ImperishableEventHooksForge.class);
     }
 }

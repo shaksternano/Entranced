@@ -7,9 +7,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public final class ImperishableEventsForge {
+public final class ImperishableEventHooksForge {
 
-    private ImperishableEventsForge() {}
+    private ImperishableEventHooksForge() {}
 
     /*
     Item entities with Imperishable don't despawn.

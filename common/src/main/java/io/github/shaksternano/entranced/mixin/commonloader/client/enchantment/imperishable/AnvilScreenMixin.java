@@ -23,7 +23,9 @@ abstract class AnvilScreenMixin extends ForgingScreen<AnvilScreenHandler> {
         super(handler, playerInventory, title, texture);
     }
 
-    // Putting "(Broken)" at the end of the name of an item with Imperishable at 0 durability will register as a new name.
+    /**
+     * Putting "(Broken)" at the end of the name of an item with Imperishable at 0 durability will register as a new name.
+     */
     @ModifyArg(method = "onRenamed", at = @At(value = "INVOKE", target = "Ljava/lang/String;equals(Ljava/lang/Object;)Z"))
     private Object entranced$imperishableBrokenOnRenamed(Object name) {
         Slot slot = handler.getSlot(0);

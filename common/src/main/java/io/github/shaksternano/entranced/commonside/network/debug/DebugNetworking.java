@@ -17,6 +17,9 @@ public final class DebugNetworking {
 
     public static final Identifier DEBUG_HOTBAR_SLOT = new Identifier(Entranced.MOD_ID, "debug_hotbar_slot");
 
+    /**
+     * Registers logical server receivers related to debugging.
+     */
     public static void registerServerReceivers() {
         // For debug mode.
         NetworkManager.registerReceiver(NetworkManager.clientToServer(), DEBUG_HOTBAR_SLOT, (buf, context) -> {

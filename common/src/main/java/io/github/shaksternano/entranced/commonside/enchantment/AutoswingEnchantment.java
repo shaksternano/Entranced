@@ -5,6 +5,9 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Weapons with this enchantment will attack automatically as long as the attack button is held down.
+ */
 public final class AutoswingEnchantment extends ConfigurableEnchantment {
 
     public AutoswingEnchantment() {

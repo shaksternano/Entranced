@@ -23,7 +23,10 @@ public final class Entranced {
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
     private static EntrancedConfig config;
-    
+
+    /**
+     * Mod initialization run on both the client and the logical server.
+     */
     public static void init() {
         registerConfig();
         EntrancedNetworking.registerServerReceivers();
@@ -31,13 +34,18 @@ public final class Entranced {
         EntrancedEnchantments.registerEnchantments();
     }
 
+    /**
+     * Mod initialization run on only the client.
+     */
     @Environment(EnvType.CLIENT)
     public static void clientInit() {
         EntrancedNetworking.registerClientReceivers();
         EntrancedEventHooks.registerClientEventHooks();
     }
 
-    // Registers the config class.
+    /**
+     * Registers the config class.
+     */
     private static void registerConfig() {
         AutoConfig.register(EntrancedConfig.class, JanksonConfigSerializer::new).registerSaveListener((configHolder, modConfig) -> {
             EnchantmentAllowLists.initAllowLists();
@@ -46,6 +54,9 @@ public final class Entranced {
         config = AutoConfig.getConfigHolder(EntrancedConfig.class).getConfig();
     }
 
+    /**
+     * @return An instance of the mod's config class.
+     */
     public static EntrancedConfig getConfig() {
         return config;
     }

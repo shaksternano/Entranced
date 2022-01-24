@@ -25,7 +25,9 @@ public final class EntrancedEnchantments {
         enchantmentsToRegister.add(enchantment);
     }
 
-    // Registers all the enchantments.
+    /**
+     * Registers all the enchantments.
+     */
     public static void registerEnchantments() {
         for (ConfigurableEnchantment enchantment : enchantmentsToRegister) {
             enchantments.register(enchantment.getId(), () -> enchantment);

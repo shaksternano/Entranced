@@ -18,7 +18,9 @@ public final class InfinityBucketWhitelists {
     private static final Set<Block> blockWhitelist = new HashSet<>();
     private static final Set<Item> itemWhitelist = new HashSet<>();
 
-    // Produces Item whitelists from the Item ID string whitelists in the config
+    /**
+     * Produces Item whitelists from the Item ID string whitelists in the config
+     */
     public static void initWhitelists() {
         fluidWhitelist.clear();
         blockWhitelist.clear();
@@ -37,22 +39,26 @@ public final class InfinityBucketWhitelists {
         }
     }
 
-    /*
-    Returns true if a fluid is whitelisted. Otherwise, returns false.
-    The water check is to allow water to be set as whitelisted by default.
-    Putting water in the config list by default causes a new "minecraft:water"
-    entry to be added to the config whitelist everytime the game is launched.
+    /**
+     * @return True if a fluid is whitelisted. Otherwise, returns false.
+     * The water check is to allow water to be set as whitelisted by default.
+     * Putting water in the config list by default causes a new "minecraft:water"
+     * entry to be added to the config whitelist everytime the game is launched.
      */
     public static boolean isFluidWhitelisted(Fluid fluid) {
         return (Entranced.getConfig().isInfinityAffectsWater() && fluid == Fluids.WATER) || fluidWhitelist.contains(fluid);
     }
 
-    // Returns true if a block is whitelisted. Otherwise, returns false.
+    /**
+     * @return True if a block is whitelisted. Otherwise, returns false.
+     */
     public static boolean isBlockWhitelisted(Block block) {
         return blockWhitelist.contains(block);
     }
 
-    // Returns true if an item is whitelisted. Otherwise, returns false.
+    /**
+     * @return True if an item is whitelisted. Otherwise, returns false.
+     */
     public static boolean isItemWhitelisted(Item item) {
         return itemWhitelist.contains(item);
     }

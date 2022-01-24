@@ -15,9 +15,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.Iterator;
 
-public final class FrenzyEventsForge {
+public final class FrenzyEventHooksForge {
 
-    private FrenzyEventsForge() {}
+    private FrenzyEventHooksForge() {}
 
     /*
     Increases the player's attack speed if the item they are holding

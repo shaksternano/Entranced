@@ -13,22 +13,33 @@ public final class EnchantmentUtil {
 
     private EnchantmentUtil() {}
 
-    // Returns true if an ItemStack has the enchantment. Returns false otherwise.
+    /**
+     * @return True if an {@link ItemStack} has the {@link Enchantment}. Returns false otherwise.
+     */
     public static boolean hasEnchantment(ItemStack stack, Enchantment enchantment) {
         return EnchantmentHelper.getLevel(enchantment, stack) != 0;
     }
 
-    // Returns true if an ItemStack is a bucket, has the Infinity enchantment, and the Infinity enchantment is allowed on buckets. Returns false otherwise.
+    /**
+     * @return True if an {@link ItemStack} is a bucket, has the {@link net.minecraft.enchantment.InfinityEnchantment},
+     * and the {@link net.minecraft.enchantment.InfinityEnchantment} is allowed on buckets. Returns false otherwise.
+     */
     public static boolean isBucketAndHasInfinityAndBucketEnabled(ItemStack stack) {
         return Entranced.getConfig().isInfinityAllowedOnBuckets() && BucketUtil.isBucket(stack.getItem()) && EnchantmentUtil.hasEnchantment(stack, Enchantments.INFINITY);
     }
 
-    // Returns true if an ItemStack is damageable, has the Imperishable enchantment, the Imperishable enchantment is enabled, and the damage on it is more than the item's maximum damage. Returns false otherwise.
+    /**
+     * @return True if an {@link ItemStack} is damageable, has the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment},
+     * the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment} is
+     * enabled, and the damage on it is more than the item's maximum damage. Returns false otherwise.
+     */
     public static boolean isBrokenImperishable(ItemStack stack) {
         return stack.isDamageable() && stack.getDamage() >= stack.getMaxDamage() && (hasEnchantment(stack, EntrancedEnchantments.IMPERISHABLE) || Entranced.getConfig().isEnchantmentNotNeededToPreventBreaking());
     }
 
-    // Copies the enchantments from one ItemStack to another.
+    /**
+     * Copies the enchantments from one {@link ItemStack} to another.
+     */
     @SuppressWarnings("ConstantConditions")
     public static void copyEnchantments(ItemStack stackToCopyFrom, ItemStack stackToCopyTo) {
         if (Entranced.getConfig().isRetainEnchantmentsMoreOften()) {

@@ -17,10 +17,13 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
-public final class ImperishableEvents {
+public final class ImperishableEventHooks {
 
-    private ImperishableEvents() {}
+    private ImperishableEventHooks() {}
 
+    /**
+     * Registers logical server event hooks related to the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}.
+     */
     public static void registerServerEventHooks() {
         // Item specific right click actions are cancelled if the item has Imperishable and is at 0 durability.
         InteractionEvent.RIGHT_CLICK_ITEM.register((player, hand) -> {
@@ -47,6 +50,9 @@ public final class ImperishableEvents {
         InteractionEvent.INTERACT_ENTITY.register((player, entity, hand) -> imperishableCancelInteract(player, player.getStackInHand(hand)));
     }
 
+    /**
+     * Registers client event hooks related to the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}.
+     */
     @Environment(EnvType.CLIENT)
     public static void registerClientEventHooks() {
         // Adds a message to the tooltip of an item with Imperishable at 0 durability.
@@ -82,7 +88,9 @@ public final class ImperishableEvents {
         });
     }
 
-    // Item specific interactions are cancelled if the item has Imperishable and is at 0 durability.
+    /**
+     * Item specific interactions are cancelled if the item has Imperishable and is at 0 durability.
+     */
     private static EventResult imperishableCancelInteract(PlayerEntity player, ItemStack stack) {
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (!player.isCreative() && !player.isSpectator()) {

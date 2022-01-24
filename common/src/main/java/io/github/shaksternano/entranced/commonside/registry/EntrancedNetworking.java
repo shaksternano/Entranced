@@ -13,20 +13,27 @@ public final class EntrancedNetworking {
 
     private EntrancedNetworking() {}
 
-    // Registers logical server side receivers.
+    /**
+     * Registers logical server side receivers.
+     */
     public static void registerServerReceivers() {
         DebugNetworking.registerServerReceivers();
         EnchantingScreenNetworking.registerServerReceivers();
     }
 
-    // Registers client side receivers.
+    /**
+     * Registers client side receivers.
+     */
     @Environment(EnvType.CLIENT)
     public static void registerClientReceivers() {
         ImperishableNetworking.registerClientReceivers();
         MlgNetworking.registerClientReceivers();
     }
 
-    // Convenience method for creating a new PacketByteBuf.
+    /**
+     * Convenience method for creating a new {@link PacketByteBuf}.
+     * @return A new {@link PacketByteBuf} instance.
+     */
     public static PacketByteBuf createPacketByteBuf() {
         return new PacketByteBuf(Unpooled.buffer());
     }

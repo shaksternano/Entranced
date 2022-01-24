@@ -5,14 +5,12 @@ import io.github.shaksternano.entranced.commonside.access.EnchantmentScreenHandl
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.EnchantmentScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,11 +42,6 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
 
         if (!player.world.isClient) {
             entranced$currentPlayer = player;
-
-            Item item = ((EnchantingCatalystHolder) entranced$currentPlayer).entranced$getEnchantingCatalyst();
-            if (item != null) {
-                entranced$currentPlayer.sendMessage(Text.of(item.toString()), false);
-            }
         }
     }
 
@@ -63,7 +56,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     }
 
     @Override
-    public void entranced$setInventorySlotIndex(int slotIndex) {
-        entranced$catalystInventoryIndex = slotIndex;
+    public void entranced$setCatalystInventoryIndex(int index) {
+        entranced$catalystInventoryIndex = index;
     }
 }
