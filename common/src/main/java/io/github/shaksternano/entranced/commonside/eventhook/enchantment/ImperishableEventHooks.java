@@ -5,6 +5,7 @@ import dev.architectury.event.EventResult;
 import dev.architectury.event.events.client.ClientTooltipEvent;
 import dev.architectury.event.events.common.InteractionEvent;
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
+import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.fabricmc.api.EnvType;
@@ -22,7 +23,7 @@ public final class ImperishableEventHooks {
     private ImperishableEventHooks() {}
 
     /**
-     * Registers logical server event hooks related to the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}.
+     * Registers logical server event hooks related to the {@link ImperishableEnchantment}.
      */
     public static void registerServerEventHooks() {
         // Item specific right click actions are cancelled if the item has Imperishable and is at 0 durability.
@@ -51,7 +52,7 @@ public final class ImperishableEventHooks {
     }
 
     /**
-     * Registers client event hooks related to the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}.
+     * Registers client event hooks related to the {@link ImperishableEnchantment}.
      */
     @Environment(EnvType.CLIENT)
     public static void registerClientEventHooks() {
@@ -89,7 +90,7 @@ public final class ImperishableEventHooks {
     }
 
     /**
-     * Item specific interactions are cancelled if the item has Imperishable and is at 0 durability.
+     * Item specific interactions are cancelled if the item has the {@link ImperishableEnchantment} and is at 0 durability.
      */
     private static EventResult imperishableCancelInteract(PlayerEntity player, ItemStack stack) {
         if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {

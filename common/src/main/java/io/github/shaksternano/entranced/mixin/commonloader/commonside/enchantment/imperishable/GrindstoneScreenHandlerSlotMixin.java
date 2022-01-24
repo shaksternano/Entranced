@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantment.imperishable;
 
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
+import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.enchantment.Enchantment;
@@ -13,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 abstract class GrindstoneScreenHandlerSlotMixin {
 
     /**
-     * No extra experience is dropped when grinding the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * No extra experience is dropped when grinding the {@link ImperishableEnchantment}
      * and the item in the grindstone is at 0 durability.
      */
     @Redirect(method = "getExperience(Lnet/minecraft/item/ItemStack;)I", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/Enchantment;isCursed()Z"))

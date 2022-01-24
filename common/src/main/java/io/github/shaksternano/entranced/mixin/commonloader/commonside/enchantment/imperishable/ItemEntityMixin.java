@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantment.imperishable;
 
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
+import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.entity.ItemEntity;
@@ -20,7 +21,7 @@ abstract class ItemEntityMixin extends EntityMixin {
     @Shadow public abstract ItemStack getStack();
 
     /**
-     * Items with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * Items with the {@link ImperishableEnchantment}
      * are invulnerable to all damage sources.
      */
     @SuppressWarnings("unused")
@@ -34,7 +35,7 @@ abstract class ItemEntityMixin extends EntityMixin {
     }
 
     /**
-     * Does various things based if the item has the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}.
+     * Does various things based if the item has the {@link ImperishableEnchantment}.
      */
     @Inject(method = "tick", at = @At("TAIL"))
     private void entranced$checkImperishable(CallbackInfo ci) {
@@ -71,7 +72,7 @@ abstract class ItemEntityMixin extends EntityMixin {
     }
 
     /**
-     * Items with Imperishable don't appear on fire when in fire or lava.
+     * Items with the {@link ImperishableEnchantment} don't appear on fire when in fire or lava.
      */
     @Inject(method = "isFireImmune", at = @At("HEAD"), cancellable = true)
     private void entranced$imperishableFireImmune(CallbackInfoReturnable<Boolean> cir) {
@@ -83,7 +84,7 @@ abstract class ItemEntityMixin extends EntityMixin {
     }
 
     /**
-     *  Items with Imperishable don't get removed when 64 blocks below the world's minimum Y position.
+     *  Items with the {@link ImperishableEnchantment} don't get removed when 64 blocks below the world's minimum Y position.
      */
     @SuppressWarnings("unused")
     @Override

@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(PowderSnowBucketItem.class)
 abstract class PowderSnowBucketItemMixin {
 
-    /*
-    Powder snow buckets retain their enchantments when placing powder snow.
-    Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.PowderSnowBucketItemMixin#entranced$placeTransferEnchantments
+    /**
+     * Powder snow buckets retain their enchantments when placing powder snow.
+     * Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.PowderSnowBucketItemMixin#entranced$placeTransferEnchantments
      */
     @ModifyExpressionValue(method = "useOnBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;getDefaultStack()Lnet/minecraft/item/ItemStack;"))
     private ItemStack entranced$placeTransferEnchantments(ItemStack getDefaultStack, ItemUsageContext context) {

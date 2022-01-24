@@ -26,7 +26,7 @@ public final class EntrancedForge {
 
     private void init() {
         EventBuses.registerModEventBus(Entranced.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
-        EntrancedEventHooksForge.registerServerEvents();
+        EntrancedEventHooksForge.registerServerEventHooks();
         Entranced.init();
     }
 
@@ -36,7 +36,9 @@ public final class EntrancedForge {
         registerConfigScreen();
     }
 
-    // Adds a config screen.
+    /**
+     * Adds a config screen in the mod menu.
+     */
     @OnlyIn(Dist.CLIENT)
     private void registerConfigScreen() {
         ModLoadingContext.get().registerExtensionPoint(

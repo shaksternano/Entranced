@@ -13,7 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(PotionItem.class)
 abstract class PotionItemMixin {
 
-    // Potions retain their enchantments when drank.
+    /**
+     * Potions retain their enchantments when drank.
+     */
     @Inject(method = "finishUsing", at = @At("RETURN"))
     private void entranced$consumeTransferEnchantments(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack consumedStack = cir.getReturnValue();

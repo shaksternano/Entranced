@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantment.imperishable;
 
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
+import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.entity.projectile.TridentEntity;
@@ -18,7 +19,7 @@ abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
     @Shadow private ItemStack tridentStack;
 
     /**
-     * Tridents with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * Tridents with the {@link ImperishableEnchantment}
      * stop falling when they reach the world's minimum Y.
      */
     @Inject(method = "tick", at = @At("TAIL"))
@@ -38,7 +39,7 @@ abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
     }
 
     /**
-     * Tridents with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * Tridents with the {@link ImperishableEnchantment}
      * don't despawn.
      */
     @Inject(method = "age", at = @At("HEAD"), cancellable = true)
@@ -51,7 +52,7 @@ abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
     }
 
     /**
-     * Tridents with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * Tridents with the {@link ImperishableEnchantment}
      * don't get removed when 64 blocks below the world's minimum Y position.
      */
     @SuppressWarnings("unused")

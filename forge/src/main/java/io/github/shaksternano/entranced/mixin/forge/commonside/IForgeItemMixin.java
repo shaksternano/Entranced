@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.mixin.forge.commonside;
 
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
+import net.minecraft.enchantment.InfinityEnchantment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.extensions.IForgeItem;
@@ -18,8 +19,8 @@ interface IForgeItemMixin {
     /**
      * @author ShaksterNano
      * @reason Used to make the recipe remainder have the same enchantments as the
-     * original ItemStack,and make the recipe remainder for buckets with the Infinity
-     * enchantment a copy of the original ItemStack.
+     * original {@link ItemStack}, and make the recipe remainder for buckets with the
+     * {@link InfinityEnchantment} enchantment a copy of the original {@link ItemStack}.
      *
      * Fabric equivalents are:
      *      io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.infinity.bucket.RecipeMixin#entranced$infinityKeepItem

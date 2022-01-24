@@ -15,9 +15,9 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(AnvilScreen.class)
 abstract class AnvilScreenMixin {
 
-    /*
-    An item with imperishable at 0 durability in an anvil will not have "(Broken)" at the end if its name.
-    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.client.enchantment.imperishable.AnvilScreenMixin#entranced$imperishableBrokenOnSlotUpdate
+    /**
+     * An item with the {@link ImperishableEnchantment} at 0 durability in an anvil will not have "(Broken)" at the end if its name.
+     * Forge equivalent is io.github.shaksternano.entranced.mixin.forge.client.enchantment.imperishable.AnvilScreenMixin#entranced$imperishableBrokenOnSlotUpdate
      */
     @ModifyArgs(method = "onSlotUpdate", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/widget/TextFieldWidget;setText(Ljava/lang/String;)V"))
     private void entranced$imperishableBrokenOnSlotUpdate(Args args, ScreenHandler handler, int slotId, ItemStack stack) {

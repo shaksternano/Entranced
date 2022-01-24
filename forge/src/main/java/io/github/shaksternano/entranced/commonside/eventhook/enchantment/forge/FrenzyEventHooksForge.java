@@ -19,10 +19,10 @@ public final class FrenzyEventHooksForge {
 
     private FrenzyEventHooksForge() {}
 
-    /*
-    Increases the player's attack speed if the item they are holding
-    in their main hand has the Frenzy enchantment.
-    Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.frenzy.ItemStackMixin#frenzyIncreaseAttackSpeed
+    /**
+     * Increases the player's attack speed if the item they are holding
+     * in their main hand has the {@link FrenzyEnchantment}.
+     * Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.frenzy.ItemStackMixin#frenzyIncreaseAttackSpeed
      */
     @SubscribeEvent
     public static void frenzyIncreaseAttackSpeed(ItemAttributeModifierEvent event) {

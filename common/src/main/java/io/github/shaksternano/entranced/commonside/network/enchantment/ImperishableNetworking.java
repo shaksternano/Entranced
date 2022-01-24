@@ -3,6 +3,7 @@ package io.github.shaksternano.entranced.commonside.network.enchantment;
 import dev.architectury.networking.NetworkManager;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
+import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.mixin.commonloader.commonside.invoker.LivingEntityInvoker;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,7 +19,7 @@ public final class ImperishableNetworking {
     public static final Identifier EQUIPMENT_BREAK_EFFECTS = new Identifier(Entranced.MOD_ID, "equipment_break_effects");
 
     /**
-     * Registers client receivers related to the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}.
+     * Registers client receivers related to the {@link ImperishableEnchantment}.
      */
     @Environment(EnvType.CLIENT)
     public static void registerClientReceivers() {

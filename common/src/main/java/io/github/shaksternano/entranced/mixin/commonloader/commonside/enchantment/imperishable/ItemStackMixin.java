@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import dev.architectury.networking.NetworkManager;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
+import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.commonside.network.enchantment.ImperishableNetworking;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedNetworking;
@@ -47,7 +48,7 @@ abstract class ItemStackMixin {
     @Shadow public abstract int getMaxDamage();
 
     /**
-     * Items with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * Items with the {@link ImperishableEnchantment}
      * don't break when they reach 0 durability.
      */
     @SuppressWarnings("ConstantConditions")
@@ -83,7 +84,7 @@ abstract class ItemStackMixin {
 
     /**
      * Tool specific drops such cobblestone do not drop when mined by a tool with the
-     * {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment} at 0 durability.
+     * {@link ImperishableEnchantment} at 0 durability.
      */
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "isSuitableFor", at = @At("HEAD"), cancellable = true)
@@ -98,7 +99,7 @@ abstract class ItemStackMixin {
     }
 
     /**
-     * Tools with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * Tools with the {@link ImperishableEnchantment}
      * do not have increased mining speed when at 0 durability.
      */
     @SuppressWarnings("ConstantConditions")
@@ -114,7 +115,7 @@ abstract class ItemStackMixin {
     }
 
     /**
-     * Items with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * Items with the {@link ImperishableEnchantment}
      * do not give bonus attributes such as attack damage on a sword when at 0 durability.
      */
     @SuppressWarnings("ConstantConditions")
@@ -131,7 +132,7 @@ abstract class ItemStackMixin {
 
     /**
      * Adds "(Broken)" to the name of an item with the
-     * {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment} at 0 durability.
+     * {@link ImperishableEnchantment} at 0 durability.
      */
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "getName", at = @At("RETURN"))

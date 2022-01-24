@@ -19,7 +19,7 @@ public final class InfinityBucketWhitelists {
     private static final Set<Item> itemWhitelist = new HashSet<>();
 
     /**
-     * Produces Item whitelists from the Item ID string whitelists in the config
+     * Produces Item whitelists from the Item ID string whitelists in the {@link EntrancedConfig}.
      */
     public static void initWhitelists() {
         fluidWhitelist.clear();
@@ -42,8 +42,8 @@ public final class InfinityBucketWhitelists {
     /**
      * @return True if a fluid is whitelisted. Otherwise, returns false.
      * The water check is to allow water to be set as whitelisted by default.
-     * Putting water in the config list by default causes a new "minecraft:water"
-     * entry to be added to the config whitelist everytime the game is launched.
+     * Putting water in the {@link EntrancedConfig} list by default causes a new "minecraft:water"
+     * entry to be added to the {@link EntrancedConfig} whitelist everytime the game is launched.
      */
     public static boolean isFluidWhitelisted(Fluid fluid) {
         return (Entranced.getConfig().isInfinityAffectsWater() && fluid == Fluids.WATER) || fluidWhitelist.contains(fluid);

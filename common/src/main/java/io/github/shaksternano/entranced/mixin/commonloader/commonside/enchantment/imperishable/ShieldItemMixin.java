@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantment.imperishable;
 
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
+import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,7 +21,7 @@ abstract class ShieldItemMixin extends Item {
     }
 
     /**
-     * Shields with {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * Shields with {@link ImperishableEnchantment}
      * at 0 durability can't block.
      */
     @Inject(method = "getUseAction", at = @At("HEAD"), cancellable = true)

@@ -2,6 +2,7 @@ package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantme
 
 import com.google.common.collect.ImmutableList;
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
+import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.entity.Entity;
@@ -52,7 +53,7 @@ abstract class EntityMixin {
     protected void entranced$imperishableInVoid(CallbackInfo ci) {}
 
     /**
-     * Items with the {@link io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment}
+     * Items with the {@link ImperishableEnchantment}
      * stop falling when they reach the world's minimum Y.
      */
     @SuppressWarnings("UnstableApiUsage")

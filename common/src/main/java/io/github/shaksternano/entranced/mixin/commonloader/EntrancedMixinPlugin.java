@@ -10,6 +10,9 @@ import java.util.Set;
 
 public final class EntrancedMixinPlugin implements IMixinConfigPlugin {
 
+    /**
+     * Initialise MixinExtras
+     */
     @Override
     public void onLoad(String mixinPackage) {
         MixinExtrasBootstrap.init();

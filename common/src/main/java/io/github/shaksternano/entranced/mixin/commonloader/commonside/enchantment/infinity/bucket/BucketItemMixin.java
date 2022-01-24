@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantment.infinity.bucket;
 
 import io.github.shaksternano.entranced.commonside.util.BucketUtil;
+import net.minecraft.enchantment.InfinityEnchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
@@ -13,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class BucketItemMixin {
 
     /**
-     * Fluids in buckets with the {@link net.minecraft.enchantment.InfinityEnchantment}
+     * Fluids in buckets with the {@link InfinityEnchantment}
      * don't go away when placing the fluid.
      */
     @Inject(method = "getEmptiedStack", at = @At("HEAD"), cancellable = true)

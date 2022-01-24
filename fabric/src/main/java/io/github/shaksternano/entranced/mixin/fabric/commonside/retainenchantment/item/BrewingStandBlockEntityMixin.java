@@ -13,9 +13,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(BrewingStandBlockEntity.class)
 abstract class BrewingStandBlockEntityMixin {
 
-    /*
-    Items retain their enchantments when used as brewing stand ingredients.
-    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.IForgeItemMixin#entranced$getContainerItem
+    /**
+     * Items retain their enchantments when used as brewing stand ingredients.
+     * Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.IForgeItemMixin#entranced$getContainerItem
      */
     @ModifyVariable(method = "craft", at = @At("STORE"), ordinal = 1)
     private static ItemStack entranced$brewingStandTransferEnchantments(ItemStack newItemStack, World world, BlockPos pos, DefaultedList<ItemStack> slots) {

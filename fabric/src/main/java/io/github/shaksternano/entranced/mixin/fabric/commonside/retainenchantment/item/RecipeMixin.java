@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(Recipe.class)
 interface RecipeMixin<C extends Inventory> {
 
-    /*
-    Items retain their enchantments when using in a crafting recipe.
-    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.IForgeItemMixin#entranced$getContainerItem
+    /**
+     * Items retain their enchantments when using in a crafting recipe.
+     * Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.IForgeItemMixin#entranced$getContainerItem
      */
     @ModifyArgs(method = "getRemainder", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/collection/DefaultedList;set(ILjava/lang/Object;)Ljava/lang/Object;"))
     private void entranced$recipeTransferEnchantments(Args args, C inventory) {

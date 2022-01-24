@@ -19,7 +19,9 @@ import java.util.List;
 @Mixin(AbstractBlock.class)
 abstract class AbstractBlockMixin {
 
-    // Block entities that have enchantments retain those enchantments when broken.
+    /**
+     * {@link BlockEntity}s that have enchantments retain those enchantments when broken.
+     */
     @Inject(method = "getDroppedStacks", at = @At("RETURN"))
     private void entranced$setDroppedItemStackEnchantments(BlockState state, LootContext.Builder builder, CallbackInfoReturnable<List<ItemStack>> cir) {
         if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {

@@ -22,10 +22,10 @@ import java.util.Iterator;
 @Mixin(ItemStack.class)
 abstract class ItemStackMixin {
 
-    /*
-    Increases the player's attack speed if the item they are holding
-    in their main hand has the Frenzy enchantment.
-    Forge equivalent is io.github.shaksternano.entranced.commonside.event.enchantment.forge.FrenzyEvents#entranced$frenzyIncreaseAttackSpeed
+    /**
+     * Increases the player's attack speed if the item they are holding
+     * in their main hand has the {@link FrenzyEnchantment}.
+     * Forge equivalent is io.github.shaksternano.entranced.commonside.event.enchantment.forge.FrenzyEvents#entranced$frenzyIncreaseAttackSpeed
      */
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "getAttributeModifiers", at = @At("RETURN"), cancellable = true)

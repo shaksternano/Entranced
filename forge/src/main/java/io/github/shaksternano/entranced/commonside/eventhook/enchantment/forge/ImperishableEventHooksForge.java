@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.commonside.eventhook.enchantment.forge;
 
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
+import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.item.ItemStack;
@@ -11,9 +12,9 @@ public final class ImperishableEventHooksForge {
 
     private ImperishableEventHooksForge() {}
 
-    /*
-    Item entities with Imperishable don't despawn.
-    Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.imperishable.ItemEntityMixin#imperishableNoItemDespawn
+    /**
+     * Item entities with the {@link ImperishableEnchantment} don't despawn.
+     * Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.imperishable.ItemEntityMixin#imperishableNoItemDespawn
      */
     @SubscribeEvent
     public static void imperishableNoItemDespawn(ItemExpireEvent event) {

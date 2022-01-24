@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.imperishable;
 
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
+import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShearsItem;
@@ -13,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ShearsItem.class)
 abstract class ShearsItemMixin {
 
-    /*
-    Shears with the Imperishable enchantment at 0 durability can't disarm tripwires.
-    Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.imperishable.TripwireBlockMixin#entranced$imperishableDisarmTripwire
+    /**
+     * Shears with the {@link ImperishableEnchantment} at 0 durability can't disarm tripwires.
+     * Fabric equivalent is io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.imperishable.TripwireBlockMixin#entranced$imperishableDisarmTripwire
      */
     @Inject(method = "canPerformAction", at = @At("HEAD"), cancellable = true)
     private void entranced$imperishableDisarmTripwire(ItemStack stack, ToolAction toolAction, CallbackInfoReturnable<Boolean> cir) {

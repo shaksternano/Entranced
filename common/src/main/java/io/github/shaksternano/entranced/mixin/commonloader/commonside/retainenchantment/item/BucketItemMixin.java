@@ -12,7 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BucketItem.class)
 abstract class BucketItemMixin {
 
-    // Buckets retain their enchantments when placing fluids.
+    /**
+     * Buckets retain their enchantments when placing fluids.
+     */
     @Inject(method = "getEmptiedStack", at = @At("RETURN"), cancellable = true)
     private static void entranced$placeTransferEnchantments(ItemStack stack, PlayerEntity player, CallbackInfoReturnable<ItemStack> cir) {
         if (!player.getAbilities().creativeMode) {

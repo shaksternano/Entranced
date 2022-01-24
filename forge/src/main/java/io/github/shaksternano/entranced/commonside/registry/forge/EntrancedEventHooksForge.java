@@ -8,7 +8,10 @@ public final class EntrancedEventHooksForge {
 
     private EntrancedEventHooksForge() {}
 
-    public static void registerServerEvents() {
+    /**
+     * Registers logical server side event hooks.
+     */
+    public static void registerServerEventHooks() {
         IEventBus eventBus = MinecraftForge.EVENT_BUS;
 
         eventBus.register(FrenzyEventHooksForge.class);

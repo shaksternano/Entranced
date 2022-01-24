@@ -10,7 +10,9 @@ import net.fabricmc.api.Environment;
 @Environment(EnvType.CLIENT)
 public final class ModMenuIntegration implements ModMenuApi {
 
-    // Adds an in-game settings menu if Mod Menu is installed.
+    /**
+     * Adds an in-game settings menu if Mod Menu is installed.
+     */
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return parent -> AutoConfig.getConfigScreen(EntrancedConfig.class, parent).get();

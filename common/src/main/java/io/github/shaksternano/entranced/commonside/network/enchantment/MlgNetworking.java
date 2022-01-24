@@ -2,6 +2,7 @@ package io.github.shaksternano.entranced.commonside.network.enchantment;
 
 import dev.architectury.networking.NetworkManager;
 import io.github.shaksternano.entranced.commonside.Entranced;
+import io.github.shaksternano.entranced.commonside.enchantment.MlgEnchantment;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -14,7 +15,7 @@ public final class MlgNetworking {
     public static final Identifier CLIENT_HOTBAR_SWAP = new Identifier(Entranced.MOD_ID, "client_hotbar_swap");
 
     /**
-     * Registers client receivers related to the {@link io.github.shaksternano.entranced.commonside.enchantment.MlgEnchantment}.
+     * Registers client receivers related to the {@link MlgEnchantment}.
      */
     @Environment(EnvType.CLIENT)
     public static void registerClientReceivers() {

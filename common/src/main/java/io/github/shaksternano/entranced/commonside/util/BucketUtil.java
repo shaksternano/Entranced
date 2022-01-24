@@ -1,6 +1,8 @@
 package io.github.shaksternano.entranced.commonside.util;
 
 import io.github.shaksternano.entranced.mixin.commonloader.commonside.accessor.BucketItemAccessor;
+import net.minecraft.enchantment.InfinityEnchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
 import org.jetbrains.annotations.Nullable;
@@ -17,7 +19,7 @@ public final class BucketUtil {
     }
 
     /**
-     * @return The bucket {@link Item} equivalent that doesn't contain an {@link net.minecraft.entity.Entity}.
+     * @return The bucket {@link Item} equivalent that doesn't contain an {@link Entity}.
      */
     public static Item getNoEntityBucket(EntityBucketItem entityBucketItem) {
         Fluid fluid = ((BucketItemAccessor) entityBucketItem).entranced$getFluid();
@@ -31,7 +33,7 @@ public final class BucketUtil {
     }
 
     /**
-     * Bucket keeps its {@link Fluid} if the {@link net.minecraft.enchantment.InfinityEnchantment} is set to affect buckets.
+     * Bucket keeps its fluid if the {@link InfinityEnchantment} is set to affect buckets.
      */
     @Nullable
     public static ItemStack infinityBucketKeepFluid(ItemStack bucketStack) {

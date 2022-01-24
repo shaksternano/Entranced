@@ -17,7 +17,7 @@ public final class ImperishableBlacklists {
     private static final Map<ProtectionType, Set<Item>> blacklists = initBlacklistsMap();
 
     /**
-     * Creates a blacklist for every ProtectionType
+     * Creates a blacklist for every {@link ProtectionType}.
      */
     private static Map<ProtectionType, Set<Item>> initBlacklistsMap() {
         Map<ProtectionType, Set<Item>> blacklists = new HashMap<>();
@@ -28,7 +28,7 @@ public final class ImperishableBlacklists {
     }
 
     /**
-     * Produces Item blacklists from the Item ID String blacklists in the config.
+     * Produces Item blacklists from the Item ID String blacklists in the {@link EntrancedConfig}.
      */
     public static void initBlacklists() {
         globalBlacklist.clear();
@@ -63,7 +63,7 @@ public final class ImperishableBlacklists {
 
     /**
      * @return True if an item is on the global blacklist or the blacklist
-     * for the specified protection type. Otherwise, returns false.
+     * for the specified {@link ProtectionType}. Otherwise, returns false.
      */
     private static boolean isItemBlacklisted(Item item, ProtectionType protectionType) {
         if (isItemBlacklistedGlobally(item)) {
@@ -80,7 +80,7 @@ public final class ImperishableBlacklists {
 
     /**
      * @return True if the specified item is not blacklisted and Imperishable is set
-     * to protect from the specified protection type. Otherwise, returns false.
+     * to protect from the specified {@link ProtectionType}. Otherwise, returns false.
      */
     public static boolean isItemProtected(Item item, ProtectionType protectionType) {
         return protectionType.PROTECTION_ENABLED && !isItemBlacklisted(item, protectionType);

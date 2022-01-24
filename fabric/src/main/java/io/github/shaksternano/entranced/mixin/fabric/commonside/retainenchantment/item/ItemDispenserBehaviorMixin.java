@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemDispenserBehavior.class)
 abstract class ItemDispenserBehaviorMixin {
 
-    /*
-    Buckets retain their enchantments when used in a dispenser.
-    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.retainenchantment.item.ItemDispenserBehaviorMixin#entranced$dispenserTransferEnchantments
+    /**
+     * Buckets retain their enchantments when used in a dispenser.
+     * Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.retainenchantment.item.ItemDispenserBehaviorMixin#entranced$dispenserTransferEnchantments
      */
     @Inject(method = "dispense", at = @At("RETURN"))
     private void entranced$dispenserTransferEnchantments(BlockPointer blockPointer, ItemStack itemStack, CallbackInfoReturnable<ItemStack> cir) {

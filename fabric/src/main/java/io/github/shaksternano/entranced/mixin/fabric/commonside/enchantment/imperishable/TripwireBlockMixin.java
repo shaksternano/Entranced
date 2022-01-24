@@ -2,6 +2,7 @@ package io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.imp
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
+import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TripwireBlock;
@@ -15,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(TripwireBlock.class)
 abstract class TripwireBlockMixin {
 
-    /*
-    Shears with the Imperishable enchantment at 0 durability can't disarm tripwires.
-    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.imperishable.ShearsItemMixin#entranced$imperishableDisarmTripwire
+    /**
+     * Shears with the {@link ImperishableEnchantment} at 0 durability can't disarm tripwires.
+     * Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.imperishable.ShearsItemMixin#entranced$imperishableDisarmTripwire
      */
     @SuppressWarnings("unused")
     @ModifyExpressionValue(method = "onBreak", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))

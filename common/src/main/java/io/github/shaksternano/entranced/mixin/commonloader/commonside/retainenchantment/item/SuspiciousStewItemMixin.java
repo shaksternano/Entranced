@@ -13,7 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SuspiciousStewItem.class)
 abstract class SuspiciousStewItemMixin {
 
-    // Suspicious stews retain their enchantments when eaten.
+    /**
+     * Suspicious stews retain their enchantments when eaten.
+     */
     @Inject(method = "finishUsing", at = @At("RETURN"))
     private void entranced$consumeTransferEnchantments(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack consumedStack = cir.getReturnValue();

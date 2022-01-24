@@ -16,7 +16,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(InfinityEnchantment.class)
 abstract class InfinityEnchantmentMixin extends EnchantmentMixin {
 
-    // Infinity can be put on buckets.
+    /**
+     * The {@link InfinityEnchantment} can be put on buckets.
+     */
     @Override
     protected void entranced$addAcceptableItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (Entranced.getConfig().isInfinityAllowedOnBuckets()) {

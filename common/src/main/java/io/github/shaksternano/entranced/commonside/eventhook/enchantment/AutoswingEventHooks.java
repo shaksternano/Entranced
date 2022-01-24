@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.commonside.eventhook.enchantment;
 
 import dev.architectury.event.events.client.ClientTickEvent;
+import io.github.shaksternano.entranced.commonside.enchantment.AutoswingEnchantment;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import io.github.shaksternano.entranced.mixin.commonloader.client.invoker.MinecraftClientInvoker;
@@ -15,7 +16,7 @@ public final class AutoswingEventHooks {
     private AutoswingEventHooks() {}
 
     /**
-     * Registers client event hooks related to the {@link io.github.shaksternano.entranced.commonside.enchantment.AutoswingEnchantment}.
+     * Registers client event hooks related to the {@link AutoswingEnchantment}.
      */
     @Environment(EnvType.CLIENT)
     public static void registerClientEventHooks() {

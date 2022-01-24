@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(AbstractFurnaceBlockEntity.class)
 abstract class AbstractFurnaceBlockEntityMixin {
 
-    /*
-    Items retain their enchantments when used as furnace fuel.
-    Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.IForgeItemMixin#entranced$getContainerItem
+    /**
+     * Items retain their enchantments when used as furnace fuel.
+     * Forge equivalent is io.github.shaksternano.entranced.mixin.forge.commonside.IForgeItemMixin#entranced$getContainerItem
      */
     @ModifyArgs(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/collection/DefaultedList;set(ILjava/lang/Object;)Ljava/lang/Object;"))
     private static void entranced$furnaceFuelTransferEnchantments(Args args, World world, BlockPos pos, BlockState state, AbstractFurnaceBlockEntity blockEntity) {
