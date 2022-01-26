@@ -28,6 +28,8 @@
         "commonside.enchantment.infinity.bucket.ItemUsageContextMixin",
         "commonside.enchantment.infinity.bucket.MilkBucketItemMixin",
         "commonside.invoker.LivingEntityInvoker",
+        "commonside.plugin.autoconfig.JanksonConfigSerializerMixin",
+        "commonside.plugin.enchdesc.TranslatableTextMixin",
         "commonside.retainenchantment.block.AbstractBlockMixin",
         "commonside.retainenchantment.block.BlockEntityMixin",
         "commonside.retainenchantment.block.BlockItemMixin",

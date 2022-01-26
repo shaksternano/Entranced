@@ -10,6 +10,8 @@
     "enchantment.entranced.imperishable": "Imperishable",
     "enchantment.entranced.imperishable.desc": "Prevents items from despawning or being destroyed. As well as that, items that reach 0 durability don't get destroyed, but rather lose any special properties, such as increased mining speed on a pickaxe, until they are repaired.",
 
+    "enchantment.minecraft.infinity.desc.entranced.extraDesc": " Also allows buckets with fluid to never run out of fluid.",
+
     "enchantment.entranced.mlg": "MLG?",
     "enchantment.entranced.mlg.desc": "A filled bucket with this enchantment in your inventory will automatically get put in your hand when falling from a height that would damage you.",
 

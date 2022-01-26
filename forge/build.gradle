@@ -60,7 +60,7 @@ shadowJar {
     configurations = [project.configurations.shadowCommon]
     classifier "dev-shadow"
 
-    relocate("com.llamalad7.mixinextras", "${rootProject.maven_group}.shadowed.mixinextras")
+    relocate("com.llamalad7.mixinextras", "${rootProject.maven_group}.shadowed.com.llamalad7.mixinextras")
 }
 
 remapJar {

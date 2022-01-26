@@ -46,7 +46,7 @@ public final class InfinityBucketWhitelists {
      * entry to be added to the {@link EntrancedConfig} whitelist everytime the game is launched.
      */
     public static boolean isFluidWhitelisted(Fluid fluid) {
-        return (Entranced.getConfig().isInfinityAffectsWater() && fluid == Fluids.WATER) || fluidWhitelist.contains(fluid);
+        return fluidWhitelist.contains(fluid);
     }
 
     /**

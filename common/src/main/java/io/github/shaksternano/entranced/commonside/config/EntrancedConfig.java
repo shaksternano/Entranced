@@ -8,6 +8,7 @@ import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 import net.minecraft.enchantment.Enchantment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings({"CanBeFinal", "FieldCanBeLocal", "FieldMayBeFinal"})
@@ -141,10 +142,7 @@ public final class EntrancedConfig implements ConfigData {
         @Comment("Is the Infinity enchantment allowed on buckets?\n\nDefault value is true.")
         private boolean allowedOnBuckets = true;
 
-        @Comment("Is water affected by Infinity?\n\nDefault value is true.")
-        private boolean infinityAffectsWater = true;
-
-        @Comment("IDs of fluids that are affected by Infinity.\nFor example \"minecraft:lava\".\n\nEmpty by default.")
+        @Comment("IDs of fluids that are affected by Infinity.\nFor example \"minecraft:lava\".\n\nContains \"minecraft:water\" by default.")
         private final List<String> fluidWhitelist = new ArrayList<>();
 
         @Comment("IDs of blocks that are placed by\nbuckets that are affected by Infinity.\nFor example \"minecraft:powder_snow\".\n\nEmpty by default.")
@@ -321,10 +319,6 @@ public final class EntrancedConfig implements ConfigData {
     // Infinity
     public boolean isInfinityAllowedOnBuckets() {
         return infinity.allowedOnBuckets;
-    }
-
-    public boolean isInfinityAffectsWater() {
-        return infinity.infinityAffectsWater;
     }
 
     public List<String> getInfinityFluidWhitelist() {

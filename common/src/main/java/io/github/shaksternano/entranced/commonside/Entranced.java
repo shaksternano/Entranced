@@ -6,12 +6,15 @@ import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantment
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEventHooks;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedNetworking;
 import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Set;
 
 public final class Entranced {
 
@@ -23,6 +26,8 @@ public final class Entranced {
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
     private static EntrancedConfig config;
+
+    private static boolean createdNewConfigFile = false;
 
     /**
      * Mod initialization run on both the client and the logical server.
@@ -47,11 +52,18 @@ public final class Entranced {
      * Registers the config class.
      */
     private static void registerConfig() {
-        AutoConfig.register(EntrancedConfig.class, JanksonConfigSerializer::new).registerSaveListener((configHolder, modConfig) -> {
+        ConfigHolder<EntrancedConfig> configHolder = AutoConfig.register(EntrancedConfig.class, JanksonConfigSerializer::new);
+        config = AutoConfig.getConfigHolder(EntrancedConfig.class).getConfig();
+
+        if (createdNewConfigFile) {
+            config.getInfinityFluidWhitelist().add("minecraft:water");
+            configHolder.save();
+        }
+
+        configHolder.registerSaveListener((holder, config) -> {
             EnchantmentAllowLists.initAllowLists();
             return ActionResult.PASS;
         });
-        config = AutoConfig.getConfigHolder(EntrancedConfig.class).getConfig();
     }
 
     /**
@@ -59,5 +71,9 @@ public final class Entranced {
      */
     public static EntrancedConfig getConfig() {
         return config;
+    }
+
+    public static void setCreatedNewConfigFile(boolean createdNewConfigFile) {
+        Entranced.createdNewConfigFile = createdNewConfigFile;
     }
 }
