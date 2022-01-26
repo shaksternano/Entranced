@@ -1,6 +1,6 @@
 package io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.infinity.bucket;
 
-import io.github.shaksternano.entranced.commonside.access.ItemStackParameter;
+import io.github.shaksternano.entranced.commonside.access.ExtraArgument;
 import net.minecraft.enchantment.InfinityEnchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -19,7 +19,7 @@ abstract class PowderSnowBucketItemMixin {
      */
     @ModifyArgs(method = "useOnBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;setStackInHand(Lnet/minecraft/util/Hand;Lnet/minecraft/item/ItemStack;)V"))
     private void entranced$infinityPowderSnowBucket(Args args, ItemUsageContext context) {
-        ItemStack powderSnowBucketStack = ((ItemStackParameter) context).entranced$getItemStackParameter();
+        ItemStack powderSnowBucketStack = ((ExtraArgument) context).entranced$getItemStackArgument();
 
         if (powderSnowBucketStack != null) {
             args.set(1, powderSnowBucketStack);

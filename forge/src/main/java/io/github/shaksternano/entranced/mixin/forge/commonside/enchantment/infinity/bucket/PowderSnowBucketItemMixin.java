@@ -1,7 +1,7 @@
 package io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.infinity.bucket;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import io.github.shaksternano.entranced.commonside.access.ItemStackParameter;
+import io.github.shaksternano.entranced.commonside.access.ExtraArgument;
 import net.minecraft.enchantment.InfinityEnchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -19,7 +19,7 @@ abstract class PowderSnowBucketItemMixin {
      */
     @ModifyExpressionValue(method = "useOnBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;getDefaultStack()Lnet/minecraft/item/ItemStack;"))
     private ItemStack entranced$infinityPowderSnowBucket(ItemStack getDefaultStack, ItemUsageContext context) {
-        ItemStack powderSnowBucketStack = ((ItemStackParameter) context).entranced$getItemStackParameter();
+        ItemStack powderSnowBucketStack = ((ExtraArgument) context).entranced$getItemStackArgument();
         return powderSnowBucketStack == null ? getDefaultStack : powderSnowBucketStack;
     }
 }

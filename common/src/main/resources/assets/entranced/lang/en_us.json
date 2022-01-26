@@ -1,6 +1,4 @@
 {
-    "container.enchant.entranced.applyCatalyst": "Apply enchanting catalyst",
-
     "enchantment.entranced.autoswing": "Autoswing",
     "enchantment.entranced.autoswing.desc": "Holding down the attack button will automatically attack when the attack indicator is full.",
 
@@ -18,10 +16,12 @@
     "item.name.enchantment.entranced.imperishable.broken": " (Broken)",
     "item.tooltip.enchantment.entranced.imperishable.broken": "This item is broken, repair it to use it again!",
 
+    "container.enchant.entranced.applyCatalyst": "Apply enchanting catalyst",
+
     "text.autoconfig.entranced.title": "Entranced Options",
 
     "text.autoconfig.entranced.category.enchantment": "Enchantment Options",
-    "text.autoconfig.entranced.category.misc": "Miscellaneous Options",
+    "text.autoconfig.entranced.category.enchantingCatalyst": "Enchanting Catalyst Options",
 
     "text.autoconfig.entranced.option.autoswing": "Autoswing enchantment",
     "text.autoconfig.entranced.option.autoswing.enabled": "Enabled",

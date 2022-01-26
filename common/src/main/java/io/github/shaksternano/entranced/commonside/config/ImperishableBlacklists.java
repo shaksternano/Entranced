@@ -14,24 +14,27 @@ public final class ImperishableBlacklists {
     private ImperishableBlacklists() {}
 
     private static final Set<Item> globalBlacklist = new HashSet<>();
-    private static final Map<ProtectionType, Set<Item>> blacklists = initBlacklistsMap();
+    private static final Map<ProtectionType, Set<Item>> blacklists = CollectionUtil.initEnumSetMap(ProtectionType.class, ProtectionType.values());
 
     /**
      * Creates a blacklist for every {@link ProtectionType}.
      */
     private static Map<ProtectionType, Set<Item>> initBlacklistsMap() {
         Map<ProtectionType, Set<Item>> blacklists = new HashMap<>();
+
         for (ProtectionType protectionType : ProtectionType.values()) {
             blacklists.put(protectionType, new HashSet<>());
         }
+
         return blacklists;
     }
 
     /**
      * Produces Item blacklists from the Item ID String blacklists in the {@link EntrancedConfig}.
      */
-    public static void initBlacklists() {
+    public static void updateBlacklists() {
         globalBlacklist.clear();
+
         for (String itemId : Entranced.getConfig().getImperishableGlobalBlacklist()) {
             CollectionUtil.addItemToSet(itemId, globalBlacklist);
         }
@@ -41,6 +44,7 @@ public final class ImperishableBlacklists {
             Set<Item> blacklist = entry.getValue();
 
             blacklist.clear();
+
             for (String itemId : protectionType.ITEM_ID_BLACKLIST_GETTER.get()) {
                 CollectionUtil.addItemToSet(itemId, blacklist);
             }

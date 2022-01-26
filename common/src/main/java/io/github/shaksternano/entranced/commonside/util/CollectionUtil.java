@@ -10,12 +10,26 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.InvalidIdentifierException;
 import net.minecraft.util.registry.Registry;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Set;
+import java.util.*;
 
 public final class CollectionUtil {
 
     private CollectionUtil() {}
+
+    /**
+     * @return A {@link Map} mapping {@link Enum} keys specified in the {@code keyArray} to {@link Set}s.
+     */
+    public static <K extends Enum<K>, V> Map<K, Set<V>> initEnumSetMap(Class<K> keyType, K[] keyArray) {
+        Map<K, Set<V>> setMap = new EnumMap<>(keyType);
+
+        for (K key : keyArray) {
+            setMap.put(key, new HashSet<>());
+        }
+
+        return setMap;
+    }
 
     /**
      * Adds the {@link Item} with the corresponding item ID to the set.
@@ -41,12 +55,12 @@ public final class CollectionUtil {
     /**
      * Adds the registered object with the corresponding ID to the set.
      */
-    private static <T> void addToSet(String id, Set<T> set, Registry<T> registry, T defaultEntry, String idType) {
+    private static <V> void addToSet(String id, Set<V> set, Registry<V> registry, @Nullable V defaultEntry, String idType) {
         try {
-            T t = registry.get(new Identifier(id));
+            V v = registry.get(new Identifier(id));
             // If the ID isn't valid then t will be the default entry.
-            if (t != null && !t.equals(defaultEntry)) {
-                set.add(t);
+            if (v != null && !v.equals(defaultEntry)) {
+                set.add(v);
             } else {
                 notifyInvalidId(id, idType);
             }

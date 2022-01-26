@@ -4,7 +4,6 @@ import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.util.CollectionUtil;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 
 import java.util.HashSet;
@@ -21,7 +20,7 @@ public final class InfinityBucketWhitelists {
     /**
      * Produces Item whitelists from the Item ID string whitelists in the {@link EntrancedConfig}.
      */
-    public static void initWhitelists() {
+    public static void updateWhitelists() {
         fluidWhitelist.clear();
         blockWhitelist.clear();
         itemWhitelist.clear();

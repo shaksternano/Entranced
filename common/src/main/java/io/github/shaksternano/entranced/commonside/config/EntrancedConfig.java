@@ -8,8 +8,8 @@ import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 import net.minecraft.enchantment.Enchantment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @SuppressWarnings({"CanBeFinal", "FieldCanBeLocal", "FieldMayBeFinal"})
 @Config(name = Entranced.MOD_ID)
@@ -36,6 +36,36 @@ public final class EntrancedConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     private final MlgCollapsible mlg = new MlgCollapsible();
 
+    @ConfigEntry.Category("enchantingCatalyst")
+    private boolean enchantingCatalystEnabled = true;
+
+    @ConfigEntry.Category("enchantingCatalyst")
+    @ConfigEntry.Gui.CollapsibleObject
+    private final OffensiveCatalystCollapsible offensiveCatalyst = new OffensiveCatalystCollapsible();
+
+    @ConfigEntry.Category("enchantingCatalyst")
+    @ConfigEntry.Gui.CollapsibleObject
+    private final DefensiveCatalystCollapsible defensiveCatalyst = new DefensiveCatalystCollapsible();
+
+    @ConfigEntry.Category("enchantingCatalyst")
+    @ConfigEntry.Gui.CollapsibleObject
+    private final UtilityCatalystCollapsible utilityCatalyst = new UtilityCatalystCollapsible();
+
+    @ConfigEntry.Gui.Excluded
+    @ConfigEntry.Category("enchantment")
+    @Comment("Block entities keep enchantments when\nplaced and picked back up.\nIt is recommended to leave this on the default value.\n\nDefault value is true.")
+    private boolean blockEntitiesStoreEnchantments = true;
+
+    @ConfigEntry.Gui.Excluded
+    @ConfigEntry.Category("enchantment")
+    @Comment("Enchantments are retained in more situations.\nIt is recommended to leave this on the default value.\n\nDefault value is true.")
+    private boolean retainEnchantmentsMoreOften = true;
+
+    @ConfigEntry.Gui.Excluded
+    @ConfigEntry.Category("enchantment")
+    @Comment("Debug mode. Used for testing the mod.\nIt is recommended to leave this on the default value.\n\nDefault value is false.")
+    private boolean debugMode = false;
+
     private static class AutoSwingCollapsible {
         @Comment("Is this enchantment enabled?\nMinecraft must be restarted for\nthis change to take full effect.\n\nDefault value is true.")
         private boolean enabled = true;
@@ -49,7 +79,7 @@ public final class EntrancedConfig implements ConfigData {
         @Comment("Should villagers sell enchanted\nbooks with this enchantment?\n\nDefault value is true.")
         private boolean soldByVillagers = true;
 
-        @Comment("Minimum experience level required to get\n in an enchanting table.\n\nDefault value is 10.")
+        @Comment("Minimum experience level required to get\nin an enchanting table.\n\nDefault value is 10.")
         private int minPower = 10;
 
         @Comment("Maximum number of levels above the minimum\nlevel to get in an enchanting table.\n\nDefault value is 50.")
@@ -70,7 +100,7 @@ public final class EntrancedConfig implements ConfigData {
         @Comment("Should villagers sell enchanted\nbooks with this enchantment?\n\nDefault value is true.")
         private boolean soldByVillagers = true;
 
-        @Comment("Minimum experience level required to get\n in an enchanting table.\n\nDefault value is 15.")
+        @Comment("Minimum experience level required to get\nin an enchanting table.\n\nDefault value is 15.")
         private int minPower = 15;
 
         @Comment("Maximum number of levels above the minimum\nlevel to get in an enchanting table.\n\nDefault value is 50.")
@@ -124,7 +154,7 @@ public final class EntrancedConfig implements ConfigData {
         @Comment("Should villagers sell enchanted\nbooks with this enchantment?\n\nDefault value is true.")
         private boolean soldByVillagers = true;
 
-        @Comment("Minimum experience level required to get\n in an enchanting table.\n\nDefault value is 5.")
+        @Comment("Minimum experience level required to get\nin an enchanting table.\n\nDefault value is 5.")
         private int minPower = 5;
 
         @Comment("Maximum number of levels above the minimum\nlevel to get in an enchanting table.\n\nDefault value is 100.")
@@ -153,6 +183,7 @@ public final class EntrancedConfig implements ConfigData {
     }
 
     private static class MlgCollapsible {
+
         @Comment("Is this enchantment enabled?\nMinecraft must be restarted for\nthis change to take full effect.\n\nDefault value is true.")
         private boolean enabled = true;
 
@@ -165,27 +196,39 @@ public final class EntrancedConfig implements ConfigData {
         @Comment("Should villagers sell enchanted\nbooks with this enchantment?\n\nDefault value is true.")
         private boolean soldByVillagers = true;
 
-        @Comment("Minimum experience level required to get\n in an enchanting table.\n\nDefault value is 10.")
+        @Comment("Minimum experience level required to get\nin an enchanting table.\n\nDefault value is 10.")
         private int minPower = 5;
 
         @Comment("Maximum number of levels above the minimum\nlevel to get in an enchanting table.\n\nDefault value is 50.")
         private int maxPowerAboveMin = 50;
     }
 
-    @ConfigEntry.Gui.Excluded
-    @ConfigEntry.Category("misc")
-    @Comment("Block entities keep enchantments when\nplaced and picked back up.\nIt is recommended to leave this on the default value.\n\nDefault value is true.")
-    private boolean blockEntitiesStoreEnchantments = true;
+    private static class OffensiveCatalystCollapsible {
 
-    @ConfigEntry.Gui.Excluded
-    @ConfigEntry.Category("misc")
-    @Comment("Enchantments are retained in more situations.\nIt is recommended to leave this on the default value.\n\nDefault value is true.")
-    private boolean retainEnchantmentsMoreOften = true;
+        private final List<String> affectedEnchantments = new ArrayList<>();
 
-    @ConfigEntry.Gui.Excluded
-    @ConfigEntry.Category("misc")
-    @Comment("Debug mode. Used for testing the mod.\nIt is recommended to leave this on the default value.\n\nDefault value is false.")
-    private boolean debugMode = false;
+        private final List<String> consumableItems = new ArrayList<>();
+
+        private final List<String> unconsumableItems = new ArrayList<>();
+    }
+
+    private static class DefensiveCatalystCollapsible {
+
+        private final List<String> affectedEnchantments = new ArrayList<>();
+
+        private final List<String> consumableItems = new ArrayList<>();
+
+        private final List<String> unconsumableItems = new ArrayList<>();
+    }
+
+    private static class UtilityCatalystCollapsible {
+
+        private final List<String> affectedEnchantments = new ArrayList<>();
+
+        private final List<String> consumableItems = new ArrayList<>();
+
+        private final List<String> unconsumableItems = new ArrayList<>();
+    }
 
     // Accessors
 
@@ -357,6 +400,47 @@ public final class EntrancedConfig implements ConfigData {
         return mlg.maxPowerAboveMin;
     }
 
+    // Enchanting catalyst
+    public boolean isEnchantingCatalystEnabled() {
+        return enchantingCatalystEnabled;
+    }
+
+    public List<String> getOffensiveCatalystAffectedEnchantments() {
+        return offensiveCatalyst.affectedEnchantments;
+    }
+
+    public List<String> getOffensiveCatalystConsumableItems() {
+        return offensiveCatalyst.consumableItems;
+    }
+
+    public List<String> getOffensiveCatalystUnconsumableItems() {
+        return offensiveCatalyst.unconsumableItems;
+    }
+
+    public List<String> getDefensiveCatalystAffectedEnchantments() {
+        return defensiveCatalyst.affectedEnchantments;
+    }
+
+    public List<String> getDefensiveCatalystConsumableItems() {
+        return defensiveCatalyst.consumableItems;
+    }
+
+    public List<String> getDefensiveCatalystUnconsumableItems() {
+        return defensiveCatalyst.unconsumableItems;
+    }
+
+    public List<String> getUtilityCatalystAffectedEnchantments() {
+        return utilityCatalyst.affectedEnchantments;
+    }
+
+    public List<String> getUtilityCatalystConsumableItems() {
+        return utilityCatalyst.consumableItems;
+    }
+
+    public List<String> getUtilityCatalystUnconsumableItems() {
+        return utilityCatalyst.unconsumableItems;
+    }
+
     // Miscellaneous
     public boolean isBlockEntitiesStoreEnchantments() {
         return blockEntitiesStoreEnchantments;
@@ -368,5 +452,13 @@ public final class EntrancedConfig implements ConfigData {
 
     public boolean isDebugMode() {
         return debugMode;
+    }
+
+    /**
+     * Updates {@link Set}s that are filled with objects corresponding to {@link String} IDs in the config.
+     */
+    public static void updateSets() {
+        InfinityBucketWhitelists.updateWhitelists();
+        ImperishableBlacklists.updateBlacklists();
     }
 }

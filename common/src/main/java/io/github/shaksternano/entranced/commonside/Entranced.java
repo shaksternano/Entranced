@@ -1,6 +1,5 @@
 package io.github.shaksternano.entranced.commonside;
 
-import io.github.shaksternano.entranced.commonside.config.EnchantmentAllowLists;
 import io.github.shaksternano.entranced.commonside.config.EntrancedConfig;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEventHooks;
@@ -13,8 +12,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.util.ActionResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Set;
 
 public final class Entranced {
 
@@ -61,7 +58,7 @@ public final class Entranced {
         }
 
         configHolder.registerSaveListener((holder, config) -> {
-            EnchantmentAllowLists.initAllowLists();
+            EntrancedConfig.updateSets();
             return ActionResult.PASS;
         });
     }
