@@ -20,7 +20,7 @@ public final class ImperishableEventHooksForge {
     public static void imperishableNoItemDespawn(ItemExpireEvent event) {
         ItemStack stack = event.getEntityItem().getStack();
         if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.IMPERISHABLE)) {
-            if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
+            if (ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
                 event.setExtraLife(0);
             }
         }

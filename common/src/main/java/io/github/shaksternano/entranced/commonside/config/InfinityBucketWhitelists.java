@@ -9,18 +9,19 @@ import net.minecraft.item.Item;
 import java.util.HashSet;
 import java.util.Set;
 
-public final class InfinityBucketWhitelists {
+public enum InfinityBucketWhitelists {
 
-    private InfinityBucketWhitelists() {}
+    // This is an enum.
+    INSTANCE;
 
-    private static final Set<Fluid> fluidWhitelist = new HashSet<>();
-    private static final Set<Block> blockWhitelist = new HashSet<>();
-    private static final Set<Item> itemWhitelist = new HashSet<>();
+    private final Set<Fluid> fluidWhitelist = new HashSet<>();
+    private final Set<Block> blockWhitelist = new HashSet<>();
+    private final Set<Item> itemWhitelist = new HashSet<>();
 
     /**
      * Produces Item whitelists from the Item ID string whitelists in the {@link EntrancedConfig}.
      */
-    public static void updateWhitelists() {
+    public void updateWhitelists() {
         fluidWhitelist.clear();
         blockWhitelist.clear();
         itemWhitelist.clear();
@@ -44,21 +45,21 @@ public final class InfinityBucketWhitelists {
      * Putting water in the {@link EntrancedConfig} list by default causes a new "minecraft:water"
      * entry to be added to the {@link EntrancedConfig} whitelist everytime the game is launched.
      */
-    public static boolean isFluidWhitelisted(Fluid fluid) {
+    public boolean isFluidWhitelisted(Fluid fluid) {
         return fluidWhitelist.contains(fluid);
     }
 
     /**
      * @return True if a block is whitelisted. Otherwise, returns false.
      */
-    public static boolean isBlockWhitelisted(Block block) {
+    public boolean isBlockWhitelisted(Block block) {
         return blockWhitelist.contains(block);
     }
 
     /**
      * @return True if an item is whitelisted. Otherwise, returns false.
      */
-    public static boolean isItemWhitelisted(Item item) {
+    public boolean isItemWhitelisted(Item item) {
         return itemWhitelist.contains(item);
     }
 }

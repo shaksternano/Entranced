@@ -30,7 +30,7 @@ public final class ImperishableEnchantment extends ConfigurableEnchantment {
 
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return !ImperishableBlacklists.isItemBlacklistedGlobally(stack) && super.isAcceptableItem(stack);
+        return !ImperishableBlacklists.INSTANCE.isItemBlacklistedGlobally(stack) && super.isAcceptableItem(stack);
     }
 
     @Override
@@ -65,7 +65,7 @@ public final class ImperishableEnchantment extends ConfigurableEnchantment {
 
     // Removes the "(Broken)" string from the name of tools with Imperishable at 0 durability, so it doesn't mess with anvil renaming.
     public static String itemNameRemoveBroken(String name, ItemStack stack) {
-        if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
+        if (ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (EnchantmentUtil.isBrokenImperishable(stack)) {
                 Text broken = new TranslatableText("item.name." + EntrancedEnchantments.IMPERISHABLE.getTranslationKey() + ".broken");
                 return name.replace(broken.getString(), "");

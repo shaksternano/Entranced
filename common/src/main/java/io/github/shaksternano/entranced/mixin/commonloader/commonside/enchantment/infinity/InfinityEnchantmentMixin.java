@@ -25,15 +25,15 @@ abstract class InfinityEnchantmentMixin extends EnchantmentMixin {
             Item item = stack.getItem();
 
             if (item instanceof BucketItemAccessor bucketItem) {
-                if (InfinityBucketWhitelists.isFluidWhitelisted(bucketItem.entranced$getFluid())) {
+                if (InfinityBucketWhitelists.INSTANCE.isFluidWhitelisted(bucketItem.entranced$getFluid())) {
                     cir.setReturnValue(true);
                 }
             } else if (item instanceof PowderSnowBucketItem powderSnowBucketItem) {
-                if (InfinityBucketWhitelists.isBlockWhitelisted(powderSnowBucketItem.getBlock())) {
+                if (InfinityBucketWhitelists.INSTANCE.isBlockWhitelisted(powderSnowBucketItem.getBlock())) {
                     cir.setReturnValue(true);
                 }
             } else if (item instanceof MilkBucketItem) {
-                if (InfinityBucketWhitelists.isItemWhitelisted(item)) {
+                if (InfinityBucketWhitelists.INSTANCE.isItemWhitelisted(item)) {
                     cir.setReturnValue(true);
                 }
             }

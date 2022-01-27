@@ -34,7 +34,7 @@ abstract class ItemEntityMixin extends Entity {
      */
     @Inject(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/ItemEntity;itemAge:I", opcode = Opcodes.PUTFIELD))
     private void entranced$imperishableNoItemDespawn(CallbackInfo ci) {
-        if (world.isClient || !EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE) || !ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
+        if (world.isClient || !EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE) || !ImperishableBlacklists.INSTANCE.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
             itemAge++;
         }
     }

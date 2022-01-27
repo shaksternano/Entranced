@@ -27,7 +27,7 @@ abstract class ItemEntityMixin extends EntityMixin {
     @SuppressWarnings("unused")
     @Override
     protected void entranced$damageImperishable(DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
-        if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DAMAGE_PROTECTION)) {
+        if (ImperishableBlacklists.INSTANCE.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DAMAGE_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
                 cir.setReturnValue(true);
             }
@@ -41,7 +41,7 @@ abstract class ItemEntityMixin extends EntityMixin {
     private void entranced$checkImperishable(CallbackInfo ci) {
         if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
             // Items with Imperishable float up to the world's minimum Y if their Y coordinate is below the world's minimum Y.
-            if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
+            if (ImperishableBlacklists.INSTANCE.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
                 if (getY() < world.getBottomY()) {
 
                     Vec3d velocity = getVelocity();
@@ -76,7 +76,7 @@ abstract class ItemEntityMixin extends EntityMixin {
      */
     @Inject(method = "isFireImmune", at = @At("HEAD"), cancellable = true)
     private void entranced$imperishableFireImmune(CallbackInfoReturnable<Boolean> cir) {
-        if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DAMAGE_PROTECTION)) {
+        if (ImperishableBlacklists.INSTANCE.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DAMAGE_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
                 cir.setReturnValue(true);
             }
@@ -89,7 +89,7 @@ abstract class ItemEntityMixin extends EntityMixin {
     @SuppressWarnings("unused")
     @Override
     protected void entranced$imperishableInVoid(CallbackInfo ci) {
-        if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
+        if (ImperishableBlacklists.INSTANCE.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
                 ci.cancel();
             }

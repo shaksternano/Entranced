@@ -11,17 +11,18 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.function.Supplier;
 
-public final class ImperishableBlacklists {
+public enum ImperishableBlacklists {
 
-    private ImperishableBlacklists() {}
+    // This is an enum.
+    INSTANCE;
 
-    private static final Set<Item> globalBlacklist = new HashSet<>();
-    private static final Multimap<ProtectionType, Item> blacklists = MultimapBuilder.enumKeys(ProtectionType.class).hashSetValues().build();
+    private final Set<Item> globalBlacklist = new HashSet<>();
+    private final Multimap<ProtectionType, Item> blacklists = MultimapBuilder.enumKeys(ProtectionType.class).hashSetValues().build();
 
     /**
      * Produces Item blacklists from the Item ID String blacklists in the {@link EntrancedConfig}.
      */
-    public static void updateBlacklists() {
+    public void updateBlacklists() {
         globalBlacklist.clear();
 
         for (String itemId : Entranced.getConfig().getImperishableGlobalBlacklist()) {
@@ -40,14 +41,14 @@ public final class ImperishableBlacklists {
     /**
      * @return True if the item is on the global blacklist, otherwise, returns false.
      */
-    public static boolean isItemBlacklistedGlobally(Item item) {
+    public boolean isItemBlacklistedGlobally(Item item) {
         return globalBlacklist.contains(item);
     }
 
     /**
-     * Convenience method for {@link #isItemBlacklistedGlobally}
+     * Convenience method for {@link #isItemBlacklistedGlobally(Item item)}
      */
-    public static boolean isItemBlacklistedGlobally(ItemStack stack) {
+    public boolean isItemBlacklistedGlobally(ItemStack stack) {
         return isItemBlacklistedGlobally(stack.getItem());
     }
 
@@ -55,7 +56,7 @@ public final class ImperishableBlacklists {
      * @return True if an item is on the global blacklist or the blacklist
      * for the specified {@link ProtectionType}. Otherwise, returns false.
      */
-    private static boolean isItemBlacklisted(Item item, ProtectionType protectionType) {
+    private boolean isItemBlacklisted(Item item, ProtectionType protectionType) {
         if (isItemBlacklistedGlobally(item)) {
             return true;
         } else {
@@ -67,14 +68,14 @@ public final class ImperishableBlacklists {
      * @return True if the specified item is not blacklisted and Imperishable is set
      * to protect from the specified {@link ProtectionType}. Otherwise, returns false.
      */
-    public static boolean isItemProtected(Item item, ProtectionType protectionType) {
+    public boolean isItemProtected(Item item, ProtectionType protectionType) {
         return protectionType.PROTECTION_ENABLED && !isItemBlacklisted(item, protectionType);
     }
 
     /**
-     * Convenience method for {@link #isItemProtected}.
+     * Convenience method for {@link #isItemProtected(Item item, ProtectionType protectionType)}.
      */
-    public static boolean isItemProtected(ItemStack stack, ProtectionType protectionType) {
+    public boolean isItemProtected(ItemStack stack, ProtectionType protectionType) {
         return isItemProtected(stack.getItem(), protectionType);
     }
 

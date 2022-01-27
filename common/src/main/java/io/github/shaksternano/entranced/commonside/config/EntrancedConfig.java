@@ -458,7 +458,7 @@ public final class EntrancedConfig implements ConfigData {
      * Updates {@link Set}s that are filled with objects corresponding to {@link String} IDs in the config.
      */
     public static void updateSets() {
-        InfinityBucketWhitelists.updateWhitelists();
-        ImperishableBlacklists.updateBlacklists();
+        InfinityBucketWhitelists.INSTANCE.updateWhitelists();
+        ImperishableBlacklists.INSTANCE.updateBlacklists();
     }
 }
