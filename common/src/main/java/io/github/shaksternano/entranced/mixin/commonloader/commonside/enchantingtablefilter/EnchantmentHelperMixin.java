@@ -1,7 +1,7 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantingtablefilter;
 
 import io.github.shaksternano.entranced.commonside.access.ExtraArgument;
-import io.github.shaksternano.entranced.commonside.config.EnchantingCatalystSets;
+import io.github.shaksternano.entranced.commonside.config.EnchantingCatalystConfig;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -28,8 +28,8 @@ abstract class EnchantmentHelperMixin {
 
     @Redirect(method = "getPossibleEntries", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/Enchantment;isAvailableForRandomSelection()Z"))
     private static boolean entranced$filterEnchantment(Enchantment enchantment, int power, ItemStack stack) {
-        EnchantingCatalystSets.EnchantingCatalystType usedCatalystType = ((ExtraArgument) (Object) stack).entranced$getCatalystType();
-        boolean filteredEnchantment = usedCatalystType == EnchantingCatalystSets.EnchantingCatalystType.OFFENSIVE && !entranced$offensiveEnchantments.contains(enchantment);
+        EnchantingCatalystConfig.EnchantingCatalystType usedCatalystType = ((ExtraArgument) (Object) stack).entranced$getCatalystType();
+        boolean filteredEnchantment = usedCatalystType == EnchantingCatalystConfig.EnchantingCatalystType.OFFENSIVE && !entranced$offensiveEnchantments.contains(enchantment);
 
         return enchantment.isAvailableForRandomSelection() && !filteredEnchantment;
     }

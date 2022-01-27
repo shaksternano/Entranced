@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import io.github.shaksternano.entranced.commonside.access.EnchantingCatalystHolder;
 import io.github.shaksternano.entranced.commonside.access.EnchantmentScreenHandlerAccess;
 import io.github.shaksternano.entranced.commonside.access.ExtraArgument;
-import io.github.shaksternano.entranced.commonside.config.EnchantingCatalystSets;
+import io.github.shaksternano.entranced.commonside.config.EnchantingCatalystConfig;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -51,7 +51,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     private ItemStack entranced$setUsedEnchantingCatalyst(ItemStack toEnchant) {
         if (!entranced$currentPlayer.world.isClient) {
             if (((EnchantingCatalystHolder) entranced$currentPlayer).entranced$getEnchantingCatalyst() != null) {
-                ((ExtraArgument) (Object) toEnchant).entranced$setCatalystType(EnchantingCatalystSets.EnchantingCatalystType.OFFENSIVE);
+                ((ExtraArgument) (Object) toEnchant).entranced$setCatalystType(EnchantingCatalystConfig.EnchantingCatalystType.OFFENSIVE);
             }
         }
 

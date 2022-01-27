@@ -26,15 +26,15 @@ public final class InfinityBucketWhitelists {
         itemWhitelist.clear();
 
         for (String fluidId : Entranced.getConfig().getInfinityFluidWhitelist()) {
-            CollectionUtil.addFluidToSet(fluidId, fluidWhitelist);
+            CollectionUtil.addFluidToCollection(fluidId, fluidWhitelist);
         }
 
         for (String blockId : Entranced.getConfig().getInfinityBlockWhitelist()) {
-            CollectionUtil.addBlockToSet(blockId, blockWhitelist);
+            CollectionUtil.addBlockToCollection(blockId, blockWhitelist);
         }
 
         for (String itemId : Entranced.getConfig().getInfinityItemWhitelist()) {
-            CollectionUtil.addItemToSet(itemId, itemWhitelist);
+            CollectionUtil.addItemToCollection(itemId, itemWhitelist);
         }
     }
 

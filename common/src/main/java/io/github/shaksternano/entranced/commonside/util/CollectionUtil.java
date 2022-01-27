@@ -32,35 +32,39 @@ public final class CollectionUtil {
     }
 
     /**
-     * Adds the {@link Item} with the corresponding item ID to the set.
+     * Adds the {@link Item} with the corresponding item ID to the collection.
      */
-    public static void addItemToSet(String itemID, Set<Item> itemSet) {
-        addToSet(itemID, itemSet, Registry.ITEM, Items.AIR, "item");
+    public static void addItemToCollection(String itemID, Collection<Item> itemCollection) {
+        addToCollection(itemID, itemCollection, Registry.ITEM, Items.AIR, "item");
     }
 
     /**
-     * Adds the {@link Block} with the corresponding block ID to the set.
+     * Adds the {@link Block} with the corresponding block ID to the collection.
      */
-    public static void addBlockToSet(String blockID, Set<Block> blockSet) {
-        addToSet(blockID, blockSet, Registry.BLOCK, Blocks.AIR, "block");
+    public static void addBlockToCollection(String blockID, Collection<Block> blockCollection) {
+        addToCollection(blockID, blockCollection, Registry.BLOCK, Blocks.AIR, "block");
     }
 
     /**
-     * Adds the {@link Fluid} with the corresponding fluid ID to the set.
+     * Adds the {@link Fluid} with the corresponding fluid ID to the collection.
      */
-    public static void addFluidToSet(String fluidId, Set<Fluid> fluidSet) {
-        addToSet(fluidId, fluidSet, Registry.FLUID, Fluids.EMPTY, "fluid");
+    public static void addFluidToCollection(String fluidId, Collection<Fluid> fluidCollection) {
+        addToCollection(fluidId, fluidCollection, Registry.FLUID, Fluids.EMPTY, "fluid");
     }
 
     /**
-     * Adds the registered object with the corresponding ID to the set.
+     * Adds the registered object with the corresponding ID to the collection.
      */
-    private static <V> void addToSet(String id, Set<V> set, Registry<V> registry, @Nullable V defaultEntry, String idType) {
+    private static <V> void addToCollection(String id, Collection<V> collection, Registry<V> registry, @Nullable V defaultEntry, String idType) {
         try {
             V v = registry.get(new Identifier(id));
             // If the ID isn't valid then t will be the default entry.
             if (v != null && !v.equals(defaultEntry)) {
-                set.add(v);
+                try {
+                    collection.add(v);
+                } catch (Exception e) {
+                    Entranced.LOGGER.warn("Could not add an element to the Collection passed to io.github.shaksternano.entranced.commonside.util.CollectionUtil#addToCollection due to:\n" + e);
+                }
             } else {
                 notifyInvalidId(id, idType);
             }

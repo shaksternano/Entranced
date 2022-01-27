@@ -1,5 +1,7 @@
 package io.github.shaksternano.entranced.commonside.config;
 
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.util.CollectionUtil;
 import net.minecraft.item.Item;
@@ -14,20 +16,7 @@ public final class ImperishableBlacklists {
     private ImperishableBlacklists() {}
 
     private static final Set<Item> globalBlacklist = new HashSet<>();
-    private static final Map<ProtectionType, Set<Item>> blacklists = CollectionUtil.initEnumSetMap(ProtectionType.class, ProtectionType.values());
-
-    /**
-     * Creates a blacklist for every {@link ProtectionType}.
-     */
-    private static Map<ProtectionType, Set<Item>> initBlacklistsMap() {
-        Map<ProtectionType, Set<Item>> blacklists = new HashMap<>();
-
-        for (ProtectionType protectionType : ProtectionType.values()) {
-            blacklists.put(protectionType, new HashSet<>());
-        }
-
-        return blacklists;
-    }
+    private static final Multimap<ProtectionType, Item> blacklists = MultimapBuilder.enumKeys(ProtectionType.class).hashSetValues().build();
 
     /**
      * Produces Item blacklists from the Item ID String blacklists in the {@link EntrancedConfig}.
@@ -36,17 +25,14 @@ public final class ImperishableBlacklists {
         globalBlacklist.clear();
 
         for (String itemId : Entranced.getConfig().getImperishableGlobalBlacklist()) {
-            CollectionUtil.addItemToSet(itemId, globalBlacklist);
+            CollectionUtil.addItemToCollection(itemId, globalBlacklist);
         }
 
-        for (Map.Entry<ProtectionType, Set<Item>> entry : blacklists.entrySet()) {
-            ProtectionType protectionType = entry.getKey();
-            Set<Item> blacklist = entry.getValue();
+        blacklists.clear();
 
-            blacklist.clear();
-
+        for (ProtectionType protectionType : ProtectionType.values()) {
             for (String itemId : protectionType.ITEM_ID_BLACKLIST_GETTER.get()) {
-                CollectionUtil.addItemToSet(itemId, blacklist);
+                CollectionUtil.addItemToCollection(itemId, blacklists.get(protectionType));
             }
         }
     }
@@ -59,7 +45,7 @@ public final class ImperishableBlacklists {
     }
 
     /**
-     * Convenience method for {@link ImperishableBlacklists#isItemBlacklistedGlobally(Item)}
+     * Convenience method for {@link #isItemBlacklistedGlobally}
      */
     public static boolean isItemBlacklistedGlobally(ItemStack stack) {
         return isItemBlacklistedGlobally(stack.getItem());
@@ -73,12 +59,7 @@ public final class ImperishableBlacklists {
         if (isItemBlacklistedGlobally(item)) {
             return true;
         } else {
-            Set<Item> blacklist = blacklists.get(protectionType);
-            if (blacklist != null) {
-                return blacklist.contains(item);
-            }
-
-            return false;
+            return blacklists.containsEntry(protectionType, item);
         }
     }
 
@@ -91,7 +72,7 @@ public final class ImperishableBlacklists {
     }
 
     /**
-     * Convenience method for {@link ImperishableBlacklists#isItemProtected(Item, ProtectionType)}.
+     * Convenience method for {@link #isItemProtected}.
      */
     public static boolean isItemProtected(ItemStack stack, ProtectionType protectionType) {
         return isItemProtected(stack.getItem(), protectionType);

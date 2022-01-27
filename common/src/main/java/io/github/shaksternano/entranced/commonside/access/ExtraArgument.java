@@ -1,6 +1,6 @@
 package io.github.shaksternano.entranced.commonside.access;
 
-import io.github.shaksternano.entranced.commonside.config.EnchantingCatalystSets;
+import io.github.shaksternano.entranced.commonside.config.EnchantingCatalystConfig;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,9 +16,9 @@ public interface ExtraArgument {
     }
 
     @Nullable
-    default EnchantingCatalystSets.EnchantingCatalystType entranced$getCatalystType() {
+    default EnchantingCatalystConfig.EnchantingCatalystType entranced$getCatalystType() {
         return null;
     }
 
-    default void entranced$setCatalystType(EnchantingCatalystSets.EnchantingCatalystType catalystType) {}
+    default void entranced$setCatalystType(EnchantingCatalystConfig.EnchantingCatalystType catalystType) {}
 }
