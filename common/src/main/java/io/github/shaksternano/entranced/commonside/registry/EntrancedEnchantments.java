@@ -30,7 +30,7 @@ public final class EntrancedEnchantments {
      */
     public static void registerEnchantments() {
         for (ConfigurableEnchantment enchantment : enchantmentsToRegister) {
-            enchantments.register(enchantment.getId(), () -> enchantment);
+            enchantments.register(enchantment.getPath(), () -> enchantment);
         }
 
         enchantments.register();

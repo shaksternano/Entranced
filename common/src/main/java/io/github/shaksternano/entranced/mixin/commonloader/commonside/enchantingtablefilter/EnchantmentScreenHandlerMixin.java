@@ -2,9 +2,9 @@ package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantin
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import io.github.shaksternano.entranced.commonside.Entranced;
-import io.github.shaksternano.entranced.commonside.access.EnchantingCatalystHolder;
-import io.github.shaksternano.entranced.commonside.access.EnchantmentScreenHandlerAccess;
-import io.github.shaksternano.entranced.commonside.access.ExtraArgument;
+import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.EnchantingCatalystTypeHolder;
+import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.EnchantmentScreenHandlerAccess;
+import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.ExtraEnchantingCatalystTypeArgument;
 import io.github.shaksternano.entranced.commonside.config.EnchantingCatalystConfig;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -23,6 +23,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EnchantmentScreenHandler.class)
 abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements EnchantmentScreenHandlerAccess {
@@ -52,28 +53,48 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
 
     @SuppressWarnings("unused")
     @ModifyExpressionValue(method = "onContentChanged", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;getStack(I)Lnet/minecraft/item/ItemStack;"))
-    private ItemStack entranced$setUsedEnchantingCatalyst(ItemStack toEnchant) {
-        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
-            if (!entranced$currentPlayer.getWorld().isClient()) {
-                if (((EnchantingCatalystHolder) entranced$currentPlayer).entranced$getEnchantingCatalyst() != null) {
-                    ((ExtraArgument) (Object) toEnchant).entranced$setCatalystType(EnchantingCatalystConfig.EnchantingCatalystType.MELEE);
+    private ItemStack entranced$setUsedEnchantingCatalyst(ItemStack toEnchantStack) {
+        if (!entranced$currentPlayer.getWorld().isClient()) {
+            if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+                EnchantingCatalystConfig.EnchantingCatalystType catalystType = ((EnchantingCatalystTypeHolder) entranced$currentPlayer).entranced$getEnchantingCatalystType();
+
+                if (catalystType != null) {
+                    ((ExtraEnchantingCatalystTypeArgument) (Object) toEnchantStack).entranced$setArgument(catalystType);
                 }
             }
         }
 
-        return toEnchant;
+        return toEnchantStack;
+    }
+
+    @Inject(method = "onButtonClick", at = @At("HEAD"))
+    private void resetEnchantingCatalyst(PlayerEntity player, int id, CallbackInfoReturnable<Boolean> cir) {
+        ((EnchantingCatalystTypeHolder) player).entranced$setEnchantingCatalystType(null);
     }
 
     @Unique
     @Override
     public void entranced$setEnchantingCatalyst() {
-        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
-            if (!entranced$currentPlayer.getWorld().isClient()) {
+        if (!entranced$currentPlayer.getWorld().isClient()) {
+            if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
                 ItemStack enchantingCatalystStack = inventory.getStack(entranced$catalystInventoryIndex);
+
                 if (!enchantingCatalystStack.isEmpty()) {
-                    ((EnchantingCatalystHolder) entranced$currentPlayer).entranced$setEnchantingCatalyst(enchantingCatalystStack.getItem());
-                    enchantingCatalystStack.decrement(1);
-                    onContentChanged(inventory);
+                    EnchantingCatalystConfig.EnchantingCatalyst catalyst = EnchantingCatalystConfig.INSTANCE.getCatalystType(enchantingCatalystStack.getItem());
+
+                    if (catalyst != null) {
+                        EnchantingCatalystTypeHolder catalystTypeHolder = (EnchantingCatalystTypeHolder) entranced$currentPlayer;
+
+                        if (catalyst.catalystType() != catalystTypeHolder.entranced$getEnchantingCatalystType()) {
+                            catalystTypeHolder.entranced$setEnchantingCatalystType(catalyst.catalystType());
+
+                            if (catalyst.catalystConsumed()) {
+                                enchantingCatalystStack.decrement(1);
+                            }
+
+                            onContentChanged(inventory);
+                        }
+                    }
                 }
             }
         }

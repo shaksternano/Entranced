@@ -40,7 +40,7 @@ public final class AutoswingEnchantment extends ConfigurableEnchantment {
     }
 
     @Override
-    public @NotNull String getId() {
+    public @NotNull String getPath() {
         return "autoswing";
     }
 }

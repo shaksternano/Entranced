@@ -48,7 +48,7 @@ public final class MlgEnchantment extends ConfigurableEnchantment {
     }
 
     @Override
-    public @NotNull String getId() {
+    public @NotNull String getPath() {
         return "mlg";
     }
 }

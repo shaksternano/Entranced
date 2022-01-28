@@ -1,6 +1,6 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantment.infinity.bucket;
 
-import io.github.shaksternano.entranced.commonside.access.ExtraArgument;
+import io.github.shaksternano.entranced.commonside.access.enchantment.infinity.bucket.ExtraItemStackArgument;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemUsageContext.class)
-abstract class ItemUsageContextMixin implements ExtraArgument {
+abstract class ItemUsageContextMixin implements ExtraItemStackArgument {
 
     @Unique
     @Nullable
@@ -40,7 +40,7 @@ abstract class ItemUsageContextMixin implements ExtraArgument {
     @Unique
     @Nullable
     @Override
-    public ItemStack entranced$getItemStackArgument() {
+    public ItemStack entranced$getArgument() {
         return entranced$infinityPowderSnowBucketStack;
     }
 }

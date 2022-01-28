@@ -1,5 +1,6 @@
 package io.github.shaksternano.entranced.commonside.enchantment;
 
+import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -49,5 +50,9 @@ public abstract class ConfigurableEnchantment extends Enchantment {
     protected abstract int maxPowerAboveMin();
 
     @NotNull
-    public abstract String getId();
+    public abstract String getPath();
+
+    public String getId() {
+        return Entranced.MOD_ID + ":" + getPath();
+    }
 }

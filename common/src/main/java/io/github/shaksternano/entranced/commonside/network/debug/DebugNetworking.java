@@ -53,7 +53,7 @@ public final class DebugNetworking {
                                         Identifier enchantmentId = EnchantmentHelper.getIdFromNbt(enchantmentNbtList.getCompound(index));
                                         if (enchantmentId != null) {
                                             if (enchantmentId.getNamespace().equals(Entranced.MOD_ID)) {
-                                                if (enchantmentId.getPath().equals(EntrancedEnchantments.IMPERISHABLE.getId())) {
+                                                if (enchantmentId.getPath().equals(EntrancedEnchantments.IMPERISHABLE.getPath())) {
                                                     enchantmentNbtList.remove(index);
                                                     removed = true;
                                                 }

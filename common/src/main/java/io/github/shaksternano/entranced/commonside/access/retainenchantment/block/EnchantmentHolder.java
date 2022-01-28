@@ -1,4 +1,4 @@
-package io.github.shaksternano.entranced.commonside.access;
+package io.github.shaksternano.entranced.commonside.access.retainenchantment.block;
 
 import net.minecraft.nbt.NbtElement;
 

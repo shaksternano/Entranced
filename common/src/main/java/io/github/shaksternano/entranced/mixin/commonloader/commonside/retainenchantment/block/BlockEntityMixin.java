@@ -1,7 +1,7 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.retainenchantment.block;
 
 import io.github.shaksternano.entranced.commonside.Entranced;
-import io.github.shaksternano.entranced.commonside.access.EnchantmentHolder;
+import io.github.shaksternano.entranced.commonside.access.retainenchantment.block.EnchantmentHolder;
 import io.github.shaksternano.entranced.commonside.util.BlockEntityUtil;
 import io.github.shaksternano.entranced.mixin.commonloader.commonside.accessor.ItemStackAccessor;
 import net.minecraft.block.entity.BlockEntity;

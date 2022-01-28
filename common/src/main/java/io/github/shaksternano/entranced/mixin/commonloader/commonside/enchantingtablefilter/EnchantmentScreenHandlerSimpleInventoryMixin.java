@@ -1,7 +1,7 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantingtablefilter;
 
 import io.github.shaksternano.entranced.commonside.Entranced;
-import io.github.shaksternano.entranced.commonside.access.EnchantmentScreenHandlerAccess;
+import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.EnchantmentScreenHandlerAccess;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.screen.EnchantmentScreenHandler;
 import org.spongepowered.asm.mixin.Mixin;

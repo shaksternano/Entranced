@@ -5,9 +5,16 @@ import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.util.CollectionUtil;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.InvalidIdentifierException;
+import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public enum EnchantingCatalystConfig {
@@ -16,13 +23,11 @@ public enum EnchantingCatalystConfig {
     INSTANCE;
 
     private final Multimap<EnchantingCatalystType, Enchantment> catalystAffectedEnchantments = CollectionUtil.createEnumSetMultimap(EnchantingCatalystType.class);
-    private final Multimap<EnchantingCatalystType, Item> catalystConsumableItems = CollectionUtil.createEnumSetMultimap(EnchantingCatalystType.class);
-    private final Multimap<EnchantingCatalystType, Item> catalystUnconsumableItems = CollectionUtil.createEnumSetMultimap(EnchantingCatalystType.class);
+    private final Map<Item, EnchantingCatalyst> catalystItems = new HashMap<>();
 
     public void updateCatalystConfigCollections() {
         catalystAffectedEnchantments.clear();
-        catalystConsumableItems.clear();
-        catalystUnconsumableItems.clear();
+        catalystItems.clear();
 
         for (EnchantingCatalystType catalystType : EnchantingCatalystType.values()) {
             for (String enchantmentId : catalystType.AFFECTED_ENCHANTMENTS_LIST_GETTER.get()) {
@@ -30,12 +35,26 @@ public enum EnchantingCatalystConfig {
             }
 
             for (String itemId : catalystType.CATALYST_CONSUMABLE_ITEMS_LIST_GETTER.get()) {
-                CollectionUtil.addItemToCollection(itemId, catalystConsumableItems.get(catalystType));
+                addCatalystItem(itemId, catalystType, true);
             }
 
             for (String itemId : catalystType.CATALYST_UNCONSUMABLE_ITEMS_LIST_GETTER.get()) {
-                CollectionUtil.addItemToCollection(itemId, catalystUnconsumableItems.get(catalystType));
+                addCatalystItem(itemId, catalystType, false);
             }
+        }
+    }
+
+    private void addCatalystItem(String itemId, EnchantingCatalystType catalystType, boolean consumable) {
+        try {
+            Item item = Registry.ITEM.get(new Identifier(itemId));
+
+            if (!item.equals(Items.AIR)) {
+                catalystItems.put(item, new EnchantingCatalyst(catalystType, consumable));
+            } else {
+                CollectionUtil.notifyInvalidId(itemId, "item");
+            }
+        } catch (InvalidIdentifierException e) {
+            CollectionUtil.notifyInvalidId(itemId, "item");
         }
     }
 
@@ -43,12 +62,9 @@ public enum EnchantingCatalystConfig {
         return catalystAffectedEnchantments.containsEntry(catalystType, enchantment);
     }
 
-    public boolean isCatalystConsumable(EnchantingCatalystType catalystType, Item item) {
-        return catalystConsumableItems.containsEntry(catalystType, item);
-    }
-
-    public boolean isCatalystUnconsumable(EnchantingCatalystType catalystType, Item item) {
-        return catalystUnconsumableItems.containsEntry(catalystType, item);
+    @Nullable
+    public EnchantingCatalyst getCatalystType(Item item) {
+        return catalystItems.get(item);
     }
 
     public enum EnchantingCatalystType {
@@ -73,4 +89,6 @@ public enum EnchantingCatalystConfig {
             CATALYST_UNCONSUMABLE_ITEMS_LIST_GETTER = catalystUnconsumableItemsListGetter;
         }
     }
+
+    public record EnchantingCatalyst(@NotNull EnchantingCatalystType catalystType, boolean catalystConsumed) {}
 }

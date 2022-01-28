@@ -59,7 +59,7 @@ public final class ImperishableEnchantment extends ConfigurableEnchantment {
     }
 
     @Override
-    public @NotNull String getId() {
+    public @NotNull String getPath() {
         return "imperishable";
     }
 

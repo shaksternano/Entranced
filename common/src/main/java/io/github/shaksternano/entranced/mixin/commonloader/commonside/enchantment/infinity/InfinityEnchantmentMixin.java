@@ -5,6 +5,7 @@ import io.github.shaksternano.entranced.commonside.config.InfinityBucketWhitelis
 import io.github.shaksternano.entranced.mixin.commonloader.commonside.accessor.BucketItemAccessor;
 import io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantment.EnchantmentMixin;
 import net.minecraft.enchantment.InfinityEnchantment;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MilkBucketItem;
@@ -25,8 +26,10 @@ abstract class InfinityEnchantmentMixin extends EnchantmentMixin {
             Item item = stack.getItem();
 
             if (item instanceof BucketItemAccessor bucketItem) {
-                if (InfinityBucketWhitelists.INSTANCE.isFluidWhitelisted(bucketItem.entranced$getFluid())) {
-                    cir.setReturnValue(true);
+                if (!bucketItem.entranced$getFluid().equals(Fluids.EMPTY)) {
+                    if (InfinityBucketWhitelists.INSTANCE.isFluidWhitelisted(bucketItem.entranced$getFluid())) {
+                        cir.setReturnValue(true);
+                    }
                 }
             } else if (item instanceof PowderSnowBucketItem powderSnowBucketItem) {
                 if (InfinityBucketWhitelists.INSTANCE.isBlockWhitelisted(powderSnowBucketItem.getBlock())) {

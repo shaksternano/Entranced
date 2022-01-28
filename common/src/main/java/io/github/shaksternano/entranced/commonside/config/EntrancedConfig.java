@@ -289,8 +289,8 @@ public final class EntrancedConfig implements ConfigData {
 
                     "minecraft:impaling",
 
-                    Entranced.MOD_ID + ":" + EntrancedEnchantments.AUTOSWING.getId(),
-                    Entranced.MOD_ID + ":" + EntrancedEnchantments.FRENZY.getId()
+                    EntrancedEnchantments.AUTOSWING.getId(),
+                    EntrancedEnchantments.FRENZY.getId()
             );
 
             setDefaultCollectionValues(rangedCatalyst.affectedEnchantments,
@@ -337,13 +337,21 @@ public final class EntrancedConfig implements ConfigData {
                     "minecraft:luck_of_the_sea",
                     "minecraft:lure",
 
-                    Entranced.MOD_ID + ":" + EntrancedEnchantments.IMPERISHABLE.getId(),
-                    Entranced.MOD_ID + ":" + EntrancedEnchantments.MLG.getId()
+                    EntrancedEnchantments.IMPERISHABLE.getId(),
+                    EntrancedEnchantments.MLG.getId()
             );
 
             setDefaultCollectionValues(miscCatalyst.affectedEnchantments,
                     "minecraft:vanishing_curse",
                     "minecraft:binding_curse"
+            );
+
+            setDefaultCollectionValues(meleeCatalyst.consumableItems,
+                    "minecraft:blaze_powder"
+            );
+
+            setDefaultCollectionValues(meleeCatalyst.unconsumableItems,
+                    "minecraft:enchanted_golden_apple"
             );
 
             configHolder.save();
@@ -353,13 +361,12 @@ public final class EntrancedConfig implements ConfigData {
         }
     }
 
-    @SafeVarargs
-    private static <E> void setDefaultCollectionValues(Collection<E> collection, E... elements) {
+    private static void setDefaultCollectionValues(Collection<String> collection, String... elements) {
         try {
             collection.clear();
             collection.addAll(List.of(elements));
         } catch (Exception e) {
-            Entranced.LOGGER.warn("Could not add elements to the collection");
+            Entranced.LOGGER.warn("Could not add elements to the collection!");
             e.printStackTrace();
         }
     }

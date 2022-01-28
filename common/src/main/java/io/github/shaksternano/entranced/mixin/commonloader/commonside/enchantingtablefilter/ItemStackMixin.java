@@ -1,6 +1,6 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantingtablefilter;
 
-import io.github.shaksternano.entranced.commonside.access.ExtraArgument;
+import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.ExtraEnchantingCatalystTypeArgument;
 import io.github.shaksternano.entranced.commonside.config.EnchantingCatalystConfig;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Unique;
 
 @SuppressWarnings("unused")
 @Mixin(ItemStack.class)
-abstract class ItemStackMixin implements ExtraArgument {
+abstract class ItemStackMixin implements ExtraEnchantingCatalystTypeArgument {
 
     @Unique
     @Nullable
@@ -18,13 +18,13 @@ abstract class ItemStackMixin implements ExtraArgument {
     @Unique
     @Nullable
     @Override
-    public EnchantingCatalystConfig.EnchantingCatalystType entranced$getCatalystType() {
+    public EnchantingCatalystConfig.EnchantingCatalystType entranced$getArgument() {
         return entranced$catalystType;
     }
 
     @Unique
     @Override
-    public void entranced$setCatalystType(EnchantingCatalystConfig.EnchantingCatalystType catalystType) {
+    public void entranced$setArgument(@Nullable EnchantingCatalystConfig.EnchantingCatalystType catalystType) {
         entranced$catalystType = catalystType;
     }
 }

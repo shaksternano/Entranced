@@ -1,7 +1,6 @@
 package io.github.shaksternano.entranced.commonside.config;
 
 import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.util.CollectionUtil;
 import net.minecraft.item.Item;

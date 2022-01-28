@@ -2,7 +2,7 @@ package io.github.shaksternano.entranced.commonside.network.enchantingtablefilte
 
 import dev.architectury.networking.NetworkManager;
 import io.github.shaksternano.entranced.commonside.Entranced;
-import io.github.shaksternano.entranced.commonside.access.EnchantmentScreenHandlerAccess;
+import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.EnchantmentScreenHandlerAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.EnchantmentScreenHandler;
 import net.minecraft.screen.ScreenHandler;
@@ -22,12 +22,14 @@ public final class EnchantingScreenNetworking {
             PlayerEntity player = context.getPlayer();
 
             context.queue(() -> {
-                ScreenHandler screenHandler = player.currentScreenHandler;
+                if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+                    ScreenHandler screenHandler = player.currentScreenHandler;
 
-                if (screenHandler instanceof EnchantmentScreenHandler) {
-                    ((EnchantmentScreenHandlerAccess) screenHandler).entranced$setEnchantingCatalyst();
-                } else {
-                    Entranced.LOGGER.warn("Received an apply enchanting catalyst packet when not using an enchanting table, this shouldn't happen!");
+                    if (screenHandler instanceof EnchantmentScreenHandler) {
+                        ((EnchantmentScreenHandlerAccess) screenHandler).entranced$setEnchantingCatalyst();
+                    } else {
+                        Entranced.LOGGER.warn("Received an apply enchanting catalyst packet when not using an enchanting table, this shouldn't happen!");
+                    }
                 }
             });
         });

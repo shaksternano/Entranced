@@ -55,7 +55,7 @@ public final class CollectionUtil {
      */
     public static <E> void addToCollection(String id, Collection<E> collection, Registry<E> registry, @Nullable E defaultEntry, String idType) {
         if (defaultEntry == null && registry instanceof DefaultedRegistry<E>) {
-            Entranced.LOGGER.warn("Passed a null default entry when looking up an element in a DefaultedRegistry");
+            Entranced.LOGGER.warn("Passed a null default entry when looking up an element in a DefaultedRegistry!");
             Thread.dumpStack();
         }
 
@@ -66,7 +66,7 @@ public final class CollectionUtil {
                 try {
                     collection.add(element);
                 } catch (Exception e) {
-                    Entranced.LOGGER.warn("Could not add an element to the collection");
+                    Entranced.LOGGER.warn("Could not add an element to the collection!");
                     e.printStackTrace();
                 }
             } else {
@@ -80,7 +80,7 @@ public final class CollectionUtil {
     /**
      * Outputs and logs if there is an invalid {@link Identifier}.
      */
-    private static void notifyInvalidId(String id, String idType) {
+    public static void notifyInvalidId(String id, String idType) {
         Entranced.LOGGER.warn("\"" + id + "\" in the " + Entranced.MOD_ID + ".json5 config file is not a valid " + idType + " ID!");
     }
 }

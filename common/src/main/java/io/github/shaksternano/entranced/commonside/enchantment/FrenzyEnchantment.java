@@ -56,7 +56,7 @@ public final class FrenzyEnchantment extends ConfigurableEnchantment {
     }
 
     @Override
-    public @NotNull String getId() {
+    public @NotNull String getPath() {
         return "frenzy";
     }
 
