@@ -1,5 +1,6 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantingtablefilter;
 
+import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.access.EnchantmentScreenHandlerAccess;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.screen.EnchantmentScreenHandler;
@@ -17,7 +18,10 @@ abstract class EnchantmentScreenHandlerSimpleInventoryMixin {
      */
     @ModifyVariable(method = "<init>", at = @At("HEAD"), argsOnly = true)
     private static int entranced$increaseInventorySize(int size, EnchantmentScreenHandler enchantmentScreenHandler) {
-        ((EnchantmentScreenHandlerAccess) enchantmentScreenHandler).entranced$setCatalystInventoryIndex(size);
-        return ++size;
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+            ((EnchantmentScreenHandlerAccess) enchantmentScreenHandler).entranced$setCatalystInventoryIndex(size++);
+        }
+
+        return size;
     }
 }

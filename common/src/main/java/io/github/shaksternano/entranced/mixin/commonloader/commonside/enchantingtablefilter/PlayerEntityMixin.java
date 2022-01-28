@@ -1,5 +1,6 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantingtablefilter;
 
+import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.access.EnchantingCatalystHolder;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -25,17 +26,21 @@ abstract class PlayerEntityMixin implements EnchantingCatalystHolder {
 
     @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
     private void entranced$loadLastUsedEnchantingCatalyst(NbtCompound nbt, CallbackInfo ci) {
-        if (nbt.contains(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_KEY, 8)) {
-            Identifier itemId = new Identifier(nbt.getString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_KEY));
-            entranced$lastUsedEnchantingCatalyst = Registry.ITEM.get(itemId);
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+            if (nbt.contains(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_KEY, 8)) {
+                Identifier itemId = new Identifier(nbt.getString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_KEY));
+                entranced$lastUsedEnchantingCatalyst = Registry.ITEM.get(itemId);
+            }
         }
     }
 
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
     private void entranced$readLastUsedEnchantingCatalyst(NbtCompound nbt, CallbackInfo ci) {
-        if (entranced$lastUsedEnchantingCatalyst != null) {
-            Identifier itemId = Registry.ITEM.getId(entranced$lastUsedEnchantingCatalyst);
-            nbt.putString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_KEY, itemId.toString());
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+            if (entranced$lastUsedEnchantingCatalyst != null) {
+                Identifier itemId = Registry.ITEM.getId(entranced$lastUsedEnchantingCatalyst);
+                nbt.putString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_KEY, itemId.toString());
+            }
         }
     }
 

@@ -53,12 +53,11 @@ public final class Entranced {
         config = AutoConfig.getConfigHolder(EntrancedConfig.class).getConfig();
 
         if (createdNewConfigFile) {
-            config.getInfinityFluidWhitelist().add("minecraft:water");
-            configHolder.save();
+            config.initCollectionDefaultValues(configHolder);
         }
 
         configHolder.registerSaveListener((holder, config) -> {
-            EntrancedConfig.updateSets();
+            EntrancedConfig.updateConfigsCollections();
             return ActionResult.PASS;
         });
     }

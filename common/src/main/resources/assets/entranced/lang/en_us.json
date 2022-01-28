@@ -20,9 +20,6 @@
 
     "text.autoconfig.entranced.title": "Entranced Options",
 
-    "text.autoconfig.entranced.category.enchantment": "Enchantment Options",
-    "text.autoconfig.entranced.category.enchantingCatalyst": "Enchanting Catalyst Options",
-
     "text.autoconfig.entranced.option.autoswing": "Autoswing enchantment",
     "text.autoconfig.entranced.option.autoswing.enabled": "Enabled",
     "text.autoconfig.entranced.option.autoswing.rarity": "Enchantment rarity",
@@ -75,6 +72,6 @@
     "text.autoconfig.entranced.option.mlg.minPower": "Minimum XP level required for enchanting table",
     "text.autoconfig.entranced.option.mlg.maxPowerAboveMin": "Maximum number of XP levels above minimum",
 
-    "text.autoconfig.entranced.option.blockEntitiesStoreEnchantments": "Block entities keep enchantments",
-    "text.autoconfig.entranced.option.retainEnchantmentsMoreOften": "Enchantments are kept more often"
+    "text.autoconfig.entranced.category.enchantment": "Enchantment Options",
+    "text.autoconfig.entranced.category.enchantingCatalyst": "Enchanting Catalyst Options"
 }

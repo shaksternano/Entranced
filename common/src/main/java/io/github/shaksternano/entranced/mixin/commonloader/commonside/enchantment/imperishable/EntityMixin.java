@@ -70,7 +70,7 @@ abstract class EntityMixin {
                             Double.NEGATIVE_INFINITY,
                             Double.NEGATIVE_INFINITY,
                             Double.POSITIVE_INFINITY,
-                            entity.world.getBottomY(),
+                            entity.getWorld().getBottomY(),
                             Double.POSITIVE_INFINITY
                     ));
 

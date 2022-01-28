@@ -32,7 +32,7 @@ public final class MlgEventHooks {
     public static void registerServerEventHooks() {
         // A filled bucket with the MLG enchantment in the player's inventory will automatically get put in the player's hand when falling from a height that would damage the player.
         TickEvent.PLAYER_POST.register(player -> {
-            if (!player.world.isClient) {
+            if (!player.getWorld().isClient()) {
                 if (EntrancedEnchantments.MLG.isEnabled()) {
                     if (!player.isCreative() && !player.isSpectator()) {
                         if (!player.isOnGround()) {
@@ -46,7 +46,7 @@ public final class MlgEventHooks {
 
                                     // Check for a fall that would damage the player.
                                     for (int fallDistance = 0; fallDistance <= player.getSafeFallDistance(); fallDistance++) {
-                                        Block block = player.world.getBlockState(player.getBlockPos().down(fallDistance)).getBlock();
+                                        Block block = player.getWorld().getBlockState(player.getBlockPos().down(fallDistance)).getBlock();
 
                                         if (((AbstractBlockAccessor) block).entranced$isCollidable()) {
                                             safeFall = true;

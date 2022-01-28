@@ -17,7 +17,7 @@ public enum ImperishableBlacklists {
     INSTANCE;
 
     private final Set<Item> globalBlacklist = new HashSet<>();
-    private final Multimap<ProtectionType, Item> blacklists = MultimapBuilder.enumKeys(ProtectionType.class).hashSetValues().build();
+    private final Multimap<ProtectionType, Item> blacklists = CollectionUtil.createEnumSetMultimap(ProtectionType.class);
 
     /**
      * Produces Item blacklists from the Item ID String blacklists in the {@link EntrancedConfig}.

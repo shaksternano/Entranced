@@ -1,15 +1,17 @@
 package io.github.shaksternano.entranced.commonside.config;
 
 import io.github.shaksternano.entranced.commonside.Entranced;
+import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 import net.minecraft.enchantment.Enchantment;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @SuppressWarnings({"CanBeFinal", "FieldCanBeLocal", "FieldMayBeFinal"})
 @Config(name = Entranced.MOD_ID)
@@ -41,7 +43,11 @@ public final class EntrancedConfig implements ConfigData {
 
     @ConfigEntry.Category("enchantingCatalyst")
     @ConfigEntry.Gui.CollapsibleObject
-    private final OffensiveCatalystCollapsible offensiveCatalyst = new OffensiveCatalystCollapsible();
+    private final MeleeCatalystCollapsible meleeCatalyst = new MeleeCatalystCollapsible();
+
+    @ConfigEntry.Category("enchantingCatalyst")
+    @ConfigEntry.Gui.CollapsibleObject
+    private final RangedCatalystCollapsible rangedCatalyst = new RangedCatalystCollapsible();
 
     @ConfigEntry.Category("enchantingCatalyst")
     @ConfigEntry.Gui.CollapsibleObject
@@ -49,7 +55,15 @@ public final class EntrancedConfig implements ConfigData {
 
     @ConfigEntry.Category("enchantingCatalyst")
     @ConfigEntry.Gui.CollapsibleObject
+    private final MagicCatalystCollapsible magicCatalyst = new MagicCatalystCollapsible();
+
+    @ConfigEntry.Category("enchantingCatalyst")
+    @ConfigEntry.Gui.CollapsibleObject
     private final UtilityCatalystCollapsible utilityCatalyst = new UtilityCatalystCollapsible();
+
+    @ConfigEntry.Category("enchantingCatalyst")
+    @ConfigEntry.Gui.CollapsibleObject
+    private final MiscCatalystCollapsible miscCatalyst = new MiscCatalystCollapsible();
 
     @ConfigEntry.Gui.Excluded
     @ConfigEntry.Category("enchantment")
@@ -66,7 +80,8 @@ public final class EntrancedConfig implements ConfigData {
     @Comment("Debug mode. Used for testing the mod.\nIt is recommended to leave this on the default value.\n\nDefault value is false.")
     private boolean debugMode = false;
 
-    private static class AutoSwingCollapsible {
+    private static final class AutoSwingCollapsible {
+
         @Comment("Is this enchantment enabled?\nMinecraft must be restarted for\nthis change to take full effect.\n\nDefault value is true.")
         private boolean enabled = true;
 
@@ -86,7 +101,7 @@ public final class EntrancedConfig implements ConfigData {
         private int maxPowerAboveMin = 50;
     }
 
-    private static class ImperishableCollapsible {
+    private static final class ImperishableCollapsible {
 
         @Comment("Is this enchantment enabled?\nMinecraft must be restarted for\nthis change to take full effect.\n\nDefault value is true.")
         private boolean enabled = true;
@@ -182,7 +197,7 @@ public final class EntrancedConfig implements ConfigData {
         private final List<String> itemWhitelist = new ArrayList<>();
     }
 
-    private static class MlgCollapsible {
+    private static final class MlgCollapsible {
 
         @Comment("Is this enchantment enabled?\nMinecraft must be restarted for\nthis change to take full effect.\n\nDefault value is true.")
         private boolean enabled = true;
@@ -203,7 +218,7 @@ public final class EntrancedConfig implements ConfigData {
         private int maxPowerAboveMin = 50;
     }
 
-    private static class OffensiveCatalystCollapsible {
+    private static final class MeleeCatalystCollapsible {
 
         private final List<String> affectedEnchantments = new ArrayList<>();
 
@@ -212,7 +227,7 @@ public final class EntrancedConfig implements ConfigData {
         private final List<String> unconsumableItems = new ArrayList<>();
     }
 
-    private static class DefensiveCatalystCollapsible {
+    private static final class RangedCatalystCollapsible {
 
         private final List<String> affectedEnchantments = new ArrayList<>();
 
@@ -221,13 +236,141 @@ public final class EntrancedConfig implements ConfigData {
         private final List<String> unconsumableItems = new ArrayList<>();
     }
 
-    private static class UtilityCatalystCollapsible {
+    private static final class DefensiveCatalystCollapsible {
 
         private final List<String> affectedEnchantments = new ArrayList<>();
 
         private final List<String> consumableItems = new ArrayList<>();
 
         private final List<String> unconsumableItems = new ArrayList<>();
+    }
+
+    private static final class MagicCatalystCollapsible {
+
+        private final List<String> affectedEnchantments = new ArrayList<>();
+
+        private final List<String> consumableItems = new ArrayList<>();
+
+        private final List<String> unconsumableItems = new ArrayList<>();
+    }
+
+    private static final class UtilityCatalystCollapsible {
+
+        private final List<String> affectedEnchantments = new ArrayList<>();
+
+        private final List<String> consumableItems = new ArrayList<>();
+
+        private final List<String> unconsumableItems = new ArrayList<>();
+    }
+
+    private static final class MiscCatalystCollapsible {
+
+        private final List<String> affectedEnchantments = new ArrayList<>();
+
+        private final List<String> consumableItems = new ArrayList<>();
+
+        private final List<String> unconsumableItems = new ArrayList<>();
+    }
+
+    public void initCollectionDefaultValues(ConfigHolder<EntrancedConfig> configHolder) {
+        if (configHolder.getConfig() == this) {
+            setDefaultCollectionValues(infinity.fluidWhitelist,
+                    "minecraft:water"
+            );
+
+            setDefaultCollectionValues(meleeCatalyst.affectedEnchantments,
+                    "minecraft:sharpness",
+                    "minecraft:smite",
+                    "minecraft:bane_of_arthropods",
+
+                    "minecraft:sweeping",
+                    "minecraft:knockback",
+                    "minecraft:fire_aspect",
+
+                    "minecraft:impaling",
+
+                    Entranced.MOD_ID + ":" + EntrancedEnchantments.AUTOSWING.getId(),
+                    Entranced.MOD_ID + ":" + EntrancedEnchantments.FRENZY.getId()
+            );
+
+            setDefaultCollectionValues(rangedCatalyst.affectedEnchantments,
+                    "minecraft:power",
+                    "minecraft:punch",
+                    "minecraft:infinity",
+                    "minecraft:flame",
+
+                    "minecraft:quick_charge",
+                    "minecraft:piercing",
+                    "minecraft:multishot",
+
+                    "minecraft:loyalty",
+                    "minecraft:channeling",
+                    "minecraft:riptide"
+            );
+
+            setDefaultCollectionValues(defensiveCatalyst.affectedEnchantments,
+                    "minecraft:protection",
+                    "minecraft:projectile_protection",
+                    "minecraft:fire_protection",
+                    "minecraft:blast_protection",
+
+                    "minecraft:feather_falling",
+                    "minecraft:thorns"
+            );
+
+            setDefaultCollectionValues(utilityCatalyst.affectedEnchantments,
+                    "minecraft:unbreaking",
+                    "minecraft:mending",
+
+                    "minecraft:efficiency",
+                    "minecraft:silk_touch",
+                    "minecraft:fortune",
+
+                    "minecraft:looting",
+
+                    "minecraft:aqua_affinity",
+                    "minecraft:depth_strider",
+                    "minecraft:frost_walker",
+                    "minecraft:respiration",
+                    "minecraft:soul_speed",
+
+                    "minecraft:luck_of_the_sea",
+                    "minecraft:lure",
+
+                    Entranced.MOD_ID + ":" + EntrancedEnchantments.IMPERISHABLE.getId(),
+                    Entranced.MOD_ID + ":" + EntrancedEnchantments.MLG.getId()
+            );
+
+            setDefaultCollectionValues(miscCatalyst.affectedEnchantments,
+                    "minecraft:vanishing_curse",
+                    "minecraft:binding_curse"
+            );
+
+            configHolder.save();
+        } else {
+            Entranced.LOGGER.warn("This config object does not match the config object in the config holder!");
+            Thread.dumpStack();
+        }
+    }
+
+    @SafeVarargs
+    private static <E> void setDefaultCollectionValues(Collection<E> collection, E... elements) {
+        try {
+            collection.clear();
+            collection.addAll(List.of(elements));
+        } catch (Exception e) {
+            Entranced.LOGGER.warn("Could not add elements to the collection");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Updates {@link Collection}s that are filled with objects corresponding to {@link String} IDs in the config.
+     */
+    public static void updateConfigsCollections() {
+        InfinityBucketWhitelists.INSTANCE.updateWhitelists();
+        ImperishableBlacklists.INSTANCE.updateBlacklists();
+        EnchantingCatalystConfig.INSTANCE.updateCatalystConfigCollections();
     }
 
     // Accessors
@@ -405,16 +548,28 @@ public final class EntrancedConfig implements ConfigData {
         return enchantingCatalystEnabled;
     }
 
-    public List<String> getOffensiveCatalystAffectedEnchantments() {
-        return offensiveCatalyst.affectedEnchantments;
+    public List<String> getMeleeCatalystAffectedEnchantments() {
+        return meleeCatalyst.affectedEnchantments;
     }
 
-    public List<String> getOffensiveCatalystConsumableItems() {
-        return offensiveCatalyst.consumableItems;
+    public List<String> getMeleeCatalystConsumableItems() {
+        return meleeCatalyst.consumableItems;
     }
 
-    public List<String> getOffensiveCatalystUnconsumableItems() {
-        return offensiveCatalyst.unconsumableItems;
+    public List<String> getMeleeCatalystUnconsumableItems() {
+        return meleeCatalyst.unconsumableItems;
+    }
+
+    public List<String> getRangedCatalystAffectedEnchantments() {
+        return rangedCatalyst.affectedEnchantments;
+    }
+
+    public List<String> getRangedCatalystConsumableItems() {
+        return rangedCatalyst.consumableItems;
+    }
+
+    public List<String> getRangedCatalystUnconsumableItems() {
+        return rangedCatalyst.unconsumableItems;
     }
 
     public List<String> getDefensiveCatalystAffectedEnchantments() {
@@ -429,6 +584,18 @@ public final class EntrancedConfig implements ConfigData {
         return defensiveCatalyst.unconsumableItems;
     }
 
+    public List<String> getMagicCatalystAffectedEnchantments() {
+        return magicCatalyst.affectedEnchantments;
+    }
+
+    public List<String> getMagicCatalystConsumableItems() {
+        return magicCatalyst.consumableItems;
+    }
+
+    public List<String> getMagicCatalystUnconsumableItems() {
+        return magicCatalyst.unconsumableItems;
+    }
+
     public List<String> getUtilityCatalystAffectedEnchantments() {
         return utilityCatalyst.affectedEnchantments;
     }
@@ -439,6 +606,18 @@ public final class EntrancedConfig implements ConfigData {
 
     public List<String> getUtilityCatalystUnconsumableItems() {
         return utilityCatalyst.unconsumableItems;
+    }
+
+    public List<String> getMiscCatalystAffectedEnchantments() {
+        return miscCatalyst.affectedEnchantments;
+    }
+
+    public List<String> getMiscCatalystConsumableItems() {
+        return miscCatalyst.consumableItems;
+    }
+
+    public List<String> getMiscCatalystUnconsumableItems() {
+        return miscCatalyst.unconsumableItems;
     }
 
     // Miscellaneous
@@ -452,13 +631,5 @@ public final class EntrancedConfig implements ConfigData {
 
     public boolean isDebugMode() {
         return debugMode;
-    }
-
-    /**
-     * Updates {@link Set}s that are filled with objects corresponding to {@link String} IDs in the config.
-     */
-    public static void updateSets() {
-        InfinityBucketWhitelists.INSTANCE.updateWhitelists();
-        ImperishableBlacklists.INSTANCE.updateBlacklists();
     }
 }

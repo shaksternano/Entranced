@@ -24,7 +24,7 @@ abstract class BlockItemMixin {
         if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity != null) {
-                if (world.isClient || !blockEntity.copyItemDataRequiresOperator() || player != null && player.isCreativeLevelTwoOp()) {
+                if (world.isClient() || !blockEntity.copyItemDataRequiresOperator() || player != null && player.isCreativeLevelTwoOp()) {
                     BlockEntityUtil.setBlockEntityEnchantments(blockEntity, stack);
                 } else {
                     cir.setReturnValue(false);
