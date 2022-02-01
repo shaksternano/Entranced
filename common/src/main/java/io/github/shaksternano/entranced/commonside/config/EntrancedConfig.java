@@ -366,7 +366,7 @@ public final class EntrancedConfig implements ConfigData {
             collection.clear();
             collection.addAll(List.of(elements));
         } catch (Exception e) {
-            Entranced.LOGGER.warn("Could not add elements to the collection!");
+            Entranced.LOGGER.warn("Error setting default collection values!");
             e.printStackTrace();
         }
     }

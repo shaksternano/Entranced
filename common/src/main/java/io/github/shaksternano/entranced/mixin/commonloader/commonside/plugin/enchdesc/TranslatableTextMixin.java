@@ -16,14 +16,14 @@ abstract class TranslatableTextMixin implements MutableText {
 
     @Shadow @Final private String key;
 
-    private static final Set<String> entranced$descriptionsToModify = Set.of(
+    private static final Set<String> ENTRANCED$DESCRIPTIONS_TO_MODIFY = Set.of(
             "enchantment.minecraft.infinity.desc"
     );
 
     @Inject(method = "<init>*", at = @At(value = "RETURN"))
     private void entranced$addExtraDescription(String string, CallbackInfo ci) {
         if (key != null) {
-            if (entranced$descriptionsToModify.contains(key)) {
+            if (ENTRANCED$DESCRIPTIONS_TO_MODIFY.contains(key)) {
                 append(new TranslatableText(key + ".entranced.extraDesc"));
             }
         }

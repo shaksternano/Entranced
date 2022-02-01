@@ -45,7 +45,24 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @Inject(method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V", at = @At("RETURN"))
     private void entranced$addSlot(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, CallbackInfo ci) {
         if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
-            addSlot(new Slot(inventory, entranced$catalystInventoryIndex, -10, 47));
+            addSlot(new Slot(inventory, entranced$catalystInventoryIndex, -10, 47) {
+
+                @Override
+                public ItemStack insertStack(ItemStack stack, int count) {
+                    if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+                        EnchantingCatalystConfig.EnchantingCatalystType catalystType = ((EnchantingCatalystTypeHolder) entranced$currentPlayer).entranced$getEnchantingCatalystType();
+                        ((ExtraEnchantingCatalystTypeArgument) (Object) stack).entranced$setArgument(catalystType);
+                    }
+
+                    return super.insertStack(stack, count);
+                }
+
+                @Override
+                public void onTakeItem(PlayerEntity player, ItemStack stack) {
+                    ((ExtraEnchantingCatalystTypeArgument) (Object) stack).entranced$setArgument(null);
+                    super.onTakeItem(player, stack);
+                }
+            });
         }
 
         entranced$currentPlayer = playerInventory.player;
@@ -54,14 +71,9 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @SuppressWarnings("unused")
     @ModifyExpressionValue(method = "onContentChanged", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;getStack(I)Lnet/minecraft/item/ItemStack;"))
     private ItemStack entranced$setUsedEnchantingCatalyst(ItemStack toEnchantStack) {
-        if (!entranced$currentPlayer.getWorld().isClient()) {
-            if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
-                EnchantingCatalystConfig.EnchantingCatalystType catalystType = ((EnchantingCatalystTypeHolder) entranced$currentPlayer).entranced$getEnchantingCatalystType();
-
-                if (catalystType != null) {
-                    ((ExtraEnchantingCatalystTypeArgument) (Object) toEnchantStack).entranced$setArgument(catalystType);
-                }
-            }
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+            EnchantingCatalystConfig.EnchantingCatalystType catalystType = ((EnchantingCatalystTypeHolder) entranced$currentPlayer).entranced$getEnchantingCatalystType();
+            ((ExtraEnchantingCatalystTypeArgument) (Object) toEnchantStack).entranced$setArgument(catalystType);
         }
 
         return toEnchantStack;
@@ -70,30 +82,29 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @Inject(method = "onButtonClick", at = @At("HEAD"))
     private void resetEnchantingCatalyst(PlayerEntity player, int id, CallbackInfoReturnable<Boolean> cir) {
         ((EnchantingCatalystTypeHolder) player).entranced$setEnchantingCatalystType(null);
+        ((ExtraEnchantingCatalystTypeArgument) (Object) inventory.getStack(0)).entranced$setArgument(null);
     }
 
     @Unique
     @Override
     public void entranced$setEnchantingCatalyst() {
-        if (!entranced$currentPlayer.getWorld().isClient()) {
-            if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
-                ItemStack enchantingCatalystStack = inventory.getStack(entranced$catalystInventoryIndex);
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+            ItemStack enchantingCatalystStack = inventory.getStack(entranced$catalystInventoryIndex);
 
-                if (!enchantingCatalystStack.isEmpty()) {
-                    EnchantingCatalystConfig.EnchantingCatalyst catalyst = EnchantingCatalystConfig.INSTANCE.getCatalystType(enchantingCatalystStack.getItem());
+            if (!enchantingCatalystStack.isEmpty()) {
+                EnchantingCatalystConfig.EnchantingCatalyst catalyst = EnchantingCatalystConfig.INSTANCE.getCatalystType(enchantingCatalystStack.getItem());
 
-                    if (catalyst != null) {
-                        EnchantingCatalystTypeHolder catalystTypeHolder = (EnchantingCatalystTypeHolder) entranced$currentPlayer;
+                if (catalyst != null) {
+                    EnchantingCatalystTypeHolder catalystTypeHolder = (EnchantingCatalystTypeHolder) entranced$currentPlayer;
 
-                        if (catalyst.catalystType() != catalystTypeHolder.entranced$getEnchantingCatalystType()) {
-                            catalystTypeHolder.entranced$setEnchantingCatalystType(catalyst.catalystType());
+                    if (catalyst.catalystType() != catalystTypeHolder.entranced$getEnchantingCatalystType()) {
+                        catalystTypeHolder.entranced$setEnchantingCatalystType(catalyst.catalystType());
 
-                            if (catalyst.catalystConsumed()) {
-                                enchantingCatalystStack.decrement(1);
-                            }
-
-                            onContentChanged(inventory);
+                        if (catalyst.catalystConsumed()) {
+                            enchantingCatalystStack.decrement(1);
                         }
+
+                        onContentChanged(inventory);
                     }
                 }
             }

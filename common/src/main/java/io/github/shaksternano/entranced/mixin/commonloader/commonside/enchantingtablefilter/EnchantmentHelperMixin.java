@@ -13,18 +13,16 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(EnchantmentHelper.class)
 abstract class EnchantmentHelperMixin {
 
-    @SuppressWarnings("ConstantConditions")
     @Redirect(method = "getPossibleEntries", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/Enchantment;isAvailableForRandomSelection()Z"))
     private static boolean entranced$filterEnchantment(Enchantment enchantment, int power, ItemStack stack) {
         boolean filteredEnchantment = true;
 
         if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
-            ExtraEnchantingCatalystTypeArgument catalystTypeArgument = (ExtraEnchantingCatalystTypeArgument) (Object) stack;
-            EnchantingCatalystConfig.EnchantingCatalystType usedCatalystType = catalystTypeArgument.entranced$getArgument();
+            EnchantingCatalystConfig.EnchantingCatalystType usedCatalystType = ((ExtraEnchantingCatalystTypeArgument) (Object) stack).entranced$getArgument();
+            System.out.println(usedCatalystType);
 
             if (usedCatalystType != null) {
                 filteredEnchantment = EnchantingCatalystConfig.INSTANCE.isCatalystAffected(usedCatalystType, enchantment);
-                catalystTypeArgument.entranced$setArgument(null);
             }
         }
 
