@@ -8,9 +8,11 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Weapons with this enchantment will attack automatically as long as the attack button is held down.
  */
-public class AutoswingEnchantment extends ConfigurableEnchantment {
+public final class AutoswingEnchantment extends ConfigurableEnchantment {
 
-    public AutoswingEnchantment() {
+    public static final AutoswingEnchantment INSTANCE = new AutoswingEnchantment();
+
+    private AutoswingEnchantment() {
         super(Entranced.getConfig().getAutoswingRarity(), EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);
     }
 

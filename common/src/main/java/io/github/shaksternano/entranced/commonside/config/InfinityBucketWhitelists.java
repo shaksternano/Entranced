@@ -40,9 +40,6 @@ public enum InfinityBucketWhitelists {
 
     /**
      * @return True if a fluid is whitelisted. Otherwise, returns false.
-     * The water check is to allow water to be set as whitelisted by default.
-     * Putting water in the {@link EntrancedConfig} list by default causes a new "minecraft:water"
-     * entry to be added to the {@link EntrancedConfig} whitelist everytime the game is launched.
      */
     public boolean isFluidWhitelisted(Fluid fluid) {
         return fluidWhitelist.contains(fluid);

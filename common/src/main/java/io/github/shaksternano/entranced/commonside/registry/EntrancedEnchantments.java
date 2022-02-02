@@ -16,10 +16,10 @@ public final class EntrancedEnchantments {
     private static final DeferredRegister<Enchantment> enchantments = DeferredRegister.create(Entranced.MOD_ID, Registry.ENCHANTMENT_KEY);
     private static final Set<ConfigurableEnchantment> enchantmentsToRegister = new HashSet<>();
 
-    public static final ConfigurableEnchantment AUTOSWING = new AutoswingEnchantment();
-    public static final ConfigurableEnchantment FRENZY = new FrenzyEnchantment();
-    public static final ConfigurableEnchantment IMPERISHABLE = new ImperishableEnchantment();
-    public static final ConfigurableEnchantment MLG = new MlgEnchantment();
+    public static final ConfigurableEnchantment AUTOSWING = AutoswingEnchantment.INSTANCE;
+    public static final ConfigurableEnchantment FRENZY = FrenzyEnchantment.INSTANCE;
+    public static final ConfigurableEnchantment IMPERISHABLE = ImperishableEnchantment.newEnchantment();
+    public static final ConfigurableEnchantment MLG = MlgEnchantment.newEnchantment();
 
     public static void addEnchantmentToRegister(ConfigurableEnchantment enchantment) {
         enchantmentsToRegister.add(enchantment);

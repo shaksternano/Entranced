@@ -24,7 +24,7 @@ public abstract class ConfigurableEnchantment extends Enchantment {
 
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return type == EnchantmentTarget.WEAPON && stack.getItem() instanceof AxeItem || super.isAcceptableItem(stack);
+        return super.isAcceptableItem(stack) || type == EnchantmentTarget.WEAPON && stack.getItem() instanceof AxeItem;
     }
 
     @Override

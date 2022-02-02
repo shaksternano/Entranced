@@ -4,6 +4,10 @@ plugins {
 
 archivesBaseName = "${rootProject.archives_base_name}-fabric-mc${rootProject.minecraft_version}"
 
+loom {
+    accessWidenerPath = file("src/main/resources/entranced.accesswidener")
+}
+
 architectury {
     platformSetupLoomIde()
     fabric()

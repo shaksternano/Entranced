@@ -20,6 +20,7 @@ abstract class InfinityEnchantmentMixin extends EnchantmentMixin {
     /**
      * The {@link InfinityEnchantment} can be put on buckets.
      */
+
     @Override
     protected void entranced$addAcceptableItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (Entranced.getConfig().isInfinityAllowedOnBuckets()) {

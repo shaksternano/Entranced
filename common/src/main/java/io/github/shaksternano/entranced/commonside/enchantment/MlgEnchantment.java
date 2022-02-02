@@ -1,10 +1,9 @@
 package io.github.shaksternano.entranced.commonside.enchantment;
 
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.FluidModificationItem;
-import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -13,8 +12,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class MlgEnchantment extends ConfigurableEnchantment {
 
+    public MlgEnchantment(EnchantmentTarget enchantmentTarget) {
+        super(Entranced.getConfig().getMlgRarity(), enchantmentTarget, EquipmentSlot.values());
+    }
+
     public MlgEnchantment() {
-        super(Entranced.getConfig().getMlgRarity(), EnchantmentTarget.VANISHABLE, EquipmentSlot.values());
+        this(EnchantmentTarget.VANISHABLE);
     }
 
     @Override
@@ -25,11 +28,6 @@ public class MlgEnchantment extends ConfigurableEnchantment {
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
         return Entranced.getConfig().isMlgSoldByVillagers();
-    }
-
-    @Override
-    public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem() instanceof FluidModificationItem;
     }
 
     @Override
@@ -50,5 +48,10 @@ public class MlgEnchantment extends ConfigurableEnchantment {
     @Override
     public @NotNull String getPath() {
         return "mlg";
+    }
+
+    @ExpectPlatform
+    public static MlgEnchantment newEnchantment() {
+        throw new AssertionError();
     }
 }

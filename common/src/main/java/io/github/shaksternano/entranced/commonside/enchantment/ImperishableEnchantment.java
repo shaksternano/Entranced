@@ -1,5 +1,6 @@
 package io.github.shaksternano.entranced.commonside.enchantment;
 
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.config.ImperishableBlacklists;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
@@ -18,19 +19,17 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ImperishableEnchantment extends ConfigurableEnchantment {
 
+    public ImperishableEnchantment(EnchantmentTarget enchantmentTarget) {
+        super(Entranced.getConfig().getImperishableRarity(), enchantmentTarget, EquipmentSlot.values());
+    }
+
     public ImperishableEnchantment() {
-        super(Entranced.getConfig().getImperishableRarity(), EnchantmentTarget.VANISHABLE, EquipmentSlot.values());
+        this(EnchantmentTarget.VANISHABLE);
     }
 
     @Override
     public int getMaxLevel() {
         return 1;
-    }
-
-
-    @Override
-    public boolean isAcceptableItem(ItemStack stack) {
-        return !ImperishableBlacklists.INSTANCE.isItemBlacklistedGlobally(stack) && super.isAcceptableItem(stack);
     }
 
     @Override
@@ -61,6 +60,11 @@ public class ImperishableEnchantment extends ConfigurableEnchantment {
     @Override
     public @NotNull String getPath() {
         return "imperishable";
+    }
+
+    @ExpectPlatform
+    public static ImperishableEnchantment newEnchantment() {
+        throw new AssertionError();
     }
 
     // Removes the "(Broken)" string from the name of tools with Imperishable at 0 durability, so it doesn't mess with anvil renaming.
