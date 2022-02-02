@@ -21,6 +21,7 @@ import java.util.*;
 public final class CollectionUtil {
 
     private CollectionUtil() {}
+
     public static <K extends Enum<K>, V> Multimap<K, V> createEnumSetMultimap(Class<K> keyClass) {
         return MultimapBuilder.enumKeys(keyClass).hashSetValues().build();
     }

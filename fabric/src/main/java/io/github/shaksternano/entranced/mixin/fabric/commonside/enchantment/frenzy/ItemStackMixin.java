@@ -17,10 +17,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Iterator;
-
 @Mixin(ItemStack.class)
 abstract class ItemStackMixin {
+
+    private static final MultimapBuilder<Object, Object> ENTRANCED$MULTIMAP_BUILDER = MultimapBuilder.hashKeys().hashSetValues();
 
     /**
      * Increases the player's attack speed if the item they are holding
@@ -35,21 +35,29 @@ abstract class ItemStackMixin {
             if (EntrancedEnchantments.FRENZY.isEnabled()) {
                 if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.FRENZY)) {
                     Multimap<EntityAttribute, EntityAttributeModifier> attributes = cir.getReturnValue();
+                    boolean createdNewMap = false;
 
                     if (attributes instanceof ImmutableMultimap) {
-                        attributes = MultimapBuilder.hashKeys().hashSetValues().build(attributes);
+                        attributes = ENTRANCED$MULTIMAP_BUILDER.build(attributes);
+                        createdNewMap = true;
                     }
 
                     double attackSpeed = 0.0D;
-                    Iterator<EntityAttributeModifier> iterator = attributes.get(EntityAttributes.GENERIC_ATTACK_SPEED).iterator();
-                    if (iterator.hasNext()) {
-                        attackSpeed = iterator.next().getValue();
+                    for (EntityAttributeModifier attributeModifier : attributes.get(EntityAttributes.GENERIC_ATTACK_SPEED)) {
+                        attackSpeed += attributeModifier.getValue();
                     }
 
                     attributes.removeAll(EntityAttributes.GENERIC_ATTACK_SPEED);
-                    attributes.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ItemAccessor.entranced$getAttackSpeedModifierId(), "Weapon modifier", FrenzyEnchantment.getAttackSpeed(stack, attackSpeed), EntityAttributeModifier.Operation.ADDITION));
+                    attributes.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(
+                            ItemAccessor.entranced$getAttackSpeedModifierId(),
+                            "Weapon modifier",
+                            FrenzyEnchantment.getAttackSpeed(stack, attackSpeed),
+                            EntityAttributeModifier.Operation.ADDITION
+                    ));
 
-                    cir.setReturnValue(attributes);
+                    if (createdNewMap) {
+                        cir.setReturnValue(attributes);
+                    }
                 }
             }
         }

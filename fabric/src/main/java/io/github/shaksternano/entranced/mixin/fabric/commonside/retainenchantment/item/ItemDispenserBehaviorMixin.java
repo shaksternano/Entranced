@@ -18,7 +18,7 @@ abstract class ItemDispenserBehaviorMixin {
      */
     @Inject(method = "dispense", at = @At("RETURN"))
     private void entranced$dispenserTransferEnchantments(BlockPointer blockPointer, ItemStack itemStack, CallbackInfoReturnable<ItemStack> cir) {
-        ItemStack itemStack2 = cir.getReturnValue();
-        EnchantmentUtil.copyEnchantments(itemStack, itemStack2);
+        ItemStack dispensedRemainingStack = cir.getReturnValue();
+        EnchantmentUtil.copyEnchantments(itemStack, dispensedRemainingStack);
     }
 }

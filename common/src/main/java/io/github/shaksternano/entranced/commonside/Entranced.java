@@ -10,17 +10,17 @@ import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.ActionResult;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public enum Entranced {
 
     INSTANCE;
 
     public static final String MOD_ID = "entranced";
-    public static final String MOD_NAME = "Entranced";
 
-    public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
+    public static final Logger LOGGER = LoggerFactory.getLogger(StringUtils.capitalize(MOD_ID));
 
     private EntrancedConfig config;
 
@@ -34,6 +34,8 @@ public enum Entranced {
         EntrancedNetworking.registerServerReceivers();
         EntrancedEventHooks.registerServerEventHooks();
         EntrancedEnchantments.registerEnchantments();
+        LOGGER.info("Hi");
+
     }
 
     /**
@@ -57,7 +59,7 @@ public enum Entranced {
         }
 
         configHolder.registerSaveListener((holder, config) -> {
-            EntrancedConfig.updateConfigsCollections();
+            EntrancedConfig.updateConfigCollections();
             return ActionResult.PASS;
         });
     }

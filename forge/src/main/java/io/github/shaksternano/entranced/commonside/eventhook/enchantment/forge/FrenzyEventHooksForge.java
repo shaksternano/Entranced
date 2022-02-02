@@ -30,12 +30,11 @@ public final class FrenzyEventHooksForge {
         if (event.getSlotType() == EquipmentSlot.MAINHAND) {
             if (EntrancedEnchantments.FRENZY.isEnabled()) {
                 if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.FRENZY)) {
-                    Multimap<EntityAttribute, EntityAttributeModifier> originalAttributes = event.getModifiers();
+                    Multimap<EntityAttribute, EntityAttributeModifier> attributes = event.getModifiers();
 
                     double attackSpeed = 0.0D;
-                    Iterator<EntityAttributeModifier> iterator = originalAttributes.get(EntityAttributes.GENERIC_ATTACK_SPEED).iterator();
-                    if (iterator.hasNext()) {
-                        attackSpeed = iterator.next().getValue();
+                    for (EntityAttributeModifier attributeModifier : attributes.get(EntityAttributes.GENERIC_ATTACK_SPEED)) {
+                        attackSpeed += attributeModifier.getValue();
                     }
 
                     event.removeAttribute(EntityAttributes.GENERIC_ATTACK_SPEED);
