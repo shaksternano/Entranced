@@ -19,7 +19,6 @@ import java.util.function.Supplier;
 
 public enum EnchantingCatalystConfig {
 
-    // This is an enum.
     INSTANCE;
 
     private final Multimap<EnchantingCatalystType, Enchantment> catalystAffectedEnchantments = CollectionUtil.createEnumSetMultimap(EnchantingCatalystType.class);

@@ -12,7 +12,6 @@ import java.util.function.Supplier;
 
 public enum ImperishableBlacklists {
 
-    // This is an enum.
     INSTANCE;
 
     private final Set<Item> globalBlacklist = new HashSet<>();

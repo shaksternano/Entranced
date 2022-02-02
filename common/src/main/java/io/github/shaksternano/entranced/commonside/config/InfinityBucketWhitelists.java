@@ -11,7 +11,6 @@ import java.util.Set;
 
 public enum InfinityBucketWhitelists {
 
-    // This is an enum.
     INSTANCE;
 
     private final Set<Fluid> fluidWhitelist = new HashSet<>();

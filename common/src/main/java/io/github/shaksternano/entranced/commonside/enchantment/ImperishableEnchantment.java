@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
  * it won't break, but it will lose any special properties instead. Repairing the tool will restore those properties.
  * For example, a pickaxe with this enchantment at 0 durability will lose it's increased mining speed.
  */
-public final class ImperishableEnchantment extends ConfigurableEnchantment {
+public class ImperishableEnchantment extends ConfigurableEnchantment {
 
     public ImperishableEnchantment() {
         super(Entranced.getConfig().getImperishableRarity(), EnchantmentTarget.VANISHABLE, EquipmentSlot.values());

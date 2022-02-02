@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Increases the attack speed of weapons.
  */
-public final class FrenzyEnchantment extends ConfigurableEnchantment {
+public class FrenzyEnchantment extends ConfigurableEnchantment {
 
     public FrenzyEnchantment() {
         super(Entranced.getConfig().getFrenzyRarity(), EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);

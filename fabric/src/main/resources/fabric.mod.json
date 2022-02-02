@@ -26,6 +26,9 @@
         "client": [
             "io.github.shaksternano.entranced.client.fabric.EntrancedFabricClient"
         ],
+        "mm:early_risers": [
+            "io.github.shaksternano.entranced.commonside.fabricasm.EntrancedFabricEarlyRiser"
+        ],
         "modmenu": [
             "io.github.shaksternano.entranced.client.integration.fabric.ModMenuIntegration"
         ]

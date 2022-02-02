@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * A bucket that isn't empty and has this enchantment will be moved to the player's hand when the player falls
  * from a height that would damage them.
  */
-public final class MlgEnchantment extends ConfigurableEnchantment {
+public class MlgEnchantment extends ConfigurableEnchantment {
 
     public MlgEnchantment() {
         super(Entranced.getConfig().getMlgRarity(), EnchantmentTarget.VANISHABLE, EquipmentSlot.values());

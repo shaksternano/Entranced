@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 
 public enum Entranced {
 
-    // This is an enum.
     INSTANCE;
 
     public static final String MOD_ID = "entranced";
@@ -23,15 +22,15 @@ public enum Entranced {
 
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
-    private static EntrancedConfig config;
+    private EntrancedConfig config;
 
-    private static boolean createdNewConfigFile = false;
+    private boolean createdNewConfigFile = false;
 
     /**
      * Mod initialization run on both the client and the logical server.
      */
     public static void init() {
-        registerConfig();
+        INSTANCE.registerConfig();
         EntrancedNetworking.registerServerReceivers();
         EntrancedEventHooks.registerServerEventHooks();
         EntrancedEnchantments.registerEnchantments();
@@ -49,7 +48,7 @@ public enum Entranced {
     /**
      * Registers the config class.
      */
-    private static void registerConfig() {
+    private void registerConfig() {
         ConfigHolder<EntrancedConfig> configHolder = AutoConfig.register(EntrancedConfig.class, JanksonConfigSerializer::new);
         config = AutoConfig.getConfigHolder(EntrancedConfig.class).getConfig();
 
@@ -67,10 +66,10 @@ public enum Entranced {
      * @return An instance of the mod's config class.
      */
     public static EntrancedConfig getConfig() {
-        return config;
+        return INSTANCE.config;
     }
 
     public static void setCreatedNewConfigFile(boolean createdNewConfigFile) {
-        Entranced.createdNewConfigFile = createdNewConfigFile;
+        INSTANCE.createdNewConfigFile = createdNewConfigFile;
     }
 }
