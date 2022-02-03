@@ -10,6 +10,6 @@ public final class EntrancedFabricClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        Entranced.clientInit();
+        Entranced.INSTANCE.clientInit();
     }
 }

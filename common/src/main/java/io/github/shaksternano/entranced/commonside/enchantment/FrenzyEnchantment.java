@@ -18,43 +18,43 @@ public final class FrenzyEnchantment extends ConfigurableEnchantment {
     public static final FrenzyEnchantment INSTANCE = new FrenzyEnchantment();
 
     private FrenzyEnchantment() {
-        super(Entranced.getConfig().getFrenzyRarity(), EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);
+        super(Entranced.INSTANCE.getConfig().getFrenzyRarity(), EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);
     }
 
     @Override
     public int getMaxLevel() {
-        return Entranced.getConfig().getFrenzyMaxLevel();
+        return Entranced.INSTANCE.getConfig().getFrenzyMaxLevel();
     }
 
     @Override
     public boolean isTreasure() {
-        return Entranced.getConfig().isFrenzyTreasure();
+        return Entranced.INSTANCE.getConfig().isFrenzyTreasure();
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return Entranced.getConfig().isFrenzySoldByVillagers();
+        return Entranced.INSTANCE.getConfig().isFrenzySoldByVillagers();
     }
 
     @Override
     protected boolean canAccept(Enchantment other) {
-        boolean damageMutuallyExclusive = Entranced.getConfig().isFrenzyMutuallyExclusiveWithDamageEnchantments() && other instanceof DamageEnchantment;
+        boolean damageMutuallyExclusive = Entranced.INSTANCE.getConfig().isFrenzyMutuallyExclusiveWithDamageEnchantments() && other instanceof DamageEnchantment;
         return !damageMutuallyExclusive && super.canAccept(other);
     }
 
     @Override
     public boolean isEnabled() {
-        return Entranced.getConfig().isFrenzyEnabled();
+        return Entranced.INSTANCE.getConfig().isFrenzyEnabled();
     }
 
     @Override
     protected int minPower() {
-        return Entranced.getConfig().getFrenzyMinPower();
+        return Entranced.INSTANCE.getConfig().getFrenzyMinPower();
     }
 
     @Override
     protected int maxPowerAboveMin() {
-        return Entranced.getConfig().getFrenzyMaxPowerAboveMin();
+        return Entranced.INSTANCE.getConfig().getFrenzyMaxPowerAboveMin();
     }
 
     @Override
@@ -63,6 +63,6 @@ public final class FrenzyEnchantment extends ConfigurableEnchantment {
     }
 
     public static double getAttackSpeed(ItemStack stack, double baseAttackSpeed) {
-        return Entranced.getConfig().getFrenzyExtraAttackSpeedPerLevel() * EnchantmentHelper.getLevel(EntrancedEnchantments.FRENZY, stack) + baseAttackSpeed;
+        return Entranced.INSTANCE.getConfig().getFrenzyExtraAttackSpeedPerLevel() * EnchantmentHelper.getLevel(EntrancedEnchantments.FRENZY, stack) + baseAttackSpeed;
     }
 }

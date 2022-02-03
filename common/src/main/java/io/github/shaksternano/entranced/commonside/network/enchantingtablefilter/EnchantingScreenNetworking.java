@@ -22,7 +22,7 @@ public final class EnchantingScreenNetworking {
             PlayerEntity player = context.getPlayer();
 
             context.queue(() -> {
-                if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+                if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
                     ScreenHandler screenHandler = player.currentScreenHandler;
 
                     if (screenHandler instanceof EnchantmentScreenHandler) {

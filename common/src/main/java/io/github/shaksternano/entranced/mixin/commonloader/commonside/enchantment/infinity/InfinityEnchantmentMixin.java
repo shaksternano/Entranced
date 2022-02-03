@@ -23,7 +23,7 @@ abstract class InfinityEnchantmentMixin extends EnchantmentMixin {
 
     @Override
     protected void entranced$addAcceptableItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (Entranced.getConfig().isInfinityAllowedOnBuckets()) {
+        if (Entranced.INSTANCE.getConfig().isInfinityAllowedOnBuckets()) {
             Item item = stack.getItem();
 
             if (item instanceof BucketItemAccessor bucketItem) {

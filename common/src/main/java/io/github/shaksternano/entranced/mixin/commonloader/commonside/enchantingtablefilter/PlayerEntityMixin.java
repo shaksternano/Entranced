@@ -24,7 +24,7 @@ abstract class PlayerEntityMixin implements EnchantingCatalystTypeHolder {
 
     @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
     private void entranced$loadLastUsedEnchantingCatalyst(NbtCompound nbt, CallbackInfo ci) {
-        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
             if (nbt.contains(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY, 8)) {
                 String catalystType = nbt.getString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY);
 
@@ -39,7 +39,7 @@ abstract class PlayerEntityMixin implements EnchantingCatalystTypeHolder {
 
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
     private void entranced$readLastUsedEnchantingCatalyst(NbtCompound nbt, CallbackInfo ci) {
-        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
             if (entranced$lastUsedEnchantingCatalystType != null) {
                 nbt.putString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY, entranced$lastUsedEnchantingCatalystType.toString());
             }

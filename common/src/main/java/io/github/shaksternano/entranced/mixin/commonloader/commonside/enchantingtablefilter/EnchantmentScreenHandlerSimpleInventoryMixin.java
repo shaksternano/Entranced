@@ -18,7 +18,7 @@ abstract class EnchantmentScreenHandlerSimpleInventoryMixin {
      */
     @ModifyVariable(method = "<init>", at = @At("HEAD"), argsOnly = true)
     private static int entranced$increaseInventorySize(int size, EnchantmentScreenHandler enchantmentScreenHandler) {
-        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
             ((EnchantmentScreenHandlerAccess) enchantmentScreenHandler).entranced$setCatalystInventoryIndex(size++);
         }
 

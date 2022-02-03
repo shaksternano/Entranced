@@ -1,6 +1,6 @@
 package io.github.shaksternano.entranced.commonside.config;
 
-import com.google.common.collect.Multimap;
+import com.google.common.collect.SetMultimap;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.util.CollectionUtil;
 import net.minecraft.enchantment.Enchantment;
@@ -21,7 +21,7 @@ public enum EnchantingCatalystConfig {
 
     INSTANCE;
 
-    private final Multimap<EnchantingCatalystType, Enchantment> catalystAffectedEnchantments = CollectionUtil.createEnumSetMultimap(EnchantingCatalystType.class);
+    private final SetMultimap<EnchantingCatalystType, Enchantment> catalystAffectedEnchantments = CollectionUtil.createEnumMultimap(EnchantingCatalystType.class);
     private final Map<Item, EnchantingCatalyst> catalystItems = new HashMap<>();
 
     public void updateCatalystConfigCollections() {
@@ -68,12 +68,12 @@ public enum EnchantingCatalystConfig {
 
     public enum EnchantingCatalystType {
 
-        MELEE(Entranced.getConfig()::getMeleeCatalystAffectedEnchantments, Entranced.getConfig()::getMeleeCatalystConsumableItems, Entranced.getConfig()::getMeleeCatalystUnconsumableItems),
-        RANGED(Entranced.getConfig()::getRangedCatalystAffectedEnchantments, Entranced.getConfig()::getRangedCatalystConsumableItems, Entranced.getConfig()::getRangedCatalystUnconsumableItems),
-        DEFENSIVE(Entranced.getConfig()::getDefensiveCatalystAffectedEnchantments, Entranced.getConfig()::getDefensiveCatalystConsumableItems, Entranced.getConfig()::getDefensiveCatalystUnconsumableItems),
-        MAGIC(Entranced.getConfig()::getMagicCatalystAffectedEnchantments, Entranced.getConfig()::getMagicCatalystConsumableItems, Entranced.getConfig()::getMagicCatalystUnconsumableItems),
-        UTILITY(Entranced.getConfig()::getUtilityCatalystAffectedEnchantments, Entranced.getConfig()::getUtilityCatalystConsumableItems, Entranced.getConfig()::getUtilityCatalystUnconsumableItems),
-        MISC(Entranced.getConfig()::getMiscCatalystAffectedEnchantments, Entranced.getConfig()::getMiscCatalystConsumableItems, Entranced.getConfig()::getMiscCatalystUnconsumableItems);
+        MELEE(Entranced.INSTANCE.getConfig()::getMeleeCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getMeleeCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getMeleeCatalystUnconsumableItems),
+        RANGED(Entranced.INSTANCE.getConfig()::getRangedCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getRangedCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getRangedCatalystUnconsumableItems),
+        DEFENSIVE(Entranced.INSTANCE.getConfig()::getDefensiveCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getDefensiveCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getDefensiveCatalystUnconsumableItems),
+        MAGIC(Entranced.INSTANCE.getConfig()::getMagicCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getMagicCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getMagicCatalystUnconsumableItems),
+        UTILITY(Entranced.INSTANCE.getConfig()::getUtilityCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getUtilityCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getUtilityCatalystUnconsumableItems),
+        MISC(Entranced.INSTANCE.getConfig()::getMiscCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getMiscCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getMiscCatalystUnconsumableItems);
 
         @NotNull
         private final Supplier<List<String>> AFFECTED_ENCHANTMENTS_LIST_GETTER;

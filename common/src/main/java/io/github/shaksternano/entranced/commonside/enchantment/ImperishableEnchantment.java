@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 public class ImperishableEnchantment extends ConfigurableEnchantment {
 
     public ImperishableEnchantment(EnchantmentTarget enchantmentTarget) {
-        super(Entranced.getConfig().getImperishableRarity(), enchantmentTarget, EquipmentSlot.values());
+        super(Entranced.INSTANCE.getConfig().getImperishableRarity(), enchantmentTarget, EquipmentSlot.values());
     }
 
     public ImperishableEnchantment() {
@@ -34,27 +34,27 @@ public class ImperishableEnchantment extends ConfigurableEnchantment {
 
     @Override
     public boolean isTreasure() {
-        return Entranced.getConfig().isImperishableTreasure();
+        return Entranced.INSTANCE.getConfig().isImperishableTreasure();
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return Entranced.getConfig().isImperishableSoldByVillagers();
+        return Entranced.INSTANCE.getConfig().isImperishableSoldByVillagers();
     }
 
     @Override
     public boolean isEnabled() {
-        return Entranced.getConfig().isImperishableEnabled();
+        return Entranced.INSTANCE.getConfig().isImperishableEnabled();
     }
 
     @Override
     protected int minPower() {
-        return Entranced.getConfig().getImperishableMinPower();
+        return Entranced.INSTANCE.getConfig().getImperishableMinPower();
     }
 
     @Override
     protected int maxPowerAboveMin() {
-        return Entranced.getConfig().getImperishableMaxPowerAboveMin();
+        return Entranced.INSTANCE.getConfig().getImperishableMaxPowerAboveMin();
     }
 
     @Override

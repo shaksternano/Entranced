@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class MlgEnchantment extends ConfigurableEnchantment {
 
     public MlgEnchantment(EnchantmentTarget enchantmentTarget) {
-        super(Entranced.getConfig().getMlgRarity(), enchantmentTarget, EquipmentSlot.values());
+        super(Entranced.INSTANCE.getConfig().getMlgRarity(), enchantmentTarget, EquipmentSlot.values());
     }
 
     public MlgEnchantment() {
@@ -22,27 +22,27 @@ public class MlgEnchantment extends ConfigurableEnchantment {
 
     @Override
     public boolean isTreasure() {
-        return Entranced.getConfig().isMlgTreasure();
+        return Entranced.INSTANCE.getConfig().isMlgTreasure();
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return Entranced.getConfig().isMlgSoldByVillagers();
+        return Entranced.INSTANCE.getConfig().isMlgSoldByVillagers();
     }
 
     @Override
     public boolean isEnabled() {
-        return Entranced.getConfig().isMlgEnabled();
+        return Entranced.INSTANCE.getConfig().isMlgEnabled();
     }
 
     @Override
     protected int minPower() {
-        return Entranced.getConfig().getMlgMinPower();
+        return Entranced.INSTANCE.getConfig().getMlgMinPower();
     }
 
     @Override
     protected int maxPowerAboveMin() {
-        return Entranced.getConfig().getMlgMaxPowerAboveMin();
+        return Entranced.INSTANCE.getConfig().getMlgMaxPowerAboveMin();
     }
 
     @Override

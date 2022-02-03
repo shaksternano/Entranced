@@ -27,12 +27,12 @@ public final class EntrancedForge {
     private void init() {
         EventBuses.registerModEventBus(Entranced.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
         EntrancedEventHooksForge.registerServerEventHooks();
-        Entranced.init();
+        Entranced.INSTANCE.init();
     }
 
     @OnlyIn(Dist.CLIENT)
     private void clientInit() {
-        Entranced.clientInit();
+        Entranced.INSTANCE.clientInit();
         registerConfigScreen();
     }
 

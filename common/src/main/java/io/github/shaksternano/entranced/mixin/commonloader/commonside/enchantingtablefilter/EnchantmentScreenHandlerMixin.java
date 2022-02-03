@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -40,16 +41,18 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @Unique
     private int entranced$catalystInventoryIndex;
     @Unique
+    private int entranced$catalystSlotIndex;
+    @Unique
     private PlayerEntity entranced$currentPlayer;
 
     @Inject(method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V", at = @At("RETURN"))
     private void entranced$addSlot(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, CallbackInfo ci) {
-        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
             addSlot(new Slot(inventory, entranced$catalystInventoryIndex, -10, 47) {
 
                 @Override
                 public ItemStack insertStack(ItemStack stack, int count) {
-                    if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+                    if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
                         EnchantingCatalystConfig.EnchantingCatalystType catalystType = ((EnchantingCatalystTypeHolder) entranced$currentPlayer).entranced$getEnchantingCatalystType();
                         ((ExtraEnchantingCatalystTypeArgument) (Object) stack).entranced$setArgument(catalystType);
                     }
@@ -65,13 +68,14 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
             });
         }
 
+        entranced$catalystSlotIndex = slots.size();
         entranced$currentPlayer = playerInventory.player;
     }
 
     @SuppressWarnings("unused")
     @ModifyExpressionValue(method = "onContentChanged", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;getStack(I)Lnet/minecraft/item/ItemStack;"))
     private ItemStack entranced$setUsedEnchantingCatalyst(ItemStack toEnchantStack) {
-        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
             EnchantingCatalystConfig.EnchantingCatalystType catalystType = ((EnchantingCatalystTypeHolder) entranced$currentPlayer).entranced$getEnchantingCatalystType();
             ((ExtraEnchantingCatalystTypeArgument) (Object) toEnchantStack).entranced$setArgument(catalystType);
         }
@@ -88,7 +92,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @Unique
     @Override
     public void entranced$setEnchantingCatalyst() {
-        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
             ItemStack enchantingCatalystStack = inventory.getStack(entranced$catalystInventoryIndex);
 
             if (!enchantingCatalystStack.isEmpty()) {
@@ -114,5 +118,49 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @Override
     public void entranced$setCatalystInventoryIndex(int index) {
         entranced$catalystInventoryIndex = index;
+    }
+
+    // All methods below are used together to add transferSlot functionality to the catalyst slot.
+
+    @SuppressWarnings("unused")
+    @ModifyExpressionValue(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;hasStack()Z"), slice = @Slice(
+            from = @At(value = "INVOKE", target = "Lnet/minecraft/screen/EnchantmentScreenHandler;insertItem(Lnet/minecraft/item/ItemStack;IIZ)Z"),
+            to = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;canInsert(Lnet/minecraft/item/ItemStack;)Z")
+    ))
+    private boolean catalystSlotHasStack(boolean hasStack, PlayerEntity player, int index) {
+        Slot slot = slots.get(index);
+        ItemStack itemStack2 = slot.getStack();
+        return hasStack && !entranced$canInsertCatalyst(itemStack2);
+    }
+
+    @SuppressWarnings("unused")
+    @ModifyExpressionValue(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;canInsert(Lnet/minecraft/item/ItemStack;)Z"), slice = @Slice(
+            from = @At(value = "INVOKE", target = "Lnet/minecraft/util/collection/DefaultedList;get(I)Ljava/lang/Object;"),
+            to = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;setCount(I)V")
+    ))
+    private boolean catalystSlotCanInsert(boolean canInsert, PlayerEntity player, int index) {
+        Slot slot = slots.get(index);
+        ItemStack itemStack2 = slot.getStack();
+        return canInsert || entranced$canInsertCatalyst(itemStack2);
+    }
+
+    @Inject(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;copy()Lnet/minecraft/item/ItemStack;"), slice = @Slice(
+            from = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;canInsert(Lnet/minecraft/item/ItemStack;)Z"),
+            to = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;setCount(I)V")
+    ))
+    private void transferCatalystSlot(PlayerEntity player, int index, CallbackInfoReturnable<ItemStack> cir) {
+        Slot slot = slots.get(index);
+        ItemStack itemStack2 = slot.getStack();
+        if (slots.get(0).hasStack() || !slots.get(0).canInsert(itemStack2)) {
+            if (entranced$canInsertCatalyst(itemStack2)) {
+                ItemStack stack = itemStack2.copy();
+                itemStack2.setCount(0);
+                slots.get(entranced$catalystSlotIndex).setStack(stack);
+            }
+        }
+    }
+
+    private boolean entranced$canInsertCatalyst(ItemStack stack) {
+        return !(slots.get(entranced$catalystSlotIndex).hasStack() || !slots.get(entranced$catalystSlotIndex).canInsert(stack));
     }
 }

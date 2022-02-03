@@ -2,6 +2,7 @@ package io.github.shaksternano.entranced.commonside.util;
 
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
+import com.google.common.collect.SetMultimap;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -22,7 +23,11 @@ public final class CollectionUtil {
 
     private CollectionUtil() {}
 
-    public static <K extends Enum<K>, V> Multimap<K, V> createEnumSetMultimap(Class<K> keyClass) {
+    /**
+     * @return A new {@link Multimap} using an {@link Enum} for the keys and
+     * a hash {@link Set} for the values.
+     */
+    public static <K extends Enum<K>, V> SetMultimap<K, V> createEnumMultimap(Class<K> keyClass) {
         return MultimapBuilder.enumKeys(keyClass).hashSetValues().build();
     }
 
@@ -56,18 +61,18 @@ public final class CollectionUtil {
      */
     public static <E> void addToCollection(String id, Collection<E> collection, Registry<E> registry, @Nullable E defaultEntry, String idType) {
         if (defaultEntry == null && registry instanceof DefaultedRegistry<E>) {
-            Entranced.LOGGER.warn("Passed a null default entry when looking up an element in a DefaultedRegistry!");
+            Entranced.LOGGER.warn("Passed a null default entry when looking up an entry in a DefaultedRegistry!");
             Thread.dumpStack();
         }
 
         try {
-            E element = registry.get(new Identifier(id));
-            // If the ID isn't valid then element will be the default entry.
-            if (element != null && !element.equals(defaultEntry)) {
+            E entry = registry.get(new Identifier(id));
+            // If the ID isn't valid then entry will be the default entry.
+            if (entry != null && !entry.equals(defaultEntry)) {
                 try {
-                    collection.add(element);
+                    collection.add(entry);
                 } catch (Exception e) {
-                    Entranced.LOGGER.warn("Could not add an element to the collection!");
+                    Entranced.LOGGER.warn("Could not add an entry to the collection!");
                     e.printStackTrace();
                 }
             } else {

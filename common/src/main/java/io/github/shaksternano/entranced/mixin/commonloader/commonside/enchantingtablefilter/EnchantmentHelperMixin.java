@@ -17,9 +17,8 @@ abstract class EnchantmentHelperMixin {
     private static boolean entranced$filterEnchantment(Enchantment enchantment, int power, ItemStack stack) {
         boolean filteredEnchantment = true;
 
-        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
             EnchantingCatalystConfig.EnchantingCatalystType usedCatalystType = ((ExtraEnchantingCatalystTypeArgument) (Object) stack).entranced$getArgument();
-            System.out.println(usedCatalystType);
 
             if (usedCatalystType != null) {
                 filteredEnchantment = EnchantingCatalystConfig.INSTANCE.isCatalystAffected(usedCatalystType, enchantment);

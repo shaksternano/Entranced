@@ -13,32 +13,32 @@ public final class AutoswingEnchantment extends ConfigurableEnchantment {
     public static final AutoswingEnchantment INSTANCE = new AutoswingEnchantment();
 
     private AutoswingEnchantment() {
-        super(Entranced.getConfig().getAutoswingRarity(), EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);
+        super(Entranced.INSTANCE.getConfig().getAutoswingRarity(), EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);
     }
 
     @Override
     public boolean isTreasure() {
-        return Entranced.getConfig().isAutoswingTreasure();
+        return Entranced.INSTANCE.getConfig().isAutoswingTreasure();
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return Entranced.getConfig().isAutoswingSoldByVillagers();
+        return Entranced.INSTANCE.getConfig().isAutoswingSoldByVillagers();
     }
 
     @Override
     public boolean isEnabled() {
-        return Entranced.getConfig().isAutoswingEnabled();
+        return Entranced.INSTANCE.getConfig().isAutoswingEnabled();
     }
 
     @Override
     protected int minPower() {
-        return Entranced.getConfig().getAutoswingMinPower();
+        return Entranced.INSTANCE.getConfig().getAutoswingMinPower();
     }
 
     @Override
     protected int maxPowerAboveMin() {
-        return Entranced.getConfig().getAutoswingMaxPowerAboveMin();
+        return Entranced.INSTANCE.getConfig().getAutoswingMaxPowerAboveMin();
     }
 
     @Override

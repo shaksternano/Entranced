@@ -15,6 +15,6 @@ abstract class JanksonConfigSerializerMixin<T extends ConfigData> {
 
     @Inject(method = "createDefault", at = @At("HEAD"), require = 0)
     private void entranced$detectDefault(CallbackInfoReturnable<T> cir) {
-        Entranced.setCreatedNewConfigFile(true);
+        Entranced.INSTANCE.setCreatedNewConfigFile(true);
     }
 }

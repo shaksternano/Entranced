@@ -25,15 +25,15 @@ public enum InfinityBucketWhitelists {
         blockWhitelist.clear();
         itemWhitelist.clear();
 
-        for (String fluidId : Entranced.getConfig().getInfinityFluidWhitelist()) {
+        for (String fluidId : Entranced.INSTANCE.getConfig().getInfinityFluidWhitelist()) {
             CollectionUtil.addFluidToCollection(fluidId, fluidWhitelist);
         }
 
-        for (String blockId : Entranced.getConfig().getInfinityBlockWhitelist()) {
+        for (String blockId : Entranced.INSTANCE.getConfig().getInfinityBlockWhitelist()) {
             CollectionUtil.addBlockToCollection(blockId, blockWhitelist);
         }
 
-        for (String itemId : Entranced.getConfig().getInfinityItemWhitelist()) {
+        for (String itemId : Entranced.INSTANCE.getConfig().getInfinityItemWhitelist()) {
             CollectionUtil.addItemToCollection(itemId, itemWhitelist);
         }
     }

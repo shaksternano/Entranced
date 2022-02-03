@@ -1,13 +1,15 @@
 package io.github.shaksternano.entranced.commonside.config;
 
-import com.google.common.collect.Multimap;
+import com.google.common.collect.SetMultimap;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.util.CollectionUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public enum ImperishableBlacklists {
@@ -15,7 +17,7 @@ public enum ImperishableBlacklists {
     INSTANCE;
 
     private final Set<Item> globalBlacklist = new HashSet<>();
-    private final Multimap<ProtectionType, Item> blacklists = CollectionUtil.createEnumSetMultimap(ProtectionType.class);
+    private final SetMultimap<ProtectionType, Item> blacklists = CollectionUtil.createEnumMultimap(ProtectionType.class);
 
     /**
      * Produces Item blacklists from the Item ID String blacklists in the {@link EntrancedConfig}.
@@ -23,7 +25,7 @@ public enum ImperishableBlacklists {
     public void updateBlacklists() {
         globalBlacklist.clear();
 
-        for (String itemId : Entranced.getConfig().getImperishableGlobalBlacklist()) {
+        for (String itemId : Entranced.INSTANCE.getConfig().getImperishableGlobalBlacklist()) {
             CollectionUtil.addItemToCollection(itemId, globalBlacklist);
         }
 
@@ -55,11 +57,7 @@ public enum ImperishableBlacklists {
      * for the specified {@link ProtectionType}. Otherwise, returns false.
      */
     private boolean isItemBlacklisted(Item item, ProtectionType protectionType) {
-        if (isItemBlacklistedGlobally(item)) {
-            return true;
-        } else {
-            return blacklists.containsEntry(protectionType, item);
-        }
+        return isItemBlacklistedGlobally(item) || blacklists.containsEntry(protectionType, item);
     }
 
     /**
@@ -82,10 +80,10 @@ public enum ImperishableBlacklists {
      * from config and boolean enabled value from config.
      */
     public enum ProtectionType {
-        DESPAWN_PROTECTION(Entranced.getConfig()::getImperishableDespawnProtectionBlacklist, Entranced.getConfig().isImperishablePreventsDespawn()),
-        DAMAGE_PROTECTION(Entranced.getConfig()::getImperishableDamageProtectionBlacklist, Entranced.getConfig().isImperishableProtectsFromDamage()),
-        VOID_PROTECTION(Entranced.getConfig()::getImperishableVoidProtectionBlacklist, Entranced.getConfig().isImperishableProtectsFromVoid()),
-        BREAK_PROTECTION(Entranced.getConfig()::getImperishableBreakProtectionBlacklist, Entranced.getConfig().isImperishablePreventsBreaking());
+        DESPAWN_PROTECTION(Entranced.INSTANCE.getConfig()::getImperishableDespawnProtectionBlacklist, Entranced.INSTANCE.getConfig().isImperishablePreventsDespawn()),
+        DAMAGE_PROTECTION(Entranced.INSTANCE.getConfig()::getImperishableDamageProtectionBlacklist, Entranced.INSTANCE.getConfig().isImperishableProtectsFromDamage()),
+        VOID_PROTECTION(Entranced.INSTANCE.getConfig()::getImperishableVoidProtectionBlacklist, Entranced.INSTANCE.getConfig().isImperishableProtectsFromVoid()),
+        BREAK_PROTECTION(Entranced.INSTANCE.getConfig()::getImperishableBreakProtectionBlacklist, Entranced.INSTANCE.getConfig().isImperishablePreventsBreaking());
 
         @NotNull
         private final Supplier<List<String>> ITEM_ID_BLACKLIST_GETTER;

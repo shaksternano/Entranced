@@ -29,20 +29,18 @@ public enum Entranced {
     /**
      * Mod initialization run on both the client and the logical server.
      */
-    public static void init() {
-        INSTANCE.registerConfig();
+    public void init() {
+        registerConfig();
         EntrancedNetworking.registerServerReceivers();
         EntrancedEventHooks.registerServerEventHooks();
         EntrancedEnchantments.registerEnchantments();
-        LOGGER.info("Hi");
-
     }
 
     /**
      * Mod initialization run on only the client.
      */
     @Environment(EnvType.CLIENT)
-    public static void clientInit() {
+    public void clientInit() {
         EntrancedNetworking.registerClientReceivers();
         EntrancedEventHooks.registerClientEventHooks();
     }
@@ -67,11 +65,11 @@ public enum Entranced {
     /**
      * @return An instance of the mod's config class.
      */
-    public static EntrancedConfig getConfig() {
-        return INSTANCE.config;
+    public EntrancedConfig getConfig() {
+        return config;
     }
 
-    public static void setCreatedNewConfigFile(boolean createdNewConfigFile) {
-        INSTANCE.createdNewConfigFile = createdNewConfigFile;
+    public void setCreatedNewConfigFile(boolean createdNewConfigFile) {
+        this.createdNewConfigFile = createdNewConfigFile;
     }
 }

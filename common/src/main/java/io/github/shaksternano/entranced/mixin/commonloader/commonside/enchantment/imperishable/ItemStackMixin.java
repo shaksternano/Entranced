@@ -59,7 +59,7 @@ abstract class ItemStackMixin {
         if (ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (!(getItem() instanceof ElytraItem)) {
                 if (isDamageable()) {
-                    if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.IMPERISHABLE) || Entranced.getConfig().isEnchantmentNotNeededToPreventBreaking()) {
+                    if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.IMPERISHABLE) || Entranced.INSTANCE.getConfig().isEnchantmentNotNeededToPreventBreaking()) {
                         if (newDamage > getMaxDamage()) {
                             setDamage(getMaxDamage());
                         } else {
