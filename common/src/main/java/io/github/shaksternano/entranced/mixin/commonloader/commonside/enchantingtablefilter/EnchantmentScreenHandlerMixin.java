@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantingtablefilter;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.EnchantingCatalystTypeHolder;
 import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.EnchantmentScreenHandlerAccess;
@@ -22,6 +23,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -47,6 +49,8 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
 
     @Inject(method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V", at = @At("RETURN"))
     private void entranced$addSlot(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, CallbackInfo ci) {
+        entranced$catalystSlotIndex = slots.size();
+
         if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
             addSlot(new Slot(inventory, entranced$catalystInventoryIndex, -10, 47) {
 
@@ -68,7 +72,6 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
             });
         }
 
-        entranced$catalystSlotIndex = slots.size();
         entranced$currentPlayer = playerInventory.player;
     }
 
@@ -127,7 +130,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
             from = @At(value = "INVOKE", target = "Lnet/minecraft/screen/EnchantmentScreenHandler;insertItem(Lnet/minecraft/item/ItemStack;IIZ)Z"),
             to = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;canInsert(Lnet/minecraft/item/ItemStack;)Z")
     ))
-    private boolean catalystSlotHasStack(boolean hasStack, PlayerEntity player, int index) {
+    private boolean entranced$catalystSlotHasStack(boolean hasStack, PlayerEntity player, int index) {
         Slot slot = slots.get(index);
         ItemStack itemStack2 = slot.getStack();
         return hasStack && !entranced$canInsertCatalyst(itemStack2);
@@ -138,9 +141,10 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
             from = @At(value = "INVOKE", target = "Lnet/minecraft/util/collection/DefaultedList;get(I)Ljava/lang/Object;"),
             to = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;setCount(I)V")
     ))
-    private boolean catalystSlotCanInsert(boolean canInsert, PlayerEntity player, int index) {
+    private boolean entranced$catalystSlotCanInsert(boolean canInsert, PlayerEntity player, int index) {
         Slot slot = slots.get(index);
         ItemStack itemStack2 = slot.getStack();
+        // Will be equivalent to !canInsert && !entranced$canInsertCatalyst(itemStack2)
         return canInsert || entranced$canInsertCatalyst(itemStack2);
     }
 
@@ -148,10 +152,11 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
             from = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;canInsert(Lnet/minecraft/item/ItemStack;)Z"),
             to = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;setCount(I)V")
     ))
-    private void transferCatalystSlot(PlayerEntity player, int index, CallbackInfoReturnable<ItemStack> cir) {
+    private void entranced$transferCatalystSlot(PlayerEntity player, int index, CallbackInfoReturnable<ItemStack> cir) {
         Slot slot = slots.get(index);
         ItemStack itemStack2 = slot.getStack();
-        if (slots.get(0).hasStack() || !slots.get(0).canInsert(itemStack2)) {
+
+        if (!entranced$canInsertToEnchant(itemStack2)) {
             if (entranced$canInsertCatalyst(itemStack2)) {
                 ItemStack stack = itemStack2.copy();
                 itemStack2.setCount(0);
@@ -160,7 +165,30 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
         }
     }
 
+    @SuppressWarnings("unused")
+    @WrapWithCondition(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"))
+    private boolean entranced$doNotDecrement(ItemStack itemStack2, int amount) {
+        return entranced$canInsertToEnchant(itemStack2);
+    }
+
+    @SuppressWarnings("unused")
+    @WrapWithCondition(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;setStack(Lnet/minecraft/item/ItemStack;)V"), slice = @Slice(
+            from = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"),
+            to = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isEmpty()Z")
+    ))
+    private boolean entranced$doSetStack(Slot slotZero, ItemStack itemStack3, PlayerEntity player, int index) {
+        Slot slot = this.slots.get(index);
+        ItemStack itemStack2 = slot.getStack();
+        return entranced$canInsertToEnchant(itemStack2);
+    }
+
+    @Unique
+    private boolean entranced$canInsertToEnchant(ItemStack stack) {
+        return !(slots.get(0).hasStack() || !slots.get(0).canInsert(stack));
+    }
+
+    @Unique
     private boolean entranced$canInsertCatalyst(ItemStack stack) {
-        return !(slots.get(entranced$catalystSlotIndex).hasStack() || !slots.get(entranced$catalystSlotIndex).canInsert(stack));
+        return slots.get(entranced$catalystSlotIndex).getStack().getCount() < stack.getMaxCount() && slots.get(entranced$catalystSlotIndex).canInsert(stack);
     }
 }
