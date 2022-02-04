@@ -1,28 +1,29 @@
 {
-    "required": true,
-    "package": "io.github.shaksternano.entranced.mixin.fabric",
-    "minVersion": "0.7",
-    "compatibilityLevel": "JAVA_16",
-    "mixins": [
-        "client.enchantment.imperishable.AnvilScreenMixin",
-        "commonside.enchantment.frenzy.ItemStackMixin",
-        "commonside.enchantment.imperishable.GrindstoneScreenHandlerMixin",
-        "commonside.enchantment.imperishable.ItemDispenserBehaviorMixin",
-        "commonside.enchantment.imperishable.ItemEntityMixin",
-        "commonside.enchantment.imperishable.PlayerEntityMixin",
-        "commonside.enchantment.imperishable.TripwireBlockMixin",
-        "commonside.enchantment.infinity.bucket.ItemDispenserBehaviorMixin",
-        "commonside.enchantment.infinity.bucket.PowderSnowBucketItemMixin",
-        "commonside.enchantment.infinity.bucket.RecipeMixin",
-        "commonside.retainenchantment.item.AbstractFurnaceBlockEntityMixin",
-        "commonside.retainenchantment.item.BrewingStandBlockEntityMixin",
-        "commonside.retainenchantment.item.ItemDispenserBehaviorMixin",
-        "commonside.retainenchantment.item.PowderSnowBucketItemMixin",
-        "commonside.retainenchantment.item.RecipeMixin"
-    ],
-    "client": [
-    ],
-    "injectors": {
-        "defaultRequire": 1
+  "required": true,
+  "package": "io.github.shaksternano.entranced.mixin.fabric",
+  "minVersion": "0.7",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "client.enchantment.imperishable.AnvilScreenMixin",
+    "commonside.enchantingtablefilter.EnchantmentScreenHandlerMixin",
+    "commonside.enchantment.frenzy.ItemStackMixin",
+    "commonside.enchantment.imperishable.GrindstoneScreenHandlerMixin",
+    "commonside.enchantment.imperishable.ItemDispenserBehaviorMixin",
+    "commonside.enchantment.imperishable.ItemEntityMixin",
+    "commonside.enchantment.imperishable.PlayerEntityMixin",
+    "commonside.enchantment.imperishable.TripwireBlockMixin",
+    "commonside.enchantment.infinity.bucket.ItemDispenserBehaviorMixin",
+    "commonside.enchantment.infinity.bucket.PowderSnowBucketItemMixin",
+    "commonside.enchantment.infinity.bucket.RecipeMixin",
+    "commonside.retainenchantment.item.AbstractFurnaceBlockEntityMixin",
+    "commonside.retainenchantment.item.BrewingStandBlockEntityMixin",
+    "commonside.retainenchantment.item.ItemDispenserBehaviorMixin",
+    "commonside.retainenchantment.item.PowderSnowBucketItemMixin",
+    "commonside.retainenchantment.item.RecipeMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
   }
 }

@@ -2,6 +2,7 @@ package io.github.shaksternano.entranced.commonside.eventhook.enchantingtablefil
 
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.networking.NetworkManager;
+import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.network.enchantingtablefilter.EnchantingScreenNetworking;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedNetworking;
 import net.fabricmc.api.EnvType;
@@ -20,15 +21,17 @@ public final class EnchantingScreenEventHooks {
     @Environment(EnvType.CLIENT)
     public static void registerClientEventHooks() {
         ClientGuiEvent.INIT_POST.register((screen, access) -> {
-            if (screen instanceof EnchantmentScreen) {
-                access.addRenderableWidget(new ButtonWidget(
-                        10,
-                        50,
-                        150,
-                        20,
-                        new TranslatableText("container.enchant.entranced.applyCatalyst"),
-                        button -> NetworkManager.sendToServer(EnchantingScreenNetworking.APPLY_ENCHANTING_CATALYST, EntrancedNetworking.createPacketByteBuf())
-                ));
+            if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
+                if (screen instanceof EnchantmentScreen) {
+                    access.addRenderableWidget(new ButtonWidget(
+                            10,
+                            50,
+                            150,
+                            20,
+                            new TranslatableText("container.enchant.entranced.applyCatalyst"),
+                            button -> NetworkManager.sendToServer(EnchantingScreenNetworking.APPLY_ENCHANTING_CATALYST, EntrancedNetworking.createPacketByteBuf())
+                    ));
+                }
             }
         });
     }

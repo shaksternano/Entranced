@@ -3,6 +3,7 @@ package io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.fre
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
+import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.enchantment.FrenzyEnchantment;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
@@ -32,7 +33,7 @@ abstract class ItemStackMixin {
     private void entranced$frenzyIncreaseAttackSpeed(EquipmentSlot slot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir) {
         ItemStack stack = (ItemStack) (Object) this;
         if (slot == EquipmentSlot.MAINHAND) {
-            if (EntrancedEnchantments.FRENZY.isEnabled()) {
+            if (Entranced.INSTANCE.getConfig().isFrenzyEnabled()) {
                 if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.FRENZY)) {
                     Multimap<EntityAttribute, EntityAttributeModifier> attributes = cir.getReturnValue();
                     boolean createdNewMap = false;

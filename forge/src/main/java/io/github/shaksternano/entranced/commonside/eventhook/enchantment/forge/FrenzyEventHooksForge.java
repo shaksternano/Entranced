@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.commonside.eventhook.enchantment.forge;
 
 import com.google.common.collect.Multimap;
+import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.enchantment.FrenzyEnchantment;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import io.github.shaksternano.entranced.commonside.util.EnchantmentUtil;
@@ -28,7 +29,7 @@ public final class FrenzyEventHooksForge {
     public static void frenzyIncreaseAttackSpeed(ItemAttributeModifierEvent event) {
         ItemStack stack = event.getItemStack();
         if (event.getSlotType() == EquipmentSlot.MAINHAND) {
-            if (EntrancedEnchantments.FRENZY.isEnabled()) {
+            if (Entranced.INSTANCE.getConfig().isFrenzyEnabled()) {
                 if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.FRENZY)) {
                     Multimap<EntityAttribute, EntityAttributeModifier> attributes = event.getModifiers();
 

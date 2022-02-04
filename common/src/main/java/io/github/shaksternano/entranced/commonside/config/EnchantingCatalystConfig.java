@@ -5,6 +5,7 @@ import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.util.CollectionUtil;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.InvalidIdentifierException;
@@ -59,6 +60,14 @@ public enum EnchantingCatalystConfig {
 
     public boolean isCatalystAffected(EnchantingCatalystType catalystType, Enchantment enchantment) {
         return catalystAffectedEnchantments.containsEntry(catalystType, enchantment);
+    }
+
+    public boolean isCatalyst(Item item) {
+        return catalystItems.containsKey(item);
+    }
+
+    public boolean isCatalyst(ItemStack stack) {
+        return isCatalyst(stack.getItem());
     }
 
     @Nullable

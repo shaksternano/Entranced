@@ -2,6 +2,7 @@ package io.github.shaksternano.entranced.commonside.eventhook.enchantment;
 
 import dev.architectury.event.events.common.TickEvent;
 import dev.architectury.networking.NetworkManager;
+import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.enchantment.MlgEnchantment;
 import io.github.shaksternano.entranced.commonside.network.enchantment.MlgNetworking;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
@@ -33,7 +34,7 @@ public final class MlgEventHooks {
         // A filled bucket with the MLG enchantment in the player's inventory will automatically get put in the player's hand when falling from a height that would damage the player.
         TickEvent.PLAYER_POST.register(player -> {
             if (!player.getWorld().isClient()) {
-                if (EntrancedEnchantments.MLG.isEnabled()) {
+                if (Entranced.INSTANCE.getConfig().isMlgEnabled()) {
                     if (!player.isCreative() && !player.isSpectator()) {
                         if (!player.isOnGround()) {
                             ItemStack mainHandStack = player.getMainHandStack();
