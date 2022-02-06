@@ -4,7 +4,6 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.EnchantmentScreenHandlerAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.screen.EnchantmentScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
@@ -19,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(EnchantmentScreenHandler.class)
 abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
 
+    @SuppressWarnings("unused")
     private EnchantmentScreenHandlerMixin(@Nullable ScreenHandlerType<?> arg, int i) {
         super(arg, i);
     }
@@ -30,7 +30,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
     @SuppressWarnings("unused")
     @ModifyExpressionValue(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isIn(Lnet/minecraft/tag/Tag;)Z"))
     private boolean entranced$isCatalystSlot(boolean isEnchantingFuel, PlayerEntity player, int index) {
-        return ((EnchantmentScreenHandlerAccess) this).entranced$isCatalystSlot(isEnchantingFuel, index);
+        return ((EnchantmentScreenHandlerAccess) this).entranced$isCatalystSlotImpl(isEnchantingFuel, index);
     }
 
     @Redirect(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/EnchantmentScreenHandler;insertItem(Lnet/minecraft/item/ItemStack;IIZ)Z"), slice = @Slice(
@@ -38,6 +38,6 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
             to = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;canInsert(Lnet/minecraft/item/ItemStack;)Z")
     ))
     private boolean entranced$moveOutOfCatalystSlot(EnchantmentScreenHandler thisScreenHandler, ItemStack selectedSlotStack, int startIndex, int endIndex, boolean fromLast, PlayerEntity player, int index) {
-        return ((EnchantmentScreenHandlerAccess) this).entranced$moveOutOfCatalystSlot(selectedSlotStack.isIn(Tags.Items.ENCHANTING_FUELS), selectedSlotStack, index);
+        return ((EnchantmentScreenHandlerAccess) this).entranced$moveOutOfCatalystSlotImpl(selectedSlotStack.isIn(Tags.Items.ENCHANTING_FUELS), selectedSlotStack, index);
     }
 }

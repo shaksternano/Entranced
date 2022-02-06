@@ -8,7 +8,7 @@ public interface EnchantmentScreenHandlerAccess {
 
     void entranced$setEnchantingCatalyst();
 
-    boolean entranced$isCatalystSlot(boolean isLapis, int index);
+    boolean entranced$isCatalystSlotImpl(boolean isLapis, int index);
 
-    boolean entranced$moveOutOfCatalystSlot(boolean isLapis, ItemStack selectedSlotStack, int index);
+    boolean entranced$moveOutOfCatalystSlotImpl(boolean isLapis, ItemStack selectedSlotStack, int index);
 }

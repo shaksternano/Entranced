@@ -14,8 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import java.util.Iterator;
-
 public final class FrenzyEventHooksForge {
 
     private FrenzyEventHooksForge() {}

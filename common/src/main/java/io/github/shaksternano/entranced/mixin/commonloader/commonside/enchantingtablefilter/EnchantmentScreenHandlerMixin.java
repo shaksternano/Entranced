@@ -11,7 +11,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.screen.EnchantmentScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
@@ -185,13 +184,13 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
 
     @Unique
     @Override
-    public boolean entranced$isCatalystSlot(boolean isLapis, int index) {
+    public boolean entranced$isCatalystSlotImpl(boolean isLapis, int index) {
         return isLapis || (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled() && index == entranced$catalystSlotIndex);
     }
 
     @Unique
     @Override
-    public boolean entranced$moveOutOfCatalystSlot(boolean isLapis, ItemStack selectedSlotStack, int index) {
+    public boolean entranced$moveOutOfCatalystSlotImpl(boolean isLapis, ItemStack selectedSlotStack, int index) {
         if (!Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled() || isLapis) {
             return insertItem(selectedSlotStack, 1, 2, true);
         } else if (index == entranced$catalystSlotIndex) {

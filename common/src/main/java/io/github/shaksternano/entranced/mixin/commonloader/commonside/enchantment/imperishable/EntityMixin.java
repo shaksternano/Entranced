@@ -45,7 +45,6 @@ abstract class EntityMixin {
 
     @Shadow public abstract void setVelocity(double x, double y, double z);
 
-    @SuppressWarnings("CancellableInjectionUsage")
     @Inject(method = "isInvulnerableTo", at = @At("HEAD"), cancellable = true)
     protected void entranced$damageImperishable(DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {}
 

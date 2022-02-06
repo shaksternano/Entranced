@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(EnchantmentScreenHandler.class)
 abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
 
+    @SuppressWarnings("unused")
     private EnchantmentScreenHandlerMixin(@Nullable ScreenHandlerType<?> screenHandlerType, int i) {
         super(screenHandlerType, i);
     }
@@ -29,7 +30,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
     @SuppressWarnings("unused")
     @ModifyExpressionValue(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
     private boolean entranced$isCatalystSlot(boolean isLapis, PlayerEntity player, int index) {
-        return ((EnchantmentScreenHandlerAccess) this).entranced$isCatalystSlot(isLapis, index);
+        return ((EnchantmentScreenHandlerAccess) this).entranced$isCatalystSlotImpl(isLapis, index);
     }
 
     @Redirect(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/EnchantmentScreenHandler;insertItem(Lnet/minecraft/item/ItemStack;IIZ)Z"), slice = @Slice(
@@ -37,6 +38,6 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
             to = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;canInsert(Lnet/minecraft/item/ItemStack;)Z")
     ))
     private boolean entranced$moveOutOfCatalystSlot(EnchantmentScreenHandler thisScreenHandler, ItemStack selectedSlotStack, int startIndex, int endIndex, boolean fromLast, PlayerEntity player, int index) {
-        return ((EnchantmentScreenHandlerAccess) this).entranced$moveOutOfCatalystSlot(selectedSlotStack.isOf(Items.LAPIS_LAZULI), selectedSlotStack, index);
+        return ((EnchantmentScreenHandlerAccess) this).entranced$moveOutOfCatalystSlotImpl(selectedSlotStack.isOf(Items.LAPIS_LAZULI), selectedSlotStack, index);
     }
 }
