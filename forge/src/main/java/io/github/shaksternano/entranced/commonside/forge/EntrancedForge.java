@@ -14,7 +14,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
 @Mod(Entranced.MOD_ID)
-public final class EntrancedForge {
+public class EntrancedForge {
 
     public EntrancedForge() {
         init();

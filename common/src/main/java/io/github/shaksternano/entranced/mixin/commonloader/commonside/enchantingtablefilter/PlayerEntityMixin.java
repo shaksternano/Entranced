@@ -1,5 +1,6 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantingtablefilter;
 
+import com.google.common.base.Enums;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.EnchantingCatalystTypeHolder;
 import io.github.shaksternano.entranced.commonside.config.EnchantingCatalystConfig;
@@ -11,6 +12,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Optional;
 
 @Mixin(PlayerEntity.class)
 abstract class PlayerEntityMixin implements EnchantingCatalystTypeHolder {
@@ -26,13 +29,13 @@ abstract class PlayerEntityMixin implements EnchantingCatalystTypeHolder {
     private void entranced$loadLastUsedEnchantingCatalyst(NbtCompound nbt, CallbackInfo ci) {
         if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
             if (nbt.contains(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY, 8)) {
-                String catalystType = nbt.getString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY);
+                String catalystTypeString = nbt.getString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY);
 
-                try {
-                    entranced$lastUsedEnchantingCatalystType = EnchantingCatalystConfig.EnchantingCatalystType.valueOf(catalystType);
-                } catch (IllegalArgumentException e) {
-                    Entranced.LOGGER.warn("The previously used enchanting catalyst type " + catalystType + " doesn't exist!");
-                }
+                Optional<EnchantingCatalystConfig.EnchantingCatalystType> catalystTypeOptional = Enums.getIfPresent(EnchantingCatalystConfig.EnchantingCatalystType.class, catalystTypeString).toJavaUtil();
+                catalystTypeOptional.ifPresentOrElse(
+                        catalystType -> entranced$lastUsedEnchantingCatalystType = catalystType,
+                        () -> Entranced.LOGGER.info("The previously used enchanting catalyst type " + catalystTypeString + " doesn't exist!")
+                );
             }
         }
     }
@@ -40,17 +43,13 @@ abstract class PlayerEntityMixin implements EnchantingCatalystTypeHolder {
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
     private void entranced$readLastUsedEnchantingCatalyst(NbtCompound nbt, CallbackInfo ci) {
         if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
-            if (entranced$lastUsedEnchantingCatalystType != null) {
-                nbt.putString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY, entranced$lastUsedEnchantingCatalystType.toString());
-            }
+            entranced$getEnchantingCatalystType().ifPresent(lastUsedEnchantingCatalystType -> nbt.putString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY, lastUsedEnchantingCatalystType.toString()));
         }
     }
 
-    @Unique
-    @Nullable
     @Override
-    public EnchantingCatalystConfig.EnchantingCatalystType entranced$getEnchantingCatalystType() {
-        return entranced$lastUsedEnchantingCatalystType;
+    public Optional<EnchantingCatalystConfig.EnchantingCatalystType> entranced$getEnchantingCatalystType() {
+        return Optional.ofNullable(entranced$lastUsedEnchantingCatalystType);
     }
 
     @Unique

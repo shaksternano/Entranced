@@ -5,11 +5,10 @@ import net.minecraft.enchantment.InfinityEnchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
-import org.jetbrains.annotations.Nullable;
 
-public final class BucketUtil {
+import java.util.Optional;
 
-    private BucketUtil() {}
+public class BucketUtil {
 
     /**
      * @return True if the {@link  Item} is some kind of bucket. Returns false otherwise.
@@ -35,20 +34,19 @@ public final class BucketUtil {
     /**
      * Bucket keeps its fluid if the {@link InfinityEnchantment} is set to affect buckets.
      */
-    @Nullable
-    public static ItemStack infinityBucketKeepFluid(ItemStack bucketStack) {
+    public static Optional<ItemStack> infinityBucketKeepFluid(ItemStack bucketStack) {
         if (EnchantmentUtil.isBucketAndHasInfinityAndBucketEnabled(bucketStack)) {
             Item bucketItem = bucketStack.getItem();
 
             if (bucketItem instanceof EntityBucketItem entityBucketItem) {
                 ItemStack newBucketStack = new ItemStack(BucketUtil.getNoEntityBucket(entityBucketItem));
                 EnchantmentUtil.copyEnchantments(bucketStack, newBucketStack);
-                return newBucketStack;
+                return Optional.of(newBucketStack);
             } else {
-                return bucketStack;
+                return Optional.of(bucketStack);
             }
         } else {
-            return null;
+            return Optional.empty();
         }
     }
 }

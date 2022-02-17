@@ -10,12 +10,11 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.InvalidIdentifierException;
 import net.minecraft.util.registry.Registry;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public enum EnchantingCatalystConfig {
@@ -70,9 +69,8 @@ public enum EnchantingCatalystConfig {
         return isCatalyst(stack.getItem());
     }
 
-    @Nullable
-    public EnchantingCatalyst getCatalystType(Item item) {
-        return catalystItems.get(item);
+    public Optional<EnchantingCatalyst> getCatalystType(Item item) {
+        return Optional.ofNullable(catalystItems.get(item));
     }
 
     public enum EnchantingCatalystType {
@@ -84,19 +82,16 @@ public enum EnchantingCatalystConfig {
         UTILITY(Entranced.INSTANCE.getConfig()::getUtilityCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getUtilityCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getUtilityCatalystUnconsumableItems),
         MISC(Entranced.INSTANCE.getConfig()::getMiscCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getMiscCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getMiscCatalystUnconsumableItems);
 
-        @NotNull
         private final Supplier<List<String>> AFFECTED_ENCHANTMENTS_LIST_GETTER;
-        @NotNull
         private final Supplier<List<String>> CATALYST_CONSUMABLE_ITEMS_LIST_GETTER;
-        @NotNull
         private final Supplier<List<String>> CATALYST_UNCONSUMABLE_ITEMS_LIST_GETTER;
 
-        EnchantingCatalystType(@NotNull Supplier<List<String>> affectedEnchantmentsListGetter, @NotNull Supplier<List<String>> catalystConsumableItemsListGetter, @NotNull Supplier<List<String>> catalystUnconsumableItemsListGetter) {
+        EnchantingCatalystType(Supplier<List<String>> affectedEnchantmentsListGetter, Supplier<List<String>> catalystConsumableItemsListGetter, Supplier<List<String>> catalystUnconsumableItemsListGetter) {
             AFFECTED_ENCHANTMENTS_LIST_GETTER = affectedEnchantmentsListGetter;
             CATALYST_CONSUMABLE_ITEMS_LIST_GETTER = catalystConsumableItemsListGetter;
             CATALYST_UNCONSUMABLE_ITEMS_LIST_GETTER = catalystUnconsumableItemsListGetter;
         }
     }
 
-    public record EnchantingCatalyst(@NotNull EnchantingCatalystType catalystType, boolean catalystConsumed) {}
+    public record EnchantingCatalyst(EnchantingCatalystType catalystType, boolean catalystConsumed) {}
 }

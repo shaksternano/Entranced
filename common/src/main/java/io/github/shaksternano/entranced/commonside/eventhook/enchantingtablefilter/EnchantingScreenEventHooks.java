@@ -11,9 +11,7 @@ import net.minecraft.client.gui.screen.ingame.EnchantmentScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.TranslatableText;
 
-public final class EnchantingScreenEventHooks {
-
-    private EnchantingScreenEventHooks() {}
+public class EnchantingScreenEventHooks {
 
     /**
      * Registers client event hooks related to the enchanting catalyst.

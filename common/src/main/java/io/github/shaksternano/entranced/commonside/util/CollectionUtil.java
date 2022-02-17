@@ -19,9 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public final class CollectionUtil {
-
-    private CollectionUtil() {}
+public class CollectionUtil {
 
     /**
      * @return A new {@link Multimap} using an {@link Enum} for the keys and

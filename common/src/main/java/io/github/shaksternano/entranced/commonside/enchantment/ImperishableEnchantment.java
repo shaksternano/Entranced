@@ -10,7 +10,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Prevents items from despawning or being destroyed. Additionally, if a tool with this enchantment reaches 0 durability,
@@ -58,12 +57,12 @@ public class ImperishableEnchantment extends ConfigurableEnchantment {
     }
 
     @Override
-    public @NotNull String getPath() {
+    public String getPath() {
         return "imperishable";
     }
 
     @ExpectPlatform
-    public static ImperishableEnchantment newEnchantment() {
+    public static ImperishableEnchantment newInstance() {
         throw new AssertionError();
     }
 

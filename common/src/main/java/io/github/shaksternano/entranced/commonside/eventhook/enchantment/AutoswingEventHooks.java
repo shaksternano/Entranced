@@ -11,9 +11,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.hit.HitResult;
 
-public final class AutoswingEventHooks {
-
-    private AutoswingEventHooks() {}
+public class AutoswingEventHooks {
 
     /**
      * Registers client event hooks related to the {@link AutoswingEnchantment}.

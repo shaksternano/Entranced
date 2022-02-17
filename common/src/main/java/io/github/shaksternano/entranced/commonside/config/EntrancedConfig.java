@@ -16,7 +16,7 @@ import java.util.List;
 @SuppressWarnings({"CanBeFinal", "FieldCanBeLocal", "FieldMayBeFinal"})
 @Config(name = Entranced.MOD_ID)
 @Config.Gui.Background(Config.Gui.Background.TRANSPARENT)
-public final class EntrancedConfig implements ConfigData {
+public class EntrancedConfig implements ConfigData {
 
     @ConfigEntry.Category("enchantment")
     @ConfigEntry.Gui.CollapsibleObject

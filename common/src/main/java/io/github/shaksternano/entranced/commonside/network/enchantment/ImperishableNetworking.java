@@ -12,9 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
-public final class ImperishableNetworking {
-
-    private ImperishableNetworking() {}
+public class ImperishableNetworking {
 
     public static final Identifier EQUIPMENT_BREAK_EFFECTS = new Identifier(Entranced.MOD_ID, "equipment_break_effects");
 

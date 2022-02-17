@@ -20,11 +20,7 @@ public abstract class BucketItemMixin {
     @Inject(method = "getEmptiedStack", at = @At("HEAD"), cancellable = true)
     private static void entranced$infinityEntityBucket(ItemStack stack, PlayerEntity player, CallbackInfoReturnable<ItemStack> cir) {
         if (!player.getAbilities().creativeMode) {
-            ItemStack bucketStack = BucketUtil.infinityBucketKeepFluid(stack);
-
-            if (bucketStack != null) {
-                cir.setReturnValue(bucketStack);
-            }
+            BucketUtil.infinityBucketKeepFluid(stack).ifPresent(cir::setReturnValue);
         }
     }
 }

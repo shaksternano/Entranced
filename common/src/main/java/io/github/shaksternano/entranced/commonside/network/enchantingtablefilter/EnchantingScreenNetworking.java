@@ -8,9 +8,7 @@ import net.minecraft.screen.EnchantmentScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.Identifier;
 
-public final class EnchantingScreenNetworking {
-
-    private EnchantingScreenNetworking() {}
+public class EnchantingScreenNetworking {
 
     public static final Identifier APPLY_ENCHANTING_CATALYST = new Identifier(Entranced.MOD_ID, "apply_enchanting_catalyst");
 

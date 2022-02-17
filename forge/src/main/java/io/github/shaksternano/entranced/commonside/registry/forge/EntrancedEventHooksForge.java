@@ -4,9 +4,7 @@ import io.github.shaksternano.entranced.commonside.eventhook.enchantment.forge.*
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 
-public final class EntrancedEventHooksForge {
-
-    private EntrancedEventHooksForge() {}
+public class EntrancedEventHooksForge {
 
     /**
      * Registers logical server side event hooks.

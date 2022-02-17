@@ -4,9 +4,7 @@ import dev.architectury.event.events.common.LifecycleEvent;
 import io.github.shaksternano.entranced.commonside.config.EntrancedConfig;
 import io.github.shaksternano.entranced.mixin.commonloader.commonside.accessor.DimensionTypeAccessor;
 
-public final class EnchantmentEventHooks {
-
-    private EnchantmentEventHooks() {}
+public  class EnchantmentEventHooks {
 
     /**
      * Registers logical server event hooks related to the mod's config.

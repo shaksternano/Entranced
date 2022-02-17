@@ -10,7 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.Identifier;
 
-public final class MlgNetworking {
+public class MlgNetworking {
 
     public static final Identifier CLIENT_HOTBAR_SWAP = new Identifier(Entranced.MOD_ID, "client_hotbar_swap");
 

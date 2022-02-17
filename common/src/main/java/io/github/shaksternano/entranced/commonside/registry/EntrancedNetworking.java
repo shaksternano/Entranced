@@ -9,9 +9,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.PacketByteBuf;
 
-public final class EntrancedNetworking {
-
-    private EntrancedNetworking() {}
+public class EntrancedNetworking {
 
     /**
      * Registers logical server side receivers.

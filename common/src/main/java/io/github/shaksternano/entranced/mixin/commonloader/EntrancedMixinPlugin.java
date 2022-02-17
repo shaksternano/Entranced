@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
-public final class EntrancedMixinPlugin implements IMixinConfigPlugin {
+public class EntrancedMixinPlugin implements IMixinConfigPlugin {
 
     /**
      * Initialise MixinExtras

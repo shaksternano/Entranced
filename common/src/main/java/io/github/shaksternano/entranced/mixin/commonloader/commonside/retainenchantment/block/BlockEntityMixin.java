@@ -15,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Optional;
+
 @Mixin(BlockEntity.class)
 abstract class BlockEntityMixin implements EnchantmentHolder {
 
@@ -32,13 +34,8 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
     @Inject(method = "writeNbt", at = @At("RETURN"))
     private void entranced$getEnchantmentsForNbt(NbtCompound nbt, CallbackInfo ci) {
         if (Entranced.INSTANCE.getConfig().isBlockEntitiesStoreEnchantments()) {
-            if (entranced$enchantments != null) {
-                nbt.put(ItemStack.ENCHANTMENTS_KEY, entranced$enchantments);
-            }
-
-            if (entranced$repairCost != null) {
-                nbt.putInt(ItemStackAccessor.entranced$getRepairCostKey(), entranced$repairCost);
-            }
+            entranced$getEnchantments().ifPresent(enchantmentsNbt -> nbt.put(ItemStack.ENCHANTMENTS_KEY, enchantmentsNbt));
+            entranced$getRepairCost().ifPresent(repairCost -> nbt.putInt(ItemStackAccessor.entranced$getRepairCostKey(), repairCost));
         }
     }
 
@@ -50,6 +47,7 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
     private void entranced$setEnchantmentsFromNbt(NbtCompound nbt, CallbackInfo ci) {
         if (Entranced.INSTANCE.getConfig().isBlockEntitiesStoreEnchantments()) {
             NbtElement enchantments = nbt.get(ItemStack.ENCHANTMENTS_KEY);
+
             if (enchantments != null) {
                 this.entranced$enchantments = enchantments.copy();
             }
@@ -73,10 +71,9 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
     }
 
     @Unique
-    @Nullable
     @Override
-    public NbtElement entranced$getEnchantments() {
-        return entranced$enchantments == null ? null : entranced$enchantments.copy();
+    public Optional<NbtElement> entranced$getEnchantments() {
+        return Optional.ofNullable(entranced$enchantments == null ? null : entranced$enchantments.copy());
     }
 
     @Unique
@@ -85,11 +82,9 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
         entranced$enchantments = enchantments.copy();
     }
 
-    @Unique
-    @Nullable
     @Override
-    public Integer entranced$getRepairCost() {
-        return entranced$repairCost;
+    public Optional<Integer> entranced$getRepairCost() {
+        return Optional.ofNullable(entranced$repairCost);
     }
 
     @Unique

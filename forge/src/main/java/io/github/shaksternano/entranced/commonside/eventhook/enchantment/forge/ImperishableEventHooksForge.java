@@ -8,9 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public final class ImperishableEventHooksForge {
-
-    private ImperishableEventHooksForge() {}
+public class ImperishableEventHooksForge {
 
     /**
      * Item entities with the {@link ImperishableEnchantment} don't despawn.

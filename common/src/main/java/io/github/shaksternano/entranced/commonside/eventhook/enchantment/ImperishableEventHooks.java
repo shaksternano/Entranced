@@ -18,9 +18,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
-public final class ImperishableEventHooks {
-
-    private ImperishableEventHooks() {}
+public class ImperishableEventHooks {
 
     /**
      * Registers logical server event hooks related to the {@link ImperishableEnchantment}.

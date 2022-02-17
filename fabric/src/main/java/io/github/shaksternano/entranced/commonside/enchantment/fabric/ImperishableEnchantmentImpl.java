@@ -7,7 +7,7 @@ import net.minecraft.enchantment.EnchantmentTarget;
 
 public class ImperishableEnchantmentImpl {
 
-    public static ImperishableEnchantment newEnchantment() {
+    public static ImperishableEnchantment newInstance() {
         return new ImperishableEnchantment(ClassTinkerers.getEnum(EnchantmentTarget.class, EntrancedEnchantmentTargets.ANY));
     }
 }

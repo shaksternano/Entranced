@@ -17,16 +17,22 @@ interface IForgeItemMixin {
     @Shadow Item self();
 
     /**
-     * @author ShaksterNano
-     * @reason Used to make the recipe remainder have the same enchantments as the
+     * Used to make the recipe remainder have the same enchantments as the
      * original {@link ItemStack}, and make the recipe remainder for buckets with the
      * {@link InfinityEnchantment} enchantment a copy of the original {@link ItemStack}.
      *
+     * <br><br>
+     *
      * Fabric equivalents are:
-     *      io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.infinity.bucket.RecipeMixin#entranced$infinityKeepItem
-     *      io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.AbstractFurnaceBlockEntityMixin#entranced$furnaceFuelTransferEnchantments
-     *      io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.BrewingStandBlockEntityMixin#entranced$brewingStandTransferEnchantments
-     *      io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.RecipeMixin#entranced$recipeTransferEnchantments
+     * <ul>
+     * <li>io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.infinity.bucket.RecipeMixin#entranced$infinityKeepItem</li>
+     * <li>io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.AbstractFurnaceBlockEntityMixin#entranced$furnaceFuelTransferEnchantments</li>
+     * <li>io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.BrewingStandBlockEntityMixin#entranced$brewingStandTransferEnchantments</li>
+     * <li>io.github.shaksternano.entranced.mixin.fabric.commonside.retainenchantment.item.RecipeMixin#entranced$recipeTransferEnchantments</li>
+     * </ul>
+     *
+     * @author ShaksterNano
+     * @reason Injecting into default methods in interfaces on Forge is not allowed for now.
      */
     @SuppressWarnings("deprecation")
     @Overwrite

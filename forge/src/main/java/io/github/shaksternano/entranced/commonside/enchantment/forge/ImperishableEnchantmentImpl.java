@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 
 public class ImperishableEnchantmentImpl {
 
-    public static ImperishableEnchantment newEnchantment() {
+    public static ImperishableEnchantment newInstance() {
         return new ImperishableEnchantment() {
 
             @Override

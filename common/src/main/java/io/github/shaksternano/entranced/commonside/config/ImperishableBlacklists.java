@@ -5,7 +5,6 @@ import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.util.CollectionUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.List;
@@ -85,11 +84,10 @@ public enum ImperishableBlacklists {
         VOID_PROTECTION(Entranced.INSTANCE.getConfig()::getImperishableVoidProtectionBlacklist, Entranced.INSTANCE.getConfig().isImperishableProtectsFromVoid()),
         BREAK_PROTECTION(Entranced.INSTANCE.getConfig()::getImperishableBreakProtectionBlacklist, Entranced.INSTANCE.getConfig().isImperishablePreventsBreaking());
 
-        @NotNull
         private final Supplier<List<String>> ITEM_ID_BLACKLIST_GETTER;
         private final boolean PROTECTION_ENABLED;
 
-        ProtectionType(@NotNull Supplier<List<String>> itemIdBlacklistGetter, boolean protectionEnabled) {
+        ProtectionType(Supplier<List<String>> itemIdBlacklistGetter, boolean protectionEnabled) {
             ITEM_ID_BLACKLIST_GETTER = itemIdBlacklistGetter;
             PROTECTION_ENABLED = protectionEnabled;
         }

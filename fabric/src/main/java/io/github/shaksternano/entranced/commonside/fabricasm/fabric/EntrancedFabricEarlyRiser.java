@@ -4,7 +4,7 @@ import com.chocohead.mm.api.ClassTinkerers;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
 
-public final class EntrancedFabricEarlyRiser implements Runnable {
+public class EntrancedFabricEarlyRiser implements Runnable {
 
     @Override
     public void run() {

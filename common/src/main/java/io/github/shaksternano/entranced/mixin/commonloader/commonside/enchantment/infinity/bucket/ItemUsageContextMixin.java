@@ -16,6 +16,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Optional;
+
 @Mixin(ItemUsageContext.class)
 abstract class ItemUsageContextMixin implements ExtraItemStackArgument {
 
@@ -38,9 +40,8 @@ abstract class ItemUsageContextMixin implements ExtraItemStackArgument {
     }
 
     @Unique
-    @Nullable
     @Override
-    public ItemStack entranced$getArgument() {
-        return entranced$infinityPowderSnowBucketStack;
+    public Optional<ItemStack> entranced$getArgument() {
+        return Optional.ofNullable(entranced$infinityPowderSnowBucketStack);
     }
 }

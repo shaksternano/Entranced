@@ -10,21 +10,21 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 @Mixin(EnchantmentHelper.class)
 abstract class EnchantmentHelperMixin {
 
     @Redirect(method = "getPossibleEntries", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/Enchantment;isAvailableForRandomSelection()Z"))
     private static boolean entranced$filterEnchantment(Enchantment enchantment, int power, ItemStack stack) {
-        boolean filteredEnchantment = true;
+        AtomicBoolean filteredEnchantment = new AtomicBoolean(true);
 
         if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
-            EnchantingCatalystConfig.EnchantingCatalystType usedCatalystType = ((ExtraEnchantingCatalystTypeArgument) (Object) stack).entranced$getArgument();
-
-            if (usedCatalystType != null) {
-                filteredEnchantment = EnchantingCatalystConfig.INSTANCE.isCatalystAffected(usedCatalystType, enchantment);
-            }
+            ((ExtraEnchantingCatalystTypeArgument) (Object) stack).entranced$getArgument().ifPresent(
+                    usedCatalystType -> filteredEnchantment.set(EnchantingCatalystConfig.INSTANCE.isCatalystAffected(usedCatalystType, enchantment))
+            );
         }
 
-        return enchantment.isAvailableForRandomSelection() && filteredEnchantment;
+        return enchantment.isAvailableForRandomSelection() && filteredEnchantment.get();
     }
 }

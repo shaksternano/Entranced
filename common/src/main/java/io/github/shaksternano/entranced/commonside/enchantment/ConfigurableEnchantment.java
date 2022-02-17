@@ -7,7 +7,6 @@ import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * For easier configuring of enchantments, and convenient ways of getting information like enchantment ID.
@@ -43,7 +42,6 @@ public abstract class ConfigurableEnchantment extends Enchantment {
 
     protected abstract int maxPowerAboveMin();
 
-    @NotNull
     public abstract String getPath();
 
     public String getId() {

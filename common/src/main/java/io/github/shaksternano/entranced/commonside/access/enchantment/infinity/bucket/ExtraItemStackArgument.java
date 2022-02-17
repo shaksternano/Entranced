@@ -1,7 +1,8 @@
 package io.github.shaksternano.entranced.commonside.access.enchantment.infinity.bucket;
 
 import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 /**
  * Used to pass an extra {@link ItemStack} argument to a method in a Mixin by attaching the argument to one
@@ -9,6 +10,5 @@ import org.jetbrains.annotations.Nullable;
  */
 public interface ExtraItemStackArgument {
 
-    @Nullable
-    ItemStack entranced$getArgument();
+    Optional<ItemStack> entranced$getArgument();
 }

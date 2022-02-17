@@ -19,10 +19,6 @@ abstract class ItemDispenserBehaviorMixin {
      */
     @Inject(method = "dispense", at = @At("RETURN"), cancellable = true)
     private void entranced$dispenseInfinity(BlockPointer blockPointer, ItemStack itemStack, CallbackInfoReturnable<ItemStack> cir) {
-        ItemStack bucketStack = BucketUtil.infinityBucketKeepFluid(itemStack);
-
-        if (bucketStack != null) {
-            cir.setReturnValue(bucketStack);
-        }
+        BucketUtil.infinityBucketKeepFluid(itemStack).ifPresent(cir::setReturnValue);
     }
 }

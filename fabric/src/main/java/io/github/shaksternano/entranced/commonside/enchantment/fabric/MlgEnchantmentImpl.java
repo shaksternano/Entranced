@@ -5,9 +5,11 @@ import io.github.shaksternano.entranced.commonside.enchantment.MlgEnchantment;
 import io.github.shaksternano.entranced.commonside.fabricasm.fabric.EntrancedEnchantmentTargets;
 import net.minecraft.enchantment.EnchantmentTarget;
 
-public class MlgEnchantmentImpl {
+public final class MlgEnchantmentImpl {
 
-    public static MlgEnchantment newEnchantment() {
+    private MlgEnchantmentImpl() {}
+
+    public static MlgEnchantment newInstance() {
         return new MlgEnchantment(ClassTinkerers.getEnum(EnchantmentTarget.class, EntrancedEnchantmentTargets.FLUID_CONTAINER));
     }
 }

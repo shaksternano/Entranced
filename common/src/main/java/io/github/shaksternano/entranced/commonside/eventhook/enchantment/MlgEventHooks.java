@@ -23,9 +23,7 @@ import net.minecraft.network.packet.s2c.play.UpdateSelectedSlotS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 
-public final class MlgEventHooks {
-
-    private MlgEventHooks() {}
+public class MlgEventHooks {
 
     /**
      * Registers logical server event hooks related to the {@link MlgEnchantment}.

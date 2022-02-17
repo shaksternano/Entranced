@@ -11,9 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 
-public final class DebugNetworking {
-
-    private DebugNetworking() {}
+public class DebugNetworking {
 
     public static final Identifier DEBUG_HOTBAR_SLOT = new Identifier(Entranced.MOD_ID, "debug_hotbar_slot");
 

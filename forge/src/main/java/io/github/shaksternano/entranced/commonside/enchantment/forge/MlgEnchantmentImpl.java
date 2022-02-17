@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 
 public class MlgEnchantmentImpl {
 
-    public static MlgEnchantment newEnchantment() {
+    public static MlgEnchantment newInstance() {
         return new MlgEnchantment() {
 
             @Override

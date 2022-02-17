@@ -19,7 +19,6 @@ abstract class PowderSnowBucketItemMixin {
      */
     @ModifyExpressionValue(method = "useOnBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;getDefaultStack()Lnet/minecraft/item/ItemStack;"))
     private ItemStack entranced$infinityPowderSnowBucket(ItemStack getDefaultStack, ItemUsageContext context) {
-        ItemStack powderSnowBucketStack = ((ExtraItemStackArgument) context).entranced$getArgument();
-        return powderSnowBucketStack == null ? getDefaultStack : powderSnowBucketStack;
+        return ((ExtraItemStackArgument) context).entranced$getArgument().orElse(getDefaultStack);
     }
 }

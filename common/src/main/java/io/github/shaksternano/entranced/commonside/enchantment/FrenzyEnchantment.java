@@ -8,16 +8,13 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Increases the attack speed of weapons.
  */
-public final class FrenzyEnchantment extends ConfigurableEnchantment {
+public class FrenzyEnchantment extends ConfigurableEnchantment {
 
-    public static final FrenzyEnchantment INSTANCE = new FrenzyEnchantment();
-
-    private FrenzyEnchantment() {
+    public FrenzyEnchantment() {
         super(Entranced.INSTANCE.getConfig().getFrenzyRarity(), EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);
     }
 
@@ -58,7 +55,7 @@ public final class FrenzyEnchantment extends ConfigurableEnchantment {
     }
 
     @Override
-    public @NotNull String getPath() {
+    public String getPath() {
         return "frenzy";
     }
 

@@ -14,9 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public final class FrenzyEventHooksForge {
-
-    private FrenzyEventHooksForge() {}
+public class FrenzyEventHooksForge {
 
     /**
      * Increases the player's attack speed if the item they are holding

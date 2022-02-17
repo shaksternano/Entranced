@@ -8,9 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @SuppressWarnings("unused")
-final class EnchantmentTargets {
-
-    private EnchantmentTargets() {}
+class EnchantmentTargets {
 
     public static class AnyTarget extends EnchantmentTargetMixin {
 

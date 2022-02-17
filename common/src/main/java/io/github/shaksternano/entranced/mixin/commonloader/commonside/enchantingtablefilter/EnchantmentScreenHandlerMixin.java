@@ -16,6 +16,8 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,8 +27,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+/**
+ * Todo Need to also chance enchantments generated in onButtonClick
+ */
 @Mixin(EnchantmentScreenHandler.class)
 abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements EnchantmentScreenHandlerAccess {
 
@@ -59,8 +63,9 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
 
                 @Override
                 public ItemStack insertStack(ItemStack stack, int count) {
-                    EnchantingCatalystConfig.EnchantingCatalystType catalystType = ((EnchantingCatalystTypeHolder) entranced$currentPlayer).entranced$getEnchantingCatalystType();
-                    ((ExtraEnchantingCatalystTypeArgument) (Object) stack).entranced$setArgument(catalystType);
+                    ((ExtraEnchantingCatalystTypeArgument) (Object) stack).entranced$setArgument(
+                            ((EnchantingCatalystTypeHolder) entranced$currentPlayer).entranced$getEnchantingCatalystType().orElse(null)
+                    );
 
                     return super.insertStack(stack, count);
                 }
@@ -78,15 +83,16 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @ModifyExpressionValue(method = "onContentChanged", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;getStack(I)Lnet/minecraft/item/ItemStack;"))
     private ItemStack entranced$setUsedEnchantingCatalyst(ItemStack toEnchantStack) {
         if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
-            EnchantingCatalystConfig.EnchantingCatalystType catalystType = ((EnchantingCatalystTypeHolder) entranced$currentPlayer).entranced$getEnchantingCatalystType();
-            ((ExtraEnchantingCatalystTypeArgument) (Object) toEnchantStack).entranced$setArgument(catalystType);
+            ((ExtraEnchantingCatalystTypeArgument) (Object) toEnchantStack).entranced$setArgument(
+                    ((EnchantingCatalystTypeHolder) entranced$currentPlayer).entranced$getEnchantingCatalystType().orElse(null)
+            );
         }
 
         return toEnchantStack;
     }
 
-    @Inject(method = "onButtonClick", at = @At("HEAD"))
-    private void entranced$resetEnchantingCatalyst(PlayerEntity player, int id, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "method_17410", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;applyEnchantmentCosts(Lnet/minecraft/item/ItemStack;I)V"))
+    private void entranced$resetEnchantingCatalyst(ItemStack itemStack, int i, PlayerEntity player, int j, ItemStack itemStack2, World world, BlockPos pos, CallbackInfo ci) {
         ((EnchantingCatalystTypeHolder) player).entranced$setEnchantingCatalystType(null);
         ((ExtraEnchantingCatalystTypeArgument) (Object) inventory.getStack(0)).entranced$setArgument(null);
     }
@@ -98,12 +104,10 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
             ItemStack enchantingCatalystStack = inventory.getStack(entranced$catalystInventoryIndex);
 
             if (!enchantingCatalystStack.isEmpty()) {
-                EnchantingCatalystConfig.EnchantingCatalyst catalyst = EnchantingCatalystConfig.INSTANCE.getCatalystType(enchantingCatalystStack.getItem());
-
-                if (catalyst != null) {
+                EnchantingCatalystConfig.INSTANCE.getCatalystType(enchantingCatalystStack.getItem()).ifPresent(catalyst -> {
                     EnchantingCatalystTypeHolder catalystTypeHolder = (EnchantingCatalystTypeHolder) entranced$currentPlayer;
 
-                    if (catalyst.catalystType() != catalystTypeHolder.entranced$getEnchantingCatalystType()) {
+                    if (catalyst.catalystType() != catalystTypeHolder.entranced$getEnchantingCatalystType().orElse(null)) {
                         catalystTypeHolder.entranced$setEnchantingCatalystType(catalyst.catalystType());
 
                         if (catalyst.catalystConsumed()) {
@@ -112,7 +116,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
 
                         onContentChanged(inventory);
                     }
-                }
+                });
             }
         }
     }
@@ -194,7 +198,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
         if (!Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled() || isLapis) {
             return insertItem(selectedSlotStack, 1, 2, true);
         } else if (index == entranced$catalystSlotIndex) {
-            return insertItem(selectedSlotStack, 2, 38, true);
+            return insertItem(selectedSlotStack, 2, entranced$catalystSlotIndex, true);
         } else {
             return true;
         }

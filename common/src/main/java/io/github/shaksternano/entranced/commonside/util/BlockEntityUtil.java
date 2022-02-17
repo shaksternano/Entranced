@@ -4,11 +4,8 @@ import io.github.shaksternano.entranced.commonside.access.retainenchantment.bloc
 import io.github.shaksternano.entranced.mixin.commonloader.commonside.accessor.ItemStackAccessor;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtElement;
 
-public final class BlockEntityUtil {
-
-    private BlockEntityUtil() {}
+public class BlockEntityUtil {
 
     /**
      * Copies the enchantments and repair cost of an {@link ItemStack} to a {@link BlockEntity}.
@@ -34,14 +31,8 @@ public final class BlockEntityUtil {
     public static void setDroppedItemStackEnchantments(BlockEntity blockEntity, ItemStack stack) {
         EnchantmentHolder enchantmentHolder = (EnchantmentHolder) blockEntity;
 
-        NbtElement enchantmentsNbt = enchantmentHolder.entranced$getEnchantments();
-        if (enchantmentsNbt != null) {
-            stack.setSubNbt(ItemStack.ENCHANTMENTS_KEY, enchantmentsNbt);
-        }
+        enchantmentHolder.entranced$getEnchantments().ifPresent(enchantmentsNbt -> stack.setSubNbt(ItemStack.ENCHANTMENTS_KEY, enchantmentsNbt));
+        enchantmentHolder.entranced$getRepairCost().ifPresent(stack::setRepairCost);
 
-        Integer repairCost = enchantmentHolder.entranced$getRepairCost();
-        if (repairCost != null) {
-            stack.setRepairCost(repairCost);
-        }
     }
 }

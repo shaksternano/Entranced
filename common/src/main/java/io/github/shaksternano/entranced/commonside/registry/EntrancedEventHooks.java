@@ -8,9 +8,7 @@ import io.github.shaksternano.entranced.commonside.eventhook.enchantment.MlgEven
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
-public final class EntrancedEventHooks {
-
-    private EntrancedEventHooks() {}
+public class EntrancedEventHooks {
 
     /**
      * Registers logical server side event hooks.

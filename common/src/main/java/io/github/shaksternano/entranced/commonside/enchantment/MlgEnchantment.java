@@ -4,7 +4,6 @@ import dev.architectury.injectables.annotations.ExpectPlatform;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * A bucket that isn't empty and has this enchantment will be moved to the player's hand when the player falls
@@ -46,12 +45,12 @@ public class MlgEnchantment extends ConfigurableEnchantment {
     }
 
     @Override
-    public @NotNull String getPath() {
+    public String getPath() {
         return "mlg";
     }
 
     @ExpectPlatform
-    public static MlgEnchantment newEnchantment() {
+    public static MlgEnchantment newInstance() {
         throw new AssertionError();
     }
 }

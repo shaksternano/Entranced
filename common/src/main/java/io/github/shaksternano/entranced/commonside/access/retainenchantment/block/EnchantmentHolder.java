@@ -2,13 +2,15 @@ package io.github.shaksternano.entranced.commonside.access.retainenchantment.blo
 
 import net.minecraft.nbt.NbtElement;
 
+import java.util.Optional;
+
 public interface EnchantmentHolder {
 
-    NbtElement entranced$getEnchantments();
+    Optional<NbtElement> entranced$getEnchantments();
 
     void entranced$setEnchantments(NbtElement enchantments);
 
-    Integer entranced$getRepairCost();
+    Optional<Integer> entranced$getRepairCost();
 
     void entranced$setRepairCost(Integer repairCost);
 }

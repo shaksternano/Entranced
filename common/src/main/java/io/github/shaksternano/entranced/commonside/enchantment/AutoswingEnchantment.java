@@ -3,16 +3,13 @@ package io.github.shaksternano.entranced.commonside.enchantment;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Weapons with this enchantment will attack automatically as long as the attack button is held down.
  */
-public final class AutoswingEnchantment extends ConfigurableEnchantment {
+public class AutoswingEnchantment extends ConfigurableEnchantment {
 
-    public static final AutoswingEnchantment INSTANCE = new AutoswingEnchantment();
-
-    private AutoswingEnchantment() {
+    public AutoswingEnchantment() {
         super(Entranced.INSTANCE.getConfig().getAutoswingRarity(), EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);
     }
 
@@ -42,7 +39,7 @@ public final class AutoswingEnchantment extends ConfigurableEnchantment {
     }
 
     @Override
-    public @NotNull String getPath() {
+    public String getPath() {
         return "autoswing";
     }
 }

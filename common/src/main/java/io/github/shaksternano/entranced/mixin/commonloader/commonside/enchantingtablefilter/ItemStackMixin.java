@@ -7,6 +7,8 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
+import java.util.Optional;
+
 @SuppressWarnings("unused")
 @Mixin(ItemStack.class)
 abstract class ItemStackMixin implements ExtraEnchantingCatalystTypeArgument {
@@ -16,10 +18,9 @@ abstract class ItemStackMixin implements ExtraEnchantingCatalystTypeArgument {
     private EnchantingCatalystConfig.EnchantingCatalystType entranced$catalystType;
 
     @Unique
-    @Nullable
     @Override
-    public EnchantingCatalystConfig.EnchantingCatalystType entranced$getArgument() {
-        return entranced$catalystType;
+    public Optional<EnchantingCatalystConfig.EnchantingCatalystType> entranced$getArgument() {
+        return Optional.ofNullable(entranced$catalystType);
     }
 
     @Unique

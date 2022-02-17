@@ -11,9 +11,7 @@ import net.minecraft.enchantment.InfinityEnchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtElement;
 
-public final class EnchantmentUtil {
-
-    private EnchantmentUtil() {}
+public class EnchantmentUtil {
 
     /**
      * @return True if an {@link ItemStack} has the {@link Enchantment}. Returns false otherwise.
