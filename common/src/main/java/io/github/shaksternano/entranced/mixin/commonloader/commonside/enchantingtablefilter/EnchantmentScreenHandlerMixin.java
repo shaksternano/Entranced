@@ -48,6 +48,9 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @Unique
     private PlayerEntity entranced$currentPlayer;
 
+    /**
+     * Adds the enchanting catalyst slot to the enchanting table screen.
+     */
     @Inject(method = "<init>(ILnet/minecraft/entity/player/PlayerInventory;Lnet/minecraft/screen/ScreenHandlerContext;)V", at = @At("RETURN"))
     private void entranced$addSlot(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context, CallbackInfo ci) {
         entranced$catalystSlotIndex = slots.size();
@@ -79,6 +82,11 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
         }
     }
 
+    /**
+     * Let
+     * io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantingtablefilter.EnchantmentHelperMixin#entranced$filterEnchantment
+     * know if an enchanting catalyst is being used or not.
+     */
     @SuppressWarnings("unused")
     @ModifyExpressionValue(method = "onContentChanged", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;getStack(I)Lnet/minecraft/item/ItemStack;"))
     private ItemStack entranced$setUsedEnchantingCatalyst(ItemStack toEnchantStack) {
@@ -91,12 +99,18 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
         return toEnchantStack;
     }
 
+    /**
+     * Clear the last used enchanting catalyst after it has been used.
+     */
     @Inject(method = "method_17410", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;applyEnchantmentCosts(Lnet/minecraft/item/ItemStack;I)V"))
     private void entranced$resetEnchantingCatalyst(ItemStack itemStack, int i, PlayerEntity player, int j, ItemStack itemStack2, World world, BlockPos pos, CallbackInfo ci) {
         ((EnchantingCatalystTypeHolder) player).entranced$setEnchantingCatalystType(null);
         ((ExtraEnchantingCatalystTypeArgument) (Object) inventory.getStack(0)).entranced$setArgument(null);
     }
 
+    /**
+     * Sets the player's enchanting catalyst if there is a valid one in the enchanting catalyst slot and refreshes the enchantments if there is.
+     */
     @Unique
     @Override
     public void entranced$setEnchantingCatalyst() {
@@ -131,6 +145,9 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
 
     // For shift-clicking into the catalyst slot.
 
+    /**
+     * Move an enchanting catalyst to the enchanting catalyst slot.
+     */
     @SuppressWarnings("unused")
     @ModifyExpressionValue(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;hasStack()Z"), slice = @Slice(
             from = @At(value = "INVOKE", target = "Lnet/minecraft/screen/EnchantmentScreenHandler;insertItem(Lnet/minecraft/item/ItemStack;IIZ)Z"),
@@ -146,6 +163,9 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
         }
     }
 
+    /**
+     * Move an enchanting catalyst to the enchanting catalyst slot.
+     */
     @SuppressWarnings("unused")
     @ModifyExpressionValue(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;canInsert(Lnet/minecraft/item/ItemStack;)Z"), slice = @Slice(
             from = @At(value = "INVOKE", target = "Lnet/minecraft/util/collection/DefaultedList;get(I)Ljava/lang/Object;"),
@@ -162,23 +182,32 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
         }
     }
 
+    /**
+     * Don't move an item to the enchanting slot if an item has been moved to the enchanting catalyst slot.
+     */
     @SuppressWarnings("unused")
     @WrapWithCondition(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"))
     private boolean entranced$doNotDecrement(ItemStack selectedSlotStack, int amount) {
         return !Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled() || entranced$canInsertToEnchant(selectedSlotStack);
     }
 
+    /**
+     * Don't move an item to the enchanting slot if an item has been moved to the enchanting catalyst slot.
+     */
     @SuppressWarnings("unused")
     @WrapWithCondition(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;setStack(Lnet/minecraft/item/ItemStack;)V"), slice = @Slice(
             from = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"),
             to = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isEmpty()Z")
     ))
-    private boolean entranced$doSetStack(Slot slotZero, ItemStack movedStack, PlayerEntity player, int index) {
+    private boolean entranced$doNotSetStack(Slot slotZero, ItemStack movedStack, PlayerEntity player, int index) {
         Slot slot = slots.get(index);
         ItemStack selectedSlotStack = slot.getStack();
         return !Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled() || entranced$canInsertToEnchant(selectedSlotStack);
     }
 
+    /**
+     * @return {@code true} if an item can be inserted into the enchanting slot, {@code false} otherwise.
+     */
     @Unique
     private boolean entranced$canInsertToEnchant(ItemStack stack) {
         return !(slots.get(0).hasStack() || !slots.get(0).canInsert(stack));
@@ -186,12 +215,18 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
 
     // For shift-clicking out of the catalyst slot.
 
+    /**
+     * Moves an item out of the enchanting catalyst slot and into other slots.
+     */
     @Unique
     @Override
     public boolean entranced$isCatalystSlotImpl(boolean isLapis, int index) {
         return isLapis || (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled() && index == entranced$catalystSlotIndex);
     }
 
+    /**
+     * Moves an item out of the enchanting catalyst slot and into other slots.
+     */
     @Unique
     @Override
     public boolean entranced$moveOutOfCatalystSlotImpl(boolean isLapis, ItemStack selectedSlotStack, int index) {

@@ -63,6 +63,7 @@ public enum Entranced {
     }
 
     /**
+     * Gets the mod's config.
      * @return An instance of the mod's config class.
      */
     public EntrancedConfig getConfig() {

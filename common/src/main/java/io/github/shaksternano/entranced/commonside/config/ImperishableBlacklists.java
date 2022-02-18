@@ -2,6 +2,7 @@ package io.github.shaksternano.entranced.commonside.config;
 
 import com.google.common.collect.SetMultimap;
 import io.github.shaksternano.entranced.commonside.Entranced;
+import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.commonside.util.CollectionUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -38,37 +39,52 @@ public enum ImperishableBlacklists {
     }
 
     /**
-     * @return True if the item is on the global blacklist, otherwise, returns false.
+     * Determines whether an {@link Item} is blacklisted from being protected by the
+     * {@link ImperishableEnchantment} or not.
+     * @param item The item to check.
+     * @return {@code true} if the item is blacklisted, {@code false} otherwise.
      */
     public boolean isItemBlacklistedGlobally(Item item) {
         return globalBlacklist.contains(item);
     }
 
     /**
-     * Convenience method for {@link #isItemBlacklistedGlobally(Item item)}
+     * Determines whether an {@link ItemStack} is blacklisted from being protected by the
+     * {@link ImperishableEnchantment} or not.
+     * @param stack The item stack to check.
+     * @return {@code true} if the item stack is blacklisted, {@code false} otherwise.
      */
     public boolean isItemBlacklistedGlobally(ItemStack stack) {
         return isItemBlacklistedGlobally(stack.getItem());
     }
 
     /**
-     * @return True if an item is on the global blacklist or the blacklist
-     * for the specified {@link ProtectionType}. Otherwise, returns false.
+     * Determines whether an {@link Item} is blacklisted from being protected by the
+     * {@link ImperishableEnchantment} for a certain {@link ProtectionType} or not.
+     * @param item The item to check.
+     * @param protectionType The protection type to check for.
+     * @return {@code true} if an item is on the blacklist for
+     * the specified {@link ProtectionType}, {@code false} otherwise.
      */
     private boolean isItemBlacklisted(Item item, ProtectionType protectionType) {
         return isItemBlacklistedGlobally(item) || blacklists.containsEntry(protectionType, item);
     }
 
     /**
-     * @return True if the specified item is not blacklisted and Imperishable is set
-     * to protect from the specified {@link ProtectionType}. Otherwise, returns false.
+     * Determines whether the {@link ImperishableEnchantment} protects an {@link Item} from a certain {@link ProtectionType} or not.
+     * @param item The item to check.
+     * @param protectionType The protection type to check for.
+     * @return {@code true} if the Imperishable enchantment protects the item for the specified protection type, {@code false} otherwise.
      */
     public boolean isItemProtected(Item item, ProtectionType protectionType) {
         return protectionType.PROTECTION_ENABLED && !isItemBlacklisted(item, protectionType);
     }
 
     /**
-     * Convenience method for {@link #isItemProtected(Item item, ProtectionType protectionType)}.
+     * Determines whether the {@link ImperishableEnchantment} protects an {@link ItemStack} from a certain {@link ProtectionType} or not.
+     * @param stack The item stack to check.
+     * @param protectionType The protection type to check for.
+     * @return {@code true} if the Imperishable enchantment protects the item stack for the specified protection type, {@code false} otherwise.
      */
     public boolean isItemProtected(ItemStack stack, ProtectionType protectionType) {
         return isItemProtected(stack.getItem(), protectionType);

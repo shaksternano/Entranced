@@ -23,23 +23,28 @@ abstract class PlayerEntityMixin implements EnchantingCatalystTypeHolder {
     private EnchantingCatalystConfig.EnchantingCatalystType entranced$lastUsedEnchantingCatalystType;
 
     @Unique
-    private static final String ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY = "entranced:lastUsedEnchantingCatalystType";
+    private static final String ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY = "Entranced:LastUsedEnchantingCatalystType";
 
+    /**
+     * Reads the last used enchanting catalyst from disk.
+     */
     @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
     private void entranced$loadLastUsedEnchantingCatalyst(NbtCompound nbt, CallbackInfo ci) {
         if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
             if (nbt.contains(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY, 8)) {
                 String catalystTypeString = nbt.getString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY);
 
-                Optional<EnchantingCatalystConfig.EnchantingCatalystType> catalystTypeOptional = Enums.getIfPresent(EnchantingCatalystConfig.EnchantingCatalystType.class, catalystTypeString).toJavaUtil();
-                catalystTypeOptional.ifPresentOrElse(
-                        catalystType -> entranced$lastUsedEnchantingCatalystType = catalystType,
-                        () -> Entranced.LOGGER.info("The previously used enchanting catalyst type " + catalystTypeString + " doesn't exist!")
+                Enums.getIfPresent(EnchantingCatalystConfig.EnchantingCatalystType.class, catalystTypeString).toJavaUtil().ifPresentOrElse(
+                        this::entranced$setEnchantingCatalystType,
+                        () -> Entranced.LOGGER.info("The previously used enchanting catalyst type " + catalystTypeString + " doesn't exist anymore!")
                 );
             }
         }
     }
 
+    /**
+     * Saves the last used enchanting catalyst to disk.
+     */
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
     private void entranced$readLastUsedEnchantingCatalyst(NbtCompound nbt, CallbackInfo ci) {
         if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {

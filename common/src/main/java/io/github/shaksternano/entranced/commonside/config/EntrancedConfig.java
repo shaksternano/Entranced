@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * The mod's config class.
+ */
 @SuppressWarnings({"CanBeFinal", "FieldCanBeLocal", "FieldMayBeFinal"})
 @Config(name = Entranced.MOD_ID)
 @Config.Gui.Background(Config.Gui.Background.TRANSPARENT)
@@ -272,6 +275,11 @@ public class EntrancedConfig implements ConfigData {
         private final List<String> unconsumableItems = new ArrayList<>();
     }
 
+    /**
+     * Sets the default collection values and saves it to the config file.
+     * @param configHolder The config holder associated with this config object.
+     * @throws IllegalArgumentException if the config object in {@code configHolder} is not equal to this config object.
+     */
     public void initCollectionDefaultValues(ConfigHolder<EntrancedConfig> configHolder) {
         if (configHolder.getConfig() == this) {
             setDefaultCollectionValues(infinity.fluidWhitelist,
@@ -356,23 +364,22 @@ public class EntrancedConfig implements ConfigData {
 
             configHolder.save();
         } else {
-            Entranced.LOGGER.warn("This config object does not match the config object in the config holder!");
-            Thread.dumpStack();
-        }
-    }
-
-    private static void setDefaultCollectionValues(Collection<String> collection, String... elements) {
-        try {
-            collection.clear();
-            collection.addAll(List.of(elements));
-        } catch (Exception e) {
-            Entranced.LOGGER.warn("Error setting default collection values!");
-            e.printStackTrace();
+            throw new IllegalArgumentException("This config object does not match the config object in the config holder!");
         }
     }
 
     /**
-     * Updates {@link Collection}s that are filled with objects corresponding to {@link String} IDs in the config.
+     * Clears the contents of a collection and fills it with default values.
+     * @param collection The collection to clear and add elements to.
+     * @param elements The elements to add to the collection.
+     */
+    private static void setDefaultCollectionValues(Collection<String> collection, String... elements) {
+        collection.clear();
+        collection.addAll(List.of(elements));
+    }
+
+    /**
+     * Updates collections that are filled with objects corresponding to {@link String} IDs in the config.
      */
     public static void updateConfigCollections() {
         InfinityBucketWhitelists.INSTANCE.updateWhitelists();

@@ -45,8 +45,8 @@ public class EnchantmentUtil {
         if (Entranced.INSTANCE.getConfig().isRetainEnchantmentsMoreOften()) {
             if (stackToCopyFrom.hasEnchantments()) {
                 if (!stackToCopyTo.hasEnchantments()) {
-                    NbtElement enchantmentsNbt = stackToCopyFrom.getEnchantments().copy();
-                    stackToCopyTo.setSubNbt(ItemStack.ENCHANTMENTS_KEY, enchantmentsNbt);
+                    NbtElement enchantments = stackToCopyFrom.getEnchantments().copy();
+                    stackToCopyTo.setSubNbt(ItemStack.ENCHANTMENTS_KEY, enchantments);
                 }
             }
 

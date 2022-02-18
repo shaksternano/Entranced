@@ -9,6 +9,11 @@ import org.spongepowered.asm.mixin.Unique;
 
 import java.util.Optional;
 
+/**
+ * For letting
+ * io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantingtablefilter.EnchantmentHelperMixin#entranced$filterEnchantment
+ * know if an enchanting catalyst is being used or not.
+ */
 @SuppressWarnings("unused")
 @Mixin(ItemStack.class)
 abstract class ItemStackMixin implements ExtraEnchantingCatalystTypeArgument {

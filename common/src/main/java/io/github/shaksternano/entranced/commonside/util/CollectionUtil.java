@@ -12,7 +12,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.InvalidIdentifierException;
 import net.minecraft.util.registry.DefaultedRegistry;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
@@ -63,28 +62,19 @@ public class CollectionUtil {
             Thread.dumpStack();
         }
 
-        try {
-            E entry = registry.get(new Identifier(id));
-            // If the ID isn't valid then entry will be the default entry.
-            if (entry != null && !entry.equals(defaultEntry)) {
-                try {
-                    collection.add(entry);
-                } catch (Exception e) {
-                    Entranced.LOGGER.warn("Could not add an entry to the collection!");
-                    e.printStackTrace();
-                }
-            } else {
-                notifyInvalidId(id, idType);
-            }
-        } catch (InvalidIdentifierException e) {
+        E entry = registry.get(Identifier.tryParse(id));
+        // If the ID isn't valid then entry will be the default entry.
+        if (entry != null && !entry.equals(defaultEntry)) {
+            collection.add(entry);
+        } else {
             notifyInvalidId(id, idType);
         }
     }
 
     /**
-     * Outputs and logs if there is an invalid {@link Identifier}.
+     * Outputs to the log if there is an invalid {@link Identifier}.
      */
     public static void notifyInvalidId(String id, String idType) {
-        Entranced.LOGGER.warn("\"" + id + "\" in the " + Entranced.MOD_ID + ".json5 config file is not a valid " + idType + " ID!");
+        Entranced.LOGGER.warn("\"" + id + "\" in the " + Entranced.MOD_ID + ".json5 config file is not a valid " + idType + " ID, ignoring value!");
     }
 }

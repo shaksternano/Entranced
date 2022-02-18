@@ -27,12 +27,18 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
 
     // For shift-clicking out of the catalyst slot.
 
+    /**
+     * Moves an item out of the enchanting catalyst slot and into other slots.
+     */
     @SuppressWarnings("unused")
     @ModifyExpressionValue(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isIn(Lnet/minecraft/tag/Tag;)Z"))
     private boolean entranced$isCatalystSlot(boolean isEnchantingFuel, PlayerEntity player, int index) {
         return ((EnchantmentScreenHandlerAccess) this).entranced$isCatalystSlotImpl(isEnchantingFuel, index);
     }
 
+    /**
+     * Moves an item out of the enchanting catalyst slot and into other slots.
+     */
     @Redirect(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/screen/EnchantmentScreenHandler;insertItem(Lnet/minecraft/item/ItemStack;IIZ)Z"), slice = @Slice(
             from = @At(value = "FIELD", target = "Lnet/minecraftforge/common/Tags$Items;ENCHANTING_FUELS:Lnet/minecraftforge/common/Tags$IOptionalNamedTag;", opcode = Opcodes.GETSTATIC),
             to = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;canInsert(Lnet/minecraft/item/ItemStack;)Z")
