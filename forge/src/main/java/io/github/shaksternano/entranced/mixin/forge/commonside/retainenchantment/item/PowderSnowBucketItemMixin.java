@@ -19,7 +19,7 @@ abstract class PowderSnowBucketItemMixin {
     @ModifyExpressionValue(method = "useOnBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/Item;getDefaultStack()Lnet/minecraft/item/ItemStack;"))
     private ItemStack entranced$placeTransferEnchantments(ItemStack getDefaultStack, ItemUsageContext context) {
         ItemStack stack = context.getStack();
-        EnchantmentUtil.copyEnchantments(stack, getDefaultStack);
+        EnchantmentUtil.copyEnchantmentsAndName(stack, getDefaultStack);
         return getDefaultStack;
     }
 }

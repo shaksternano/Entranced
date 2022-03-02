@@ -24,12 +24,14 @@ public class FrenzyEventHooksForge {
     @SubscribeEvent
     public static void frenzyIncreaseAttackSpeed(ItemAttributeModifierEvent event) {
         ItemStack stack = event.getItemStack();
+
         if (event.getSlotType() == EquipmentSlot.MAINHAND) {
             if (Entranced.INSTANCE.getConfig().isFrenzyEnabled()) {
                 if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.FRENZY)) {
                     Multimap<EntityAttribute, EntityAttributeModifier> attributes = event.getModifiers();
 
                     double attackSpeed = 0.0D;
+
                     for (EntityAttributeModifier attributeModifier : attributes.get(EntityAttributes.GENERIC_ATTACK_SPEED)) {
                         attackSpeed += attributeModifier.getValue();
                     }

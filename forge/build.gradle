@@ -25,7 +25,7 @@ configurations {
 }
 
 dependencies {
-    forge("net.minecraftforge:forge:${rootProject.forge_version}")
+    forge("net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}")
     modApi("dev.architectury:architectury-forge:${rootProject.architectury_api_version}")
 
     common(project(path: ":common", configuration: "namedElements")) {
@@ -43,7 +43,8 @@ dependencies {
 
     modRuntimeOnly("curse.maven:enchantment-descriptions-250419:${rootProject.enchantment_descriptions_forge_id}")
 
-    modRuntimeOnly("mezz.jei:jei-${rootProject.minecraft_version}:${rootProject.jei_version}")
+    // modRuntimeOnly("mezz.jei:jei-${rootProject.minecraft_version}:${rootProject.jei_version}")
+    modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}")
 }
 
 processResources {

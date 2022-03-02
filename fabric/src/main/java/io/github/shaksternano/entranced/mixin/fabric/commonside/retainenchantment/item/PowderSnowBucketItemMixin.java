@@ -20,6 +20,6 @@ abstract class PowderSnowBucketItemMixin {
     private void entranced$placeTransferEnchantments(Args args, ItemUsageContext context) {
         ItemStack stack = context.getStack();
         ItemStack getDefaultStack = args.get(1);
-        EnchantmentUtil.copyEnchantments(stack, getDefaultStack);
+        EnchantmentUtil.copyEnchantmentsAndName(stack, getDefaultStack);
     }
 }

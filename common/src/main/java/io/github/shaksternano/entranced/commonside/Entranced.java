@@ -10,7 +10,6 @@ import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.ActionResult;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,8 +18,9 @@ public enum Entranced {
     INSTANCE;
 
     public static final String MOD_ID = "entranced";
+    public static final String MOD_NAME = "Entranced";
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(StringUtils.capitalize(MOD_ID));
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
     private EntrancedConfig config;
 

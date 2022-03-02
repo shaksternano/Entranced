@@ -24,7 +24,7 @@ public class EnchantingScreenNetworking {
                     ScreenHandler screenHandler = player.currentScreenHandler;
 
                     if (screenHandler instanceof EnchantmentScreenHandler) {
-                        ((EnchantmentScreenHandlerAccess) screenHandler).entranced$setEnchantingCatalyst();
+                        ((EnchantmentScreenHandlerAccess) screenHandler).entranced$applyEnchantingCatalyst();
                     } else {
                         Entranced.LOGGER.warn("Received an apply enchanting catalyst packet when not using an enchanting table, this shouldn't happen!");
                     }

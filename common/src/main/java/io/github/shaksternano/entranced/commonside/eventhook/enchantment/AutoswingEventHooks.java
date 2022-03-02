@@ -27,7 +27,7 @@ public class AutoswingEventHooks {
             PlayerEntity player = client.player;
 
             if (player != null) {
-                if (client.options.keyAttack.isPressed()) {
+                if (client.options.attackKey.isPressed()) {
                     HitResult crosshairTarget = client.crosshairTarget;
 
                     if (crosshairTarget != null) {

@@ -21,6 +21,6 @@ interface RecipeMixin<C extends Inventory> {
         int index = args.get(0);
         ItemStack originalStack = inventory.getStack(index);
         ItemStack newItemStack = args.get(1);
-        EnchantmentUtil.copyEnchantments(originalStack, newItemStack);
+        EnchantmentUtil.copyEnchantmentsAndName(originalStack, newItemStack);
     }
 }

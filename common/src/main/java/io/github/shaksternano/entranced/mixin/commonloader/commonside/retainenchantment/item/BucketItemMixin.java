@@ -19,7 +19,7 @@ abstract class BucketItemMixin {
     private static void entranced$placeTransferEnchantments(ItemStack stack, PlayerEntity player, CallbackInfoReturnable<ItemStack> cir) {
         if (!player.getAbilities().creativeMode) {
             ItemStack emptiedStack = cir.getReturnValue();
-            EnchantmentUtil.copyEnchantments(stack, emptiedStack);
+            EnchantmentUtil.copyEnchantmentsAndName(stack, emptiedStack);
         }
     }
 }

@@ -17,6 +17,6 @@ abstract class ItemUsageMixin {
      */
     @Inject(method = "exchangeStack(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;Z)Lnet/minecraft/item/ItemStack;", at = @At("HEAD"))
     private static void entranced$transferEnchantments(ItemStack inputStack, PlayerEntity player, ItemStack outputStack, boolean creativeOverride, CallbackInfoReturnable<ItemStack> cir) {
-        EnchantmentUtil.copyEnchantments(inputStack, outputStack);
+        EnchantmentUtil.copyEnchantmentsAndName(inputStack, outputStack);
     }
 }

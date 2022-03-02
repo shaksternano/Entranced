@@ -6,7 +6,7 @@ public interface EnchantmentScreenHandlerAccess {
 
     void entranced$setCatalystInventoryIndex(int slotIndex);
 
-    void entranced$setEnchantingCatalyst();
+    void entranced$applyEnchantingCatalyst();
 
     boolean entranced$isCatalystSlotImpl(boolean isLapis, int index);
 

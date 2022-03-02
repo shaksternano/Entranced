@@ -2,12 +2,16 @@ package io.github.shaksternano.entranced.mixin.commonloader.commonside.enchantin
 
 import com.google.common.base.Enums;
 import io.github.shaksternano.entranced.commonside.Entranced;
-import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.EnchantingCatalystTypeHolder;
+import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.PlayerEntityAccess;
 import io.github.shaksternano.entranced.commonside.config.EnchantingCatalystConfig;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,7 +20,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Optional;
 
 @Mixin(PlayerEntity.class)
-abstract class PlayerEntityMixin implements EnchantingCatalystTypeHolder {
+abstract class PlayerEntityMixin extends LivingEntity implements PlayerEntityAccess {
+
+    @SuppressWarnings("unused")
+    private PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
+    }
+
+    @SuppressWarnings("unused")
+    @Shadow protected int enchantmentTableSeed;
 
     @Unique
     @Nullable
@@ -61,5 +73,11 @@ abstract class PlayerEntityMixin implements EnchantingCatalystTypeHolder {
     @Override
     public void entranced$setEnchantingCatalystType(@Nullable EnchantingCatalystConfig.EnchantingCatalystType catalystType) {
         entranced$lastUsedEnchantingCatalystType = catalystType;
+    }
+
+    @Unique
+    @Override
+    public void entranced$setNewEnchantingTableSeed() {
+        enchantmentTableSeed = random.nextInt();
     }
 }

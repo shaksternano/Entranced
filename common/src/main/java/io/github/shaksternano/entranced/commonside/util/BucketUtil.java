@@ -40,7 +40,7 @@ public class BucketUtil {
 
             if (bucketItem instanceof EntityBucketItem entityBucketItem) {
                 ItemStack newBucketStack = new ItemStack(BucketUtil.getNoEntityBucket(entityBucketItem));
-                EnchantmentUtil.copyEnchantments(bucketStack, newBucketStack);
+                EnchantmentUtil.copyEnchantmentsAndName(bucketStack, newBucketStack);
                 return Optional.of(newBucketStack);
             } else {
                 return Optional.of(bucketStack);

@@ -43,7 +43,7 @@ interface IForgeItemMixin {
             return ItemStack.EMPTY;
         } else {
             ItemStack remainderStack = new ItemStack(self().getRecipeRemainder());
-            EnchantmentUtil.copyEnchantments(itemStack, remainderStack);
+            EnchantmentUtil.copyEnchantmentsAndName(itemStack, remainderStack);
 
             return remainderStack;
         }

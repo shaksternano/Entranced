@@ -14,34 +14,34 @@ import net.minecraft.nbt.NbtElement;
 public class EnchantmentUtil {
 
     /**
-     * @return True if an {@link ItemStack} has the {@link Enchantment}. Returns false otherwise.
+     * @return {@code true} if an {@link ItemStack} has the {@link Enchantment}, {@code false} otherwise.
      */
     public static boolean hasEnchantment(ItemStack stack, Enchantment enchantment) {
-        return EnchantmentHelper.getLevel(enchantment, stack) != 0;
+        return EnchantmentHelper.getLevel(enchantment, stack) > 0;
     }
 
     /**
-     * @return True if an {@link ItemStack} is a bucket, has the {@link InfinityEnchantment},
-     * and the {@link InfinityEnchantment} is allowed on buckets. Returns false otherwise.
+     * @return {@code true} if an {@link ItemStack} is a bucket, has the {@link InfinityEnchantment},
+     * and the Infinity enchantment is allowed on buckets, {@code false} otherwise
      */
     public static boolean isBucketAndHasInfinityAndBucketEnabled(ItemStack stack) {
         return Entranced.INSTANCE.getConfig().isInfinityAllowedOnBuckets() && BucketUtil.isBucket(stack.getItem()) && EnchantmentUtil.hasEnchantment(stack, Enchantments.INFINITY);
     }
 
     /**
-     * @return True if an {@link ItemStack} is damageable, has the {@link ImperishableEnchantment},
-     * the {@link ImperishableEnchantment} is
-     * enabled, and the damage on it is more than the item's maximum damage. Returns false otherwise.
+     * @return {@code true} if an {@link ItemStack} is damageable, has the {@link ImperishableEnchantment},
+     * the Imperishable enchantment is enabled, and the damage on it is more than the item's maximum
+     * damage, {@code false} otherwise.
      */
     public static boolean isBrokenImperishable(ItemStack stack) {
         return stack.isDamageable() && stack.getDamage() >= stack.getMaxDamage() && (hasEnchantment(stack, EntrancedEnchantments.IMPERISHABLE) || Entranced.INSTANCE.getConfig().isEnchantmentNotNeededToPreventBreaking());
     }
 
     /**
-     * Copies the enchantments from one {@link ItemStack} to another.
+     * Copies the enchantments, repair cost and custom name from one {@link ItemStack} to another.
      */
     @SuppressWarnings("ConstantConditions")
-    public static void copyEnchantments(ItemStack stackToCopyFrom, ItemStack stackToCopyTo) {
+    public static void copyEnchantmentsAndName(ItemStack stackToCopyFrom, ItemStack stackToCopyTo) {
         if (Entranced.INSTANCE.getConfig().isRetainEnchantmentsMoreOften()) {
             if (stackToCopyFrom.hasEnchantments()) {
                 if (!stackToCopyTo.hasEnchantments()) {
@@ -64,5 +64,16 @@ public class EnchantmentUtil {
                 }
             }
         }
+    }
+
+    /**
+     * Gets the enchantability of an {@link ItemStack}.
+     * @param stack The stack to get the enchantability of.
+     * @return The ItemStack's enchantability.
+     */
+    //@ExpectPlatform
+    public static int getItemEnchantability(ItemStack stack) {
+        return stack.getItem().getEnchantability();
+        //throw new AssertionError();
     }
 }

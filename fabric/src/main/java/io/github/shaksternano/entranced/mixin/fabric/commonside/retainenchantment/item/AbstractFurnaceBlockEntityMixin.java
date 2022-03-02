@@ -22,6 +22,6 @@ abstract class AbstractFurnaceBlockEntityMixin {
     private static void entranced$furnaceFuelTransferEnchantments(Args args, World world, BlockPos pos, BlockState state, AbstractFurnaceBlockEntity blockEntity) {
         ItemStack unusedFuel = blockEntity.getStack(1);
         ItemStack usedFuel = args.get(1);
-        EnchantmentUtil.copyEnchantments(unusedFuel, usedFuel);
+        EnchantmentUtil.copyEnchantmentsAndName(unusedFuel, usedFuel);
     }
 }

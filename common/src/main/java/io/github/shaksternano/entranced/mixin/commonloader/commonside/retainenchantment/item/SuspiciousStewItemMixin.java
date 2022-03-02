@@ -19,6 +19,6 @@ abstract class SuspiciousStewItemMixin {
     @Inject(method = "finishUsing", at = @At("RETURN"))
     private void entranced$consumeTransferEnchantments(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack consumedStack = cir.getReturnValue();
-        EnchantmentUtil.copyEnchantments(stack, consumedStack);
+        EnchantmentUtil.copyEnchantmentsAndName(stack, consumedStack);
     }
 }

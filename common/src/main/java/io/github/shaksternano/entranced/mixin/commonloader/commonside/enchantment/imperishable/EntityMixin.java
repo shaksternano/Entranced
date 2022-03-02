@@ -27,10 +27,6 @@ import java.util.List;
 @Mixin(Entity.class)
 abstract class EntityMixin {
 
-    @Shadow public World world;
-    @SuppressWarnings("unused")
-    @Shadow protected boolean onGround;
-
     @Shadow public abstract double getX();
 
     @Shadow public abstract double getY();
@@ -44,6 +40,8 @@ abstract class EntityMixin {
     @Shadow public abstract void setVelocity(Vec3d velocity);
 
     @Shadow public abstract void setVelocity(double x, double y, double z);
+
+    @Shadow public abstract World getWorld();
 
     @SuppressWarnings("CancellableInjectionUsage")
     @Inject(method = "isInvulnerableTo", at = @At("HEAD"), cancellable = true)

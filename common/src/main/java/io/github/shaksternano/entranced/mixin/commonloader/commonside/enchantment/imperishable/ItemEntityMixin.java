@@ -42,30 +42,30 @@ abstract class ItemEntityMixin extends EntityMixin {
         if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
             // Items with Imperishable float up to the world's minimum Y if their Y coordinate is below the world's minimum Y.
             if (ImperishableBlacklists.INSTANCE.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
-                if (getY() < world.getBottomY()) {
+                if (getY() < getWorld().getBottomY()) {
 
                     Vec3d velocity = getVelocity();
-                    setVelocity(velocity.x * 0.97D, velocity.y + velocity.y < 0.06D ? 0.5D : 0.0D, velocity.z * 0.97D);
+                    setVelocity(velocity.getX() * 0.97D, velocity.getY() + velocity.getY() < 0.06D ? 0.5D : 0.0D, velocity.getZ() * 0.97D);
 
-                    double x = getX() + getVelocity().x;
-                    double y = getY() + getVelocity().y;
-                    double z = getZ() + getVelocity().z;
+                    double x = getX() + getVelocity().getX();
+                    double y = getY() + getVelocity().getY();
+                    double z = getZ() + getVelocity().getZ();
 
-                    if (y >= world.getBottomY()) {
+                    if (y >= getWorld().getBottomY()) {
                         setVelocity(Vec3d.ZERO);
-                        y = world.getBottomY();
+                        y = getWorld().getBottomY();
                     }
 
                     setPosition(x, y, z);
                 }
 
                 // Set the Item Entity's Y position to 64 blocks below the world's minimum Y position when below 64 blocks below the world's minimum Y position.
-                if (getY() < world.getBottomY() - 64.0D) {
-                    if (getVelocity().y < 0) {
-                        setVelocity(getVelocity().x, 0.0D, getVelocity().z);
+                if (getY() < getWorld().getBottomY() - 64.0D) {
+                    if (getVelocity().getY() < 0) {
+                        setVelocity(getVelocity().getX(), 0.0D, getVelocity().getZ());
                     }
 
-                    setPosition(getX(), world.getBottomY() - 64.0D, getZ());
+                    setPosition(getX(), getWorld().getBottomY() - 64.0D, getZ());
                 }
             }
         }

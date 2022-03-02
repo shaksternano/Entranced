@@ -20,7 +20,7 @@ abstract class BrewingStandBlockEntityMixin {
     @ModifyVariable(method = "craft", at = @At("STORE"), ordinal = 1)
     private static ItemStack entranced$brewingStandTransferEnchantments(ItemStack newItemStack, World world, BlockPos pos, DefaultedList<ItemStack> slots) {
         ItemStack itemStack = slots.get(3);
-        EnchantmentUtil.copyEnchantments(itemStack, newItemStack);
+        EnchantmentUtil.copyEnchantmentsAndName(itemStack, newItemStack);
         return newItemStack;
     }
 }
