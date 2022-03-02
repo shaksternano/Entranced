@@ -36,9 +36,9 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     }
 
     @Shadow @Final private Inventory inventory;
-
-    @Shadow @Final private Property seed;
     @Shadow @Final private ScreenHandlerContext context;
+    @Shadow @Final private Property seed;
+
     @Unique
     private int entranced$catalystInventoryIndex;
     @Unique
