@@ -19,7 +19,7 @@ public class EnchantingScreenEventHooks {
     @Environment(EnvType.CLIENT)
     public static void registerClientEventHooks() {
         ClientGuiEvent.INIT_POST.register((screen, access) -> {
-            if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
+            if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
                 if (screen instanceof EnchantmentScreen) {
                     access.addRenderableWidget(new ButtonWidget(
                             10,

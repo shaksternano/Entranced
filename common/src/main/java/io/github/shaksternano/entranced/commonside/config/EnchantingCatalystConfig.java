@@ -16,17 +16,15 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public enum EnchantingCatalystConfig {
+public class EnchantingCatalystConfig {
 
-    INSTANCE;
-
-    private final SetMultimap<EnchantingCatalystType, Enchantment> catalystAffectedEnchantments = CollectionUtil.createEnumMultimap(EnchantingCatalystType.class);
-    private final Map<Item, EnchantingCatalyst> catalystItems = new HashMap<>();
+    private static final SetMultimap<EnchantingCatalystType, Enchantment> catalystAffectedEnchantments = CollectionUtil.createEnumMultimap(EnchantingCatalystType.class);
+    private static final Map<Item, EnchantingCatalyst> catalystItems = new HashMap<>();
 
     /**
      * Updates the enchanting catalyst collections with values from the config.
      */
-    public void updateCatalystConfigCollections() {
+    public static void updateCatalystConfigCollections() {
         catalystAffectedEnchantments.clear();
         catalystItems.clear();
 
@@ -51,7 +49,7 @@ public enum EnchantingCatalystConfig {
      * @param catalystType The type of enchantments the item will affect.
      * @param consumable Whether the item is consumed when used or not.
      */
-    private void addCatalystItem(String itemId, EnchantingCatalystType catalystType, boolean consumable) {
+    private static void addCatalystItem(String itemId, EnchantingCatalystType catalystType, boolean consumable) {
         Item item = Registry.ITEM.get(Identifier.tryParse(itemId));
 
         if (!item.equals(Items.AIR)) {
@@ -67,7 +65,7 @@ public enum EnchantingCatalystConfig {
      * @param enchantment The enchantment to check.
      * @return {@code true} if enchantment is not filtered out, {@code false} otherwise.
      */
-    public boolean isCatalystAllowed(EnchantingCatalystType catalystType, Enchantment enchantment) {
+    public static boolean isCatalystAllowed(EnchantingCatalystType catalystType, Enchantment enchantment) {
         return catalystAffectedEnchantments.containsEntry(catalystType, enchantment);
     }
 
@@ -76,7 +74,7 @@ public enum EnchantingCatalystConfig {
      * @param item The item to check.
      * @return {@code true} if the item is an enchanting catalyst, false otherwise.
      */
-    public boolean isCatalyst(Item item) {
+    public static boolean isCatalyst(Item item) {
         return catalystItems.containsKey(item);
     }
 
@@ -85,7 +83,7 @@ public enum EnchantingCatalystConfig {
      * @param stack The item stack to check.
      * @return {@code true} if the item stack is an enchanting catalyst, false otherwise.
      */
-    public boolean isCatalyst(ItemStack stack) {
+    public static boolean isCatalyst(ItemStack stack) {
         return isCatalyst(stack.getItem());
     }
 
@@ -94,7 +92,7 @@ public enum EnchantingCatalystConfig {
      * @param item The item to get the enchanting catalyst type of.
      * @return An {@link Optional} describing the enchanting catalyst type.
      */
-    public Optional<EnchantingCatalyst> getCatalystType(Item item) {
+    public static Optional<EnchantingCatalyst> getCatalystType(Item item) {
         return Optional.ofNullable(catalystItems.get(item));
     }
 
@@ -103,12 +101,12 @@ public enum EnchantingCatalystConfig {
      */
     public enum EnchantingCatalystType {
 
-        MELEE(Entranced.INSTANCE.getConfig()::getMeleeCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getMeleeCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getMeleeCatalystUnconsumableItems),
-        RANGED(Entranced.INSTANCE.getConfig()::getRangedCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getRangedCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getRangedCatalystUnconsumableItems),
-        DEFENSIVE(Entranced.INSTANCE.getConfig()::getDefensiveCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getDefensiveCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getDefensiveCatalystUnconsumableItems),
-        MAGIC(Entranced.INSTANCE.getConfig()::getMagicCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getMagicCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getMagicCatalystUnconsumableItems),
-        UTILITY(Entranced.INSTANCE.getConfig()::getUtilityCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getUtilityCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getUtilityCatalystUnconsumableItems),
-        MISC(Entranced.INSTANCE.getConfig()::getMiscCatalystAffectedEnchantments, Entranced.INSTANCE.getConfig()::getMiscCatalystConsumableItems, Entranced.INSTANCE.getConfig()::getMiscCatalystUnconsumableItems);
+        MELEE(Entranced.getConfig()::getMeleeCatalystAffectedEnchantments, Entranced.getConfig()::getMeleeCatalystConsumableItems, Entranced.getConfig()::getMeleeCatalystUnconsumableItems),
+        RANGED(Entranced.getConfig()::getRangedCatalystAffectedEnchantments, Entranced.getConfig()::getRangedCatalystConsumableItems, Entranced.getConfig()::getRangedCatalystUnconsumableItems),
+        DEFENSIVE(Entranced.getConfig()::getDefensiveCatalystAffectedEnchantments, Entranced.getConfig()::getDefensiveCatalystConsumableItems, Entranced.getConfig()::getDefensiveCatalystUnconsumableItems),
+        MAGIC(Entranced.getConfig()::getMagicCatalystAffectedEnchantments, Entranced.getConfig()::getMagicCatalystConsumableItems, Entranced.getConfig()::getMagicCatalystUnconsumableItems),
+        UTILITY(Entranced.getConfig()::getUtilityCatalystAffectedEnchantments, Entranced.getConfig()::getUtilityCatalystConsumableItems, Entranced.getConfig()::getUtilityCatalystUnconsumableItems),
+        MISC(Entranced.getConfig()::getMiscCatalystAffectedEnchantments, Entranced.getConfig()::getMiscCatalystConsumableItems, Entranced.getConfig()::getMiscCatalystUnconsumableItems);
 
         private final Supplier<List<String>> AFFECTED_ENCHANTMENTS_LIST_GETTER;
         private final Supplier<List<String>> CATALYST_CONSUMABLE_ITEMS_LIST_GETTER;

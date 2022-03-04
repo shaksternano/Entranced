@@ -11,37 +11,36 @@ import net.minecraft.entity.EquipmentSlot;
  */
 public class MlgEnchantment extends ConfigurableEnchantment {
 
+    /**
+     * Do not call this, call {@link MlgEnchantment#newInstance()} instead.
+     */
     public MlgEnchantment(EnchantmentTarget enchantmentTarget) {
-        super(Entranced.INSTANCE.getConfig().getMlgRarity(), enchantmentTarget, EquipmentSlot.values());
-    }
-
-    public MlgEnchantment() {
-        this(EnchantmentTarget.VANISHABLE);
+        super(Entranced.getConfig().getMlgRarity(), enchantmentTarget, EquipmentSlot.values());
     }
 
     @Override
     public boolean isTreasure() {
-        return Entranced.INSTANCE.getConfig().isMlgTreasure();
+        return Entranced.getConfig().isMlgTreasure();
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return Entranced.INSTANCE.getConfig().isMlgSoldByVillagers();
+        return Entranced.getConfig().isMlgSoldByVillagers();
     }
 
     @Override
     public boolean isEnabled() {
-        return Entranced.INSTANCE.getConfig().isMlgEnabled();
+        return Entranced.getConfig().isMlgEnabled();
     }
 
     @Override
     protected int minPower() {
-        return Entranced.INSTANCE.getConfig().getMlgMinPower();
+        return Entranced.getConfig().getMlgMinPower();
     }
 
     @Override
     protected int maxPowerAboveMin() {
-        return Entranced.INSTANCE.getConfig().getMlgMaxPowerAboveMin();
+        return Entranced.getConfig().getMlgMaxPowerAboveMin();
     }
 
     @Override
@@ -49,6 +48,10 @@ public class MlgEnchantment extends ConfigurableEnchantment {
         return "mlg";
     }
 
+    /**
+     * Creates a new {@link MlgEnchantment} instance with a custom {@link EnchantmentTarget}.
+     * @return A new Imperishable enchantment instance with a custom enchantment target.
+     */
     @ExpectPlatform
     public static MlgEnchantment newInstance() {
         throw new AssertionError();

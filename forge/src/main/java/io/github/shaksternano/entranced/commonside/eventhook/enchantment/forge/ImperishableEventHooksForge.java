@@ -19,7 +19,7 @@ public class ImperishableEventHooksForge {
         ItemStack stack = event.getEntityItem().getStack();
 
         if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.IMPERISHABLE)) {
-            if (ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
+            if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
                 event.setCanceled(true);
             }
         }

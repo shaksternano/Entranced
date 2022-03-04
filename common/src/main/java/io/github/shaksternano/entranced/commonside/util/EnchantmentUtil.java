@@ -25,7 +25,7 @@ public class EnchantmentUtil {
      * and the Infinity enchantment is allowed on buckets, {@code false} otherwise
      */
     public static boolean isBucketAndHasInfinityAndBucketEnabled(ItemStack stack) {
-        return Entranced.INSTANCE.getConfig().isInfinityAllowedOnBuckets() && BucketUtil.isBucket(stack.getItem()) && EnchantmentUtil.hasEnchantment(stack, Enchantments.INFINITY);
+        return Entranced.getConfig().isInfinityAllowedOnBuckets() && BucketUtil.isBucket(stack.getItem()) && EnchantmentUtil.hasEnchantment(stack, Enchantments.INFINITY);
     }
 
     /**
@@ -34,7 +34,7 @@ public class EnchantmentUtil {
      * damage, {@code false} otherwise.
      */
     public static boolean isBrokenImperishable(ItemStack stack) {
-        return stack.isDamageable() && stack.getDamage() >= stack.getMaxDamage() && (hasEnchantment(stack, EntrancedEnchantments.IMPERISHABLE) || Entranced.INSTANCE.getConfig().isEnchantmentNotNeededToPreventBreaking());
+        return stack.isDamageable() && stack.getDamage() >= stack.getMaxDamage() && (hasEnchantment(stack, EntrancedEnchantments.IMPERISHABLE) || Entranced.getConfig().isEnchantmentNotNeededToPreventBreaking());
     }
 
     /**
@@ -42,7 +42,7 @@ public class EnchantmentUtil {
      */
     @SuppressWarnings("ConstantConditions")
     public static void copyEnchantmentsAndName(ItemStack stackToCopyFrom, ItemStack stackToCopyTo) {
-        if (Entranced.INSTANCE.getConfig().isRetainEnchantmentsMoreOften()) {
+        if (Entranced.getConfig().isRetainEnchantmentsMoreOften()) {
             if (stackToCopyFrom.hasEnchantments()) {
                 if (!stackToCopyTo.hasEnchantments()) {
                     NbtElement enchantments = stackToCopyFrom.getEnchantments().copy();

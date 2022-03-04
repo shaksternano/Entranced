@@ -26,7 +26,7 @@ public class FrenzyEventHooksForge {
         ItemStack stack = event.getItemStack();
 
         if (event.getSlotType() == EquipmentSlot.MAINHAND) {
-            if (Entranced.INSTANCE.getConfig().isFrenzyEnabled()) {
+            if (Entranced.getConfig().isFrenzyEnabled()) {
                 if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.FRENZY)) {
                     Multimap<EntityAttribute, EntityAttributeModifier> attributes = event.getModifiers();
 

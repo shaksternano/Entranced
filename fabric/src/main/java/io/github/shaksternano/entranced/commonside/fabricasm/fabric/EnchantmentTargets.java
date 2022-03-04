@@ -10,11 +10,11 @@ import org.spongepowered.asm.mixin.Shadow;
 @SuppressWarnings("unused")
 class EnchantmentTargets {
 
-    public static class AnyTarget extends EnchantmentTargetMixin {
+    public static class ImperishableTarget extends EnchantmentTargetMixin {
 
         @Override
         public boolean isAcceptableItem(Item item) {
-            return !ImperishableBlacklists.INSTANCE.isItemBlacklistedGlobally(item);
+            return !ImperishableBlacklists.isItemBlacklistedGlobally(item);
         }
     }
 

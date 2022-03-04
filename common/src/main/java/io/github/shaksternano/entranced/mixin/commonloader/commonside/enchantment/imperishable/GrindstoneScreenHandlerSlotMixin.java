@@ -19,6 +19,6 @@ abstract class GrindstoneScreenHandlerSlotMixin {
      */
     @Redirect(method = "getExperience(Lnet/minecraft/item/ItemStack;)I", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/Enchantment;isCursed()Z"))
     private boolean entranced$imperishableNoGrindExperience(Enchantment enchantment, ItemStack stack) {
-        return enchantment.isCursed() || (enchantment == EntrancedEnchantments.IMPERISHABLE && ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION) && EnchantmentUtil.isBrokenImperishable(stack));
+        return enchantment.isCursed() || (enchantment == EntrancedEnchantments.IMPERISHABLE && ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION) && EnchantmentUtil.isBrokenImperishable(stack));
     }
 }

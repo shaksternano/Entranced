@@ -27,9 +27,9 @@ abstract class EnchantmentHelperMixin {
     private static boolean entranced$filterEnchantment(Enchantment enchantment, int power, ItemStack stack) {
         AtomicBoolean filteredEnchantment = new AtomicBoolean(true);
 
-        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
             ((ExtraEnchantingCatalystTypeArgument) (Object) stack).entranced$getArgument().ifPresent(
-                    usedCatalystType -> filteredEnchantment.set(EnchantingCatalystConfig.INSTANCE.isCatalystAllowed(usedCatalystType, enchantment))
+                    usedCatalystType -> filteredEnchantment.set(EnchantingCatalystConfig.isCatalystAllowed(usedCatalystType, enchantment))
             );
         }
 
@@ -43,7 +43,7 @@ abstract class EnchantmentHelperMixin {
      */
     @Inject(method = "calculateRequiredExperienceLevel", at = @At("RETURN"), cancellable = true)
     private static void noEnchantmentsAvailable(Random random, int slotIndex, int bookshelfCount, ItemStack stack, CallbackInfoReturnable<Integer> cir) {
-        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
             int enchantmentPower = cir.getReturnValue();
             int enchantability = EnchantmentUtil.getItemEnchantability(stack);
             enchantmentPower += 1 + random.nextInt(enchantability / 4 + 1) + random.nextInt(enchantability / 4 + 1);

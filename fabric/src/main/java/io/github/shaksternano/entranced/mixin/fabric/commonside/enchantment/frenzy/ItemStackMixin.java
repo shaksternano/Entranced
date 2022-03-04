@@ -33,7 +33,7 @@ abstract class ItemStackMixin {
     private void entranced$frenzyIncreaseAttackSpeed(EquipmentSlot slot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir) {
         ItemStack stack = (ItemStack) (Object) this;
         if (slot == EquipmentSlot.MAINHAND) {
-            if (Entranced.INSTANCE.getConfig().isFrenzyEnabled()) {
+            if (Entranced.getConfig().isFrenzyEnabled()) {
                 if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.FRENZY)) {
                     Multimap<EntityAttribute, EntityAttributeModifier> attributes = cir.getReturnValue();
                     boolean createdNewMap = false;

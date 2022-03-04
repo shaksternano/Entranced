@@ -83,7 +83,7 @@ public class EntrancedConfig implements ConfigData {
     @Comment("Debug mode. Used for testing the mod.\nIt is recommended to leave this on the default value.\n\nDefault value is false.")
     private boolean debugMode = false;
 
-    private static final class AutoSwingCollapsible {
+    private static class AutoSwingCollapsible {
 
         @Comment("Is this enchantment enabled?\nMinecraft must be restarted for\nthis change to take full effect.\n\nDefault value is true.")
         private boolean enabled = true;
@@ -104,7 +104,7 @@ public class EntrancedConfig implements ConfigData {
         private int maxPowerAboveMin = 50;
     }
 
-    private static final class ImperishableCollapsible {
+    private static class ImperishableCollapsible {
 
         @Comment("Is this enchantment enabled?\nMinecraft must be restarted for\nthis change to take full effect.\n\nDefault value is true.")
         private boolean enabled = true;
@@ -155,7 +155,7 @@ public class EntrancedConfig implements ConfigData {
         private final List<String> breakProtectionBlacklist = new ArrayList<>();
     }
 
-    private static final class FrenzyCollapsible {
+    private static class FrenzyCollapsible {
 
         @Comment("Is this enchantment enabled?\nMinecraft must be restarted for\nthis change to take full effect.\n\nDefault value is true.")
         private boolean enabled = true;
@@ -185,7 +185,7 @@ public class EntrancedConfig implements ConfigData {
         private boolean mutuallyExclusiveWithDamageEnchantments = true;
     }
 
-    private static final class InfinityCollapsible {
+    private static class InfinityCollapsible {
 
         @Comment("Is the Infinity enchantment allowed on buckets?\n\nDefault value is true.")
         private boolean allowedOnBuckets = true;
@@ -200,7 +200,7 @@ public class EntrancedConfig implements ConfigData {
         private final List<String> itemWhitelist = new ArrayList<>();
     }
 
-    private static final class MlgCollapsible {
+    private static class MlgCollapsible {
 
         @Comment("Is this enchantment enabled?\nMinecraft must be restarted for\nthis change to take full effect.\n\nDefault value is true.")
         private boolean enabled = true;
@@ -221,7 +221,7 @@ public class EntrancedConfig implements ConfigData {
         private int maxPowerAboveMin = 50;
     }
 
-    private static final class MeleeCatalystCollapsible {
+    private static class MeleeCatalystCollapsible {
 
         private final List<String> affectedEnchantments = new ArrayList<>();
 
@@ -230,7 +230,7 @@ public class EntrancedConfig implements ConfigData {
         private final List<String> unconsumableItems = new ArrayList<>();
     }
 
-    private static final class RangedCatalystCollapsible {
+    private static class RangedCatalystCollapsible {
 
         private final List<String> affectedEnchantments = new ArrayList<>();
 
@@ -239,7 +239,7 @@ public class EntrancedConfig implements ConfigData {
         private final List<String> unconsumableItems = new ArrayList<>();
     }
 
-    private static final class DefensiveCatalystCollapsible {
+    private static class DefensiveCatalystCollapsible {
 
         private final List<String> affectedEnchantments = new ArrayList<>();
 
@@ -248,7 +248,7 @@ public class EntrancedConfig implements ConfigData {
         private final List<String> unconsumableItems = new ArrayList<>();
     }
 
-    private static final class MagicCatalystCollapsible {
+    private static class MagicCatalystCollapsible {
 
         private final List<String> affectedEnchantments = new ArrayList<>();
 
@@ -257,7 +257,7 @@ public class EntrancedConfig implements ConfigData {
         private final List<String> unconsumableItems = new ArrayList<>();
     }
 
-    private static final class UtilityCatalystCollapsible {
+    private static class UtilityCatalystCollapsible {
 
         private final List<String> affectedEnchantments = new ArrayList<>();
 
@@ -266,7 +266,7 @@ public class EntrancedConfig implements ConfigData {
         private final List<String> unconsumableItems = new ArrayList<>();
     }
 
-    private static final class MiscCatalystCollapsible {
+    private static class MiscCatalystCollapsible {
 
         private final List<String> affectedEnchantments = new ArrayList<>();
 
@@ -382,9 +382,9 @@ public class EntrancedConfig implements ConfigData {
      * Updates collections that are filled with objects corresponding to {@link String} IDs in the config.
      */
     public static void updateConfigCollections() {
-        InfinityBucketWhitelists.INSTANCE.updateWhitelists();
-        ImperishableBlacklists.INSTANCE.updateBlacklists();
-        EnchantingCatalystConfig.INSTANCE.updateCatalystConfigCollections();
+        InfinityBucketWhitelists.updateWhitelists();
+        ImperishableBlacklists.updateBlacklists();
+        EnchantingCatalystConfig.updateCatalystConfigCollections();
     }
 
     // Accessors

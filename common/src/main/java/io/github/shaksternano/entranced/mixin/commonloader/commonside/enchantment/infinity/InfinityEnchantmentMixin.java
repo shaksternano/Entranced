@@ -23,21 +23,21 @@ abstract class InfinityEnchantmentMixin extends EnchantmentMixin {
 
     @Override
     protected void entranced$addAcceptableItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (Entranced.INSTANCE.getConfig().isInfinityAllowedOnBuckets()) {
+        if (Entranced.getConfig().isInfinityAllowedOnBuckets()) {
             Item item = stack.getItem();
 
             if (item instanceof BucketItemAccessor bucketItem) {
                 if (!bucketItem.entranced$getFluid().equals(Fluids.EMPTY)) {
-                    if (InfinityBucketWhitelists.INSTANCE.isFluidWhitelisted(bucketItem.entranced$getFluid())) {
+                    if (InfinityBucketWhitelists.isFluidWhitelisted(bucketItem.entranced$getFluid())) {
                         cir.setReturnValue(true);
                     }
                 }
             } else if (item instanceof PowderSnowBucketItem powderSnowBucketItem) {
-                if (InfinityBucketWhitelists.INSTANCE.isBlockWhitelisted(powderSnowBucketItem.getBlock())) {
+                if (InfinityBucketWhitelists.isBlockWhitelisted(powderSnowBucketItem.getBlock())) {
                     cir.setReturnValue(true);
                 }
             } else if (item instanceof MilkBucketItem) {
-                if (InfinityBucketWhitelists.INSTANCE.isItemWhitelisted(item)) {
+                if (InfinityBucketWhitelists.isItemWhitelisted(item)) {
                     cir.setReturnValue(true);
                 }
             }

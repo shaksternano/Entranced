@@ -32,7 +32,7 @@ public class MlgEventHooks {
         // A filled bucket with the MLG enchantment in the player's inventory will automatically get put in the player's hand when falling from a height that would damage the player.
         TickEvent.PLAYER_POST.register(player -> {
             if (!player.getWorld().isClient()) {
-                if (Entranced.INSTANCE.getConfig().isMlgEnabled()) {
+                if (Entranced.getConfig().isMlgEnabled()) {
                     if (!player.isCreative() && !player.isSpectator()) {
                         if (!player.isOnGround()) {
                             ItemStack mainHandStack = player.getMainHandStack();

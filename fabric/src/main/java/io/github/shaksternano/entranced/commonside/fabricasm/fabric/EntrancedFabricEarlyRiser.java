@@ -11,20 +11,20 @@ public class EntrancedFabricEarlyRiser implements Runnable {
         MappingResolver remapper = FabricLoader.getInstance().getMappingResolver();
         String enchantmentTarget = remapper.mapClassName("intermediary", "net.minecraft.class_1886");
 
-        addEnum(
+        addEnumSubclass(
                 enchantmentTarget,
-                EntrancedEnchantmentTargets.ANY,
-                EnchantmentTargets.class.getName() + "$AnyTarget"
+                EntrancedEnchantmentTarget.IMPERISHABLE,
+                EnchantmentTargets.class.getName() + "$ImperishableTarget"
         );
 
-        addEnum(
+        addEnumSubclass(
                 enchantmentTarget,
-                EntrancedEnchantmentTargets.FLUID_CONTAINER,
+                EntrancedEnchantmentTarget.FLUID_CONTAINER,
                 EnchantmentTargets.class.getName() + "$FluidContainerTarget"
         );
     }
 
-    private static void addEnum(String mappedClassName, String name, String structClass) {
-        ClassTinkerers.enumBuilder(mappedClassName).addEnumSubclass(name, structClass).build();
+    private static void addEnumSubclass(String mappedClassName, CustomEnum customEnum, String structClass) {
+        ClassTinkerers.enumBuilder(mappedClassName).addEnumSubclass(customEnum.getName(), structClass).build();
     }
 }

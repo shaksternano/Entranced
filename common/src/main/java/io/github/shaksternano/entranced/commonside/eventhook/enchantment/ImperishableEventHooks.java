@@ -28,7 +28,7 @@ public class ImperishableEventHooks {
         InteractionEvent.RIGHT_CLICK_ITEM.register((player, hand) -> {
             ItemStack stack = player.getStackInHand(hand);
 
-            if (ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
+            if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
                 if (!player.isCreative() && !player.isSpectator()) {
                     // Still allow a wearable item to be equipped even if the item is broken.
                     if (!(stack.getItem() instanceof Wearable)) {
@@ -56,7 +56,7 @@ public class ImperishableEventHooks {
     public static void registerClientEventHooks() {
         // Adds a message to the tooltip of an item with Imperishable at 0 durability.
         ClientTooltipEvent.ITEM.register((stack, lines, context) -> {
-            if (ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
+            if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
                 if (EnchantmentUtil.isBrokenImperishable(stack)) {
                     boolean inserted = false;
 
@@ -91,7 +91,7 @@ public class ImperishableEventHooks {
      * Item specific interactions are cancelled if the item has the {@link ImperishableEnchantment} and is at 0 durability.
      */
     private static EventResult imperishableCancelInteract(PlayerEntity player, ItemStack stack) {
-        if (ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
+        if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (!player.isCreative() && !player.isSpectator()) {
                 if (EnchantmentUtil.isBrokenImperishable(stack)) {
                     return EventResult.interruptFalse();

@@ -7,6 +7,6 @@ public class EntrancedFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        Entranced.INSTANCE.init();
+        Entranced.init();
     }
 }

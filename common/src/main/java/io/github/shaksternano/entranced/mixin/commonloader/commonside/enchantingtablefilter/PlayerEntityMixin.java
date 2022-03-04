@@ -42,7 +42,7 @@ abstract class PlayerEntityMixin extends LivingEntity implements PlayerEntityAcc
      */
     @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
     private void entranced$loadLastUsedEnchantingCatalyst(NbtCompound nbt, CallbackInfo ci) {
-        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
             if (nbt.contains(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY, 8)) {
                 String catalystTypeString = nbt.getString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY);
 
@@ -59,7 +59,7 @@ abstract class PlayerEntityMixin extends LivingEntity implements PlayerEntityAcc
      */
     @Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
     private void entranced$readLastUsedEnchantingCatalyst(NbtCompound nbt, CallbackInfo ci) {
-        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
             entranced$getEnchantingCatalystType().ifPresent(lastUsedEnchantingCatalystType -> nbt.putString(ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY, lastUsedEnchantingCatalystType.toString()));
         }
     }

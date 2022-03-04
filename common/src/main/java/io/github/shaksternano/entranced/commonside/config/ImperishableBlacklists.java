@@ -12,20 +12,18 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public enum ImperishableBlacklists {
+public class ImperishableBlacklists {
 
-    INSTANCE;
-
-    private final Set<Item> globalBlacklist = new HashSet<>();
-    private final SetMultimap<ProtectionType, Item> blacklists = CollectionUtil.createEnumMultimap(ProtectionType.class);
+    private static final Set<Item> globalBlacklist = new HashSet<>();
+    private static final SetMultimap<ProtectionType, Item> blacklists = CollectionUtil.createEnumMultimap(ProtectionType.class);
 
     /**
      * Produces Item blacklists from the Item ID String blacklists in the {@link EntrancedConfig}.
      */
-    public void updateBlacklists() {
+    public static void updateBlacklists() {
         globalBlacklist.clear();
 
-        for (String itemId : Entranced.INSTANCE.getConfig().getImperishableGlobalBlacklist()) {
+        for (String itemId : Entranced.getConfig().getImperishableGlobalBlacklist()) {
             CollectionUtil.addItemToCollection(itemId, globalBlacklist);
         }
 
@@ -44,7 +42,7 @@ public enum ImperishableBlacklists {
      * @param item The item to check.
      * @return {@code true} if the item is blacklisted, {@code false} otherwise.
      */
-    public boolean isItemBlacklistedGlobally(Item item) {
+    public static boolean isItemBlacklistedGlobally(Item item) {
         return globalBlacklist.contains(item);
     }
 
@@ -54,7 +52,7 @@ public enum ImperishableBlacklists {
      * @param stack The item stack to check.
      * @return {@code true} if the item stack is blacklisted, {@code false} otherwise.
      */
-    public boolean isItemBlacklistedGlobally(ItemStack stack) {
+    public static boolean isItemBlacklistedGlobally(ItemStack stack) {
         return isItemBlacklistedGlobally(stack.getItem());
     }
 
@@ -66,7 +64,7 @@ public enum ImperishableBlacklists {
      * @return {@code true} if an item is on the blacklist for
      * the specified {@link ProtectionType}, {@code false} otherwise.
      */
-    private boolean isItemBlacklisted(Item item, ProtectionType protectionType) {
+    private static boolean isItemBlacklisted(Item item, ProtectionType protectionType) {
         return isItemBlacklistedGlobally(item) || blacklists.containsEntry(protectionType, item);
     }
 
@@ -76,7 +74,7 @@ public enum ImperishableBlacklists {
      * @param protectionType The protection type to check for.
      * @return {@code true} if the Imperishable enchantment protects the item for the specified protection type, {@code false} otherwise.
      */
-    public boolean isItemProtected(Item item, ProtectionType protectionType) {
+    public static boolean isItemProtected(Item item, ProtectionType protectionType) {
         return protectionType.PROTECTION_ENABLED && !isItemBlacklisted(item, protectionType);
     }
 
@@ -86,7 +84,7 @@ public enum ImperishableBlacklists {
      * @param protectionType The protection type to check for.
      * @return {@code true} if the Imperishable enchantment protects the item stack for the specified protection type, {@code false} otherwise.
      */
-    public boolean isItemProtected(ItemStack stack, ProtectionType protectionType) {
+    public static boolean isItemProtected(ItemStack stack, ProtectionType protectionType) {
         return isItemProtected(stack.getItem(), protectionType);
     }
 
@@ -95,10 +93,10 @@ public enum ImperishableBlacklists {
      * from config and boolean enabled value from config.
      */
     public enum ProtectionType {
-        DESPAWN_PROTECTION(Entranced.INSTANCE.getConfig()::getImperishableDespawnProtectionBlacklist, Entranced.INSTANCE.getConfig().isImperishablePreventsDespawn()),
-        DAMAGE_PROTECTION(Entranced.INSTANCE.getConfig()::getImperishableDamageProtectionBlacklist, Entranced.INSTANCE.getConfig().isImperishableProtectsFromDamage()),
-        VOID_PROTECTION(Entranced.INSTANCE.getConfig()::getImperishableVoidProtectionBlacklist, Entranced.INSTANCE.getConfig().isImperishableProtectsFromVoid()),
-        BREAK_PROTECTION(Entranced.INSTANCE.getConfig()::getImperishableBreakProtectionBlacklist, Entranced.INSTANCE.getConfig().isImperishablePreventsBreaking());
+        DESPAWN_PROTECTION(Entranced.getConfig()::getImperishableDespawnProtectionBlacklist, Entranced.getConfig().isImperishablePreventsDespawn()),
+        DAMAGE_PROTECTION(Entranced.getConfig()::getImperishableDamageProtectionBlacklist, Entranced.getConfig().isImperishableProtectsFromDamage()),
+        VOID_PROTECTION(Entranced.getConfig()::getImperishableVoidProtectionBlacklist, Entranced.getConfig().isImperishableProtectsFromVoid()),
+        BREAK_PROTECTION(Entranced.getConfig()::getImperishableBreakProtectionBlacklist, Entranced.getConfig().isImperishablePreventsBreaking());
 
         private final Supplier<List<String>> ITEM_ID_BLACKLIST_GETTER;
         private final boolean PROTECTION_ENABLED;

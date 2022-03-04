@@ -13,23 +13,21 @@ import net.minecraft.util.ActionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum Entranced {
-
-    INSTANCE;
+public class Entranced {
 
     public static final String MOD_ID = "entranced";
     public static final String MOD_NAME = "Entranced";
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
-    private EntrancedConfig config;
+    private static EntrancedConfig config;
 
-    private boolean createdNewConfigFile = false;
+    private static boolean createdNewConfigFile = false;
 
     /**
-     * Mod initialization run on both the client and the logical server.
+     * Mod initialization run on both the logical client and logical server.
      */
-    public void init() {
+    public static void init () {
         registerConfig();
         EntrancedNetworking.registerServerReceivers();
         EntrancedEventHooks.registerServerEventHooks();
@@ -37,10 +35,10 @@ public enum Entranced {
     }
 
     /**
-     * Mod initialization run on only the client.
+     * Mod initialization run on only the logical client.
      */
     @Environment(EnvType.CLIENT)
-    public void clientInit() {
+    public static void clientInit() {
         EntrancedNetworking.registerClientReceivers();
         EntrancedEventHooks.registerClientEventHooks();
     }
@@ -48,7 +46,7 @@ public enum Entranced {
     /**
      * Registers the config class.
      */
-    private void registerConfig() {
+    private static void registerConfig() {
         ConfigHolder<EntrancedConfig> configHolder = AutoConfig.register(EntrancedConfig.class, JanksonConfigSerializer::new);
         config = AutoConfig.getConfigHolder(EntrancedConfig.class).getConfig();
 
@@ -66,11 +64,11 @@ public enum Entranced {
      * Gets the mod's config.
      * @return An instance of the mod's config class.
      */
-    public EntrancedConfig getConfig() {
+    public static EntrancedConfig getConfig() {
         return config;
     }
 
-    public void setCreatedNewConfigFile(boolean createdNewConfigFile) {
-        this.createdNewConfigFile = createdNewConfigFile;
+    public static void setCreatedNewConfigFile(boolean createdNewConfigFile) {
+        Entranced.createdNewConfigFile = createdNewConfigFile;
     }
 }

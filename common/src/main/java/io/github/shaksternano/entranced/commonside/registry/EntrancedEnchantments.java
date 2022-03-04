@@ -9,30 +9,37 @@ import net.minecraft.util.registry.Registry;
 import java.util.HashSet;
 import java.util.Set;
 
-public enum EntrancedEnchantments {
+public class EntrancedEnchantments {
 
-    INSTANCE;
+    private static final DeferredRegister<Enchantment> enchantments = DeferredRegister.create(Entranced.MOD_ID, Registry.ENCHANTMENT_KEY);
+    private static final Set<ConfigurableEnchantment> enchantmentsToRegister = new HashSet<>();
 
-    private final DeferredRegister<Enchantment> enchantments = DeferredRegister.create(Entranced.MOD_ID, Registry.ENCHANTMENT_KEY);
-    private final Set<ConfigurableEnchantment> enchantmentsToRegister = new HashSet<>();
+    public static final ConfigurableEnchantment AUTOSWING = addEnchantmentToRegister(new AutoswingEnchantment());
+    public static final ConfigurableEnchantment FRENZY = addEnchantmentToRegister(new FrenzyEnchantment());
+    public static final ConfigurableEnchantment IMPERISHABLE = addEnchantmentToRegister(ImperishableEnchantment.newInstance());
+    public static final ConfigurableEnchantment MLG = addEnchantmentToRegister(MlgEnchantment.newInstance());
 
-    public static final ConfigurableEnchantment AUTOSWING = new AutoswingEnchantment();
-    public static final ConfigurableEnchantment FRENZY = new FrenzyEnchantment();
-    public static final ConfigurableEnchantment IMPERISHABLE = ImperishableEnchantment.newInstance();
-    public static final ConfigurableEnchantment MLG = MlgEnchantment.newInstance();
+    /**
+     * Sets a {@link ConfigurableEnchantment} to be registered if it's enabled and returns it.
+     * @param enchantment The enchantment to be registered.
+     * @return The enchantment.
+     */
+    private static <T extends ConfigurableEnchantment> T addEnchantmentToRegister(T enchantment) {
+        if (enchantment.isEnabled()) {
+            enchantmentsToRegister.add(enchantment);
+        }
 
-    public void addEnchantmentToRegister(ConfigurableEnchantment enchantment) {
-        enchantmentsToRegister.add(enchantment);
+        return enchantment;
     }
 
     /**
      * Registers all the enchantments.
      */
     public static void registerEnchantments() {
-        for (ConfigurableEnchantment enchantment : INSTANCE.enchantmentsToRegister) {
-            INSTANCE.enchantments.register(enchantment.getPath(), () -> enchantment);
+        for (ConfigurableEnchantment enchantment : enchantmentsToRegister) {
+            enchantments.register(enchantment.getPath(), () -> enchantment);
         }
 
-        INSTANCE.enchantments.register();
+        enchantments.register();
     }
 }

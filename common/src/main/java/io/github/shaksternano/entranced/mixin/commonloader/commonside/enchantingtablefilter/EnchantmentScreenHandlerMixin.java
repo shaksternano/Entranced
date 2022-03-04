@@ -54,12 +54,12 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
         entranced$catalystSlotIndex = slots.size();
         entranced$currentPlayer = playerInventory.player;
 
-        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
             addSlot(new Slot(inventory, entranced$catalystInventoryIndex, -10, 47) {
 
                 @Override
                 public boolean canInsert(ItemStack stack) {
-                    return EnchantingCatalystConfig.INSTANCE.isCatalyst(stack);
+                    return EnchantingCatalystConfig.isCatalyst(stack);
                 }
 
                 @Override
@@ -88,7 +88,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @SuppressWarnings("unused")
     @ModifyExpressionValue(method = "onContentChanged", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;getStack(I)Lnet/minecraft/item/ItemStack;"))
     private ItemStack entranced$setUsedEnchantingCatalyst(ItemStack toEnchantStack) {
-        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
             ((ExtraEnchantingCatalystTypeArgument) (Object) toEnchantStack).entranced$setArgument(
                     ((PlayerEntityAccess) entranced$currentPlayer).entranced$getEnchantingCatalystType().orElse(null)
             );
@@ -112,11 +112,11 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @Unique
     @Override
     public void entranced$applyEnchantingCatalyst() {
-        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
             ItemStack enchantingCatalystStack = inventory.getStack(entranced$catalystInventoryIndex);
 
             if (!enchantingCatalystStack.isEmpty()) {
-                EnchantingCatalystConfig.INSTANCE.getCatalystType(enchantingCatalystStack.getItem()).ifPresent(catalyst -> context.run((world, blockPos) -> {
+                EnchantingCatalystConfig.getCatalystType(enchantingCatalystStack.getItem()).ifPresent(catalyst -> context.run((world, blockPos) -> {
                     PlayerEntityAccess catalystTypeHolder = (PlayerEntityAccess) entranced$currentPlayer;
 
                     if (catalyst.catalystType() != catalystTypeHolder.entranced$getEnchantingCatalystType().orElse(null)) {
@@ -158,7 +158,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
             to = @At(value = "INVOKE", target = "Lnet/minecraft/screen/slot/Slot;canInsert(Lnet/minecraft/item/ItemStack;)Z")
     ))
     private boolean entranced$moveToCatalystSlot(boolean hasStack, PlayerEntity player, int index) {
-        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
             Slot slot = slots.get(index);
             ItemStack selectedSlotStack = slot.getStack();
             return !insertItem(selectedSlotStack, entranced$catalystSlotIndex, entranced$catalystSlotIndex + 1, true) && hasStack;
@@ -176,7 +176,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
             to = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;setCount(I)V")
     ))
     private boolean entranced$catalystSlotCanInsert(boolean canInsert, PlayerEntity player, int index) {
-        if (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled()) {
+        if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
             Slot slot = slots.get(index);
             ItemStack selectedSlotStack = slot.getStack();
             // Will be equivalent to !canInsert && !insertItem()
@@ -192,7 +192,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @SuppressWarnings("unused")
     @WrapWithCondition(method = "transferSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"))
     private boolean entranced$doNotDecrement(ItemStack selectedSlotStack, int amount) {
-        return !Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled() || entranced$canInsertToEnchant(selectedSlotStack);
+        return !Entranced.getConfig().isEnchantingCatalystEnabled() || entranced$canInsertToEnchant(selectedSlotStack);
     }
 
     /**
@@ -206,7 +206,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     private boolean entranced$doNotSetStack(Slot slotZero, ItemStack movedStack, PlayerEntity player, int index) {
         Slot slot = slots.get(index);
         ItemStack selectedSlotStack = slot.getStack();
-        return !Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled() || entranced$canInsertToEnchant(selectedSlotStack);
+        return !Entranced.getConfig().isEnchantingCatalystEnabled() || entranced$canInsertToEnchant(selectedSlotStack);
     }
 
     /**
@@ -225,7 +225,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @Unique
     @Override
     public boolean entranced$isCatalystSlotImpl(boolean isLapis, int index) {
-        return isLapis || (Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled() && index == entranced$catalystSlotIndex);
+        return isLapis || (Entranced.getConfig().isEnchantingCatalystEnabled() && index == entranced$catalystSlotIndex);
     }
 
     /**
@@ -234,7 +234,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     @Unique
     @Override
     public boolean entranced$moveOutOfCatalystSlotImpl(boolean isLapis, ItemStack selectedSlotStack, int index) {
-        if (!Entranced.INSTANCE.getConfig().isEnchantingCatalystEnabled() || isLapis) {
+        if (!Entranced.getConfig().isEnchantingCatalystEnabled() || isLapis) {
             return insertItem(selectedSlotStack, 1, 2, true);
         } else if (index == entranced$catalystSlotIndex) {
             return insertItem(selectedSlotStack, 2, entranced$catalystSlotIndex, true);

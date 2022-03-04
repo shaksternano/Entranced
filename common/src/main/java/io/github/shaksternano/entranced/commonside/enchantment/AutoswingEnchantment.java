@@ -10,32 +10,32 @@ import net.minecraft.entity.EquipmentSlot;
 public class AutoswingEnchantment extends ConfigurableEnchantment {
 
     public AutoswingEnchantment() {
-        super(Entranced.INSTANCE.getConfig().getAutoswingRarity(), EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);
+        super(Entranced.getConfig().getAutoswingRarity(), EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);
     }
 
     @Override
     public boolean isTreasure() {
-        return Entranced.INSTANCE.getConfig().isAutoswingTreasure();
+        return Entranced.getConfig().isAutoswingTreasure();
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return Entranced.INSTANCE.getConfig().isAutoswingSoldByVillagers();
+        return Entranced.getConfig().isAutoswingSoldByVillagers();
     }
 
     @Override
     public boolean isEnabled() {
-        return Entranced.INSTANCE.getConfig().isAutoswingEnabled();
+        return Entranced.getConfig().isAutoswingEnabled();
     }
 
     @Override
     protected int minPower() {
-        return Entranced.INSTANCE.getConfig().getAutoswingMinPower();
+        return Entranced.getConfig().getAutoswingMinPower();
     }
 
     @Override
     protected int maxPowerAboveMin() {
-        return Entranced.INSTANCE.getConfig().getAutoswingMaxPowerAboveMin();
+        return Entranced.getConfig().getAutoswingMaxPowerAboveMin();
     }
 
     @Override

@@ -24,7 +24,7 @@ abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
      */
     @Inject(method = "tick", at = @At("TAIL"))
     private void entranced$checkTridentImperishable(CallbackInfo ci) {
-        if (ImperishableBlacklists.INSTANCE.isItemProtected(tridentStack, ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
+        if (ImperishableBlacklists.isItemProtected(tridentStack, ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(tridentStack, EntrancedEnchantments.IMPERISHABLE)) {
                 if (!isNoClip()) {
                     if (getY() < getWorld().getBottomY()) {
@@ -44,7 +44,7 @@ abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
      */
     @Inject(method = "age", at = @At("HEAD"), cancellable = true)
     private void entranced$imperishableAge(CallbackInfo ci) {
-        if (ImperishableBlacklists.INSTANCE.isItemProtected(tridentStack, ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
+        if (ImperishableBlacklists.isItemProtected(tridentStack, ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(tridentStack, EntrancedEnchantments.IMPERISHABLE)) {
                 ci.cancel();
             }
@@ -58,7 +58,7 @@ abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
     @SuppressWarnings("unused")
     @Override
     protected void entranced$imperishableInVoid(CallbackInfo ci) {
-        if (ImperishableBlacklists.INSTANCE.isItemProtected(tridentStack, ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
+        if (ImperishableBlacklists.isItemProtected(tridentStack, ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(tridentStack, EntrancedEnchantments.IMPERISHABLE)) {
                 ci.cancel();
             }

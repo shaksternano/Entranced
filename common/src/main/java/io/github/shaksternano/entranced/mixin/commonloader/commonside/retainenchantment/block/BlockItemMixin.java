@@ -21,7 +21,7 @@ abstract class BlockItemMixin {
      */
     @Inject(method = "writeNbtToBlockEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/BlockItem;getBlockEntityNbt(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/nbt/NbtCompound;"), cancellable = true)
     private static void entranced$setBlockEntityEnchantments(World world, PlayerEntity player, BlockPos pos, ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (Entranced.INSTANCE.getConfig().isBlockEntitiesStoreEnchantments()) {
+        if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity != null) {
                 if (world.isClient() || !blockEntity.copyItemDataRequiresOperator() || player != null && player.isCreativeLevelTwoOp()) {

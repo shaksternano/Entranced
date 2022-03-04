@@ -60,7 +60,7 @@ abstract class EntityMixin {
     private static List<VoxelShape> entranced$voidFloor(List<VoxelShape> collisions, @Nullable Entity entity) {
         if (entity instanceof ItemEntity itemEntity) {
             ItemStack stack = itemEntity.getStack();
-            if (ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
+            if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.VOID_PROTECTION)) {
                 if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.IMPERISHABLE)) {
                     ImmutableList.Builder<VoxelShape> builder = ImmutableList.builderWithExpectedSize(collisions.size() + 1);
                     builder.addAll(collisions);

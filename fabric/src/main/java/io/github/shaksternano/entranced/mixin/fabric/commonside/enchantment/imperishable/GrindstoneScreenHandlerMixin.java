@@ -25,6 +25,6 @@ abstract class GrindstoneScreenHandlerMixin {
     @ModifyArgs(method = "grind", at = @At(value = "INVOKE", target = "Ljava/util/stream/Stream;filter(Ljava/util/function/Predicate;)Ljava/util/stream/Stream;"))
     private void entranced$imperishableNoGrind(Args args, ItemStack stack, int damage, int amount) {
         Predicate<Map.Entry<Enchantment, Integer>> cursedPredicate = args.get(0);
-        args.set(0, cursedPredicate.or(entry -> entry.getKey() == EntrancedEnchantments.IMPERISHABLE && ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION) && EnchantmentUtil.isBrokenImperishable(stack)));
+        args.set(0, cursedPredicate.or(entry -> entry.getKey() == EntrancedEnchantments.IMPERISHABLE && ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION) && EnchantmentUtil.isBrokenImperishable(stack)));
     }
 }

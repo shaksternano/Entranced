@@ -1,7 +1,6 @@
 package io.github.shaksternano.entranced.commonside.enchantment;
 
 import io.github.shaksternano.entranced.commonside.Entranced;
-import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
@@ -15,10 +14,6 @@ public abstract class ConfigurableEnchantment extends Enchantment {
 
     public ConfigurableEnchantment(Rarity weight, EnchantmentTarget type, EquipmentSlot... slotTypes) {
         super(weight, type, slotTypes);
-
-        if (isEnabled()) {
-            EntrancedEnchantments.INSTANCE.addEnchantmentToRegister(this);
-        }
     }
 
     @Override

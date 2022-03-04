@@ -13,31 +13,29 @@ import net.minecraft.item.Items;
 import java.util.HashSet;
 import java.util.Set;
 
-public enum InfinityBucketWhitelists {
+public class InfinityBucketWhitelists {
 
-    INSTANCE;
-
-    private final Set<Fluid> fluidWhitelist = new HashSet<>();
-    private final Set<Block> blockWhitelist = new HashSet<>();
-    private final Set<Item> itemWhitelist = new HashSet<>();
+    private static final Set<Fluid> fluidWhitelist = new HashSet<>();
+    private static final Set<Block> blockWhitelist = new HashSet<>();
+    private static final Set<Item> itemWhitelist = new HashSet<>();
 
     /**
      * Updates the whitelist collections with values from the config.
      */
-    public void updateWhitelists() {
+    public static void updateWhitelists() {
         fluidWhitelist.clear();
         blockWhitelist.clear();
         itemWhitelist.clear();
 
-        for (String fluidId : Entranced.INSTANCE.getConfig().getInfinityFluidWhitelist()) {
+        for (String fluidId : Entranced.getConfig().getInfinityFluidWhitelist()) {
             CollectionUtil.addFluidToCollection(fluidId, fluidWhitelist);
         }
 
-        for (String blockId : Entranced.INSTANCE.getConfig().getInfinityBlockWhitelist()) {
+        for (String blockId : Entranced.getConfig().getInfinityBlockWhitelist()) {
             CollectionUtil.addBlockToCollection(blockId, blockWhitelist);
         }
 
-        for (String itemId : Entranced.INSTANCE.getConfig().getInfinityItemWhitelist()) {
+        for (String itemId : Entranced.getConfig().getInfinityItemWhitelist()) {
             CollectionUtil.addItemToCollection(itemId, itemWhitelist);
         }
     }
@@ -48,7 +46,7 @@ public enum InfinityBucketWhitelists {
      * @param fluid The fluid to check
      * @return {@code true} if a fluid is whitelisted, {@code false} otherwise.
      */
-    public boolean isFluidWhitelisted(Fluid fluid) {
+    public static boolean isFluidWhitelisted(Fluid fluid) {
         return fluidWhitelist.contains(fluid);
     }
 
@@ -58,7 +56,7 @@ public enum InfinityBucketWhitelists {
      * @param block The block to check
      * @return {@code true} if a block is whitelisted, {@code false} otherwise.
      */
-    public boolean isBlockWhitelisted(Block block) {
+    public static boolean isBlockWhitelisted(Block block) {
         return blockWhitelist.contains(block);
     }
 
@@ -68,7 +66,7 @@ public enum InfinityBucketWhitelists {
      * @param item The item to check
      * @return {@code true} if an item is whitelisted, {@code false} otherwise.
      */
-    public boolean isItemWhitelisted(Item item) {
+    public static boolean isItemWhitelisted(Item item) {
         return itemWhitelist.contains(item);
     }
 }

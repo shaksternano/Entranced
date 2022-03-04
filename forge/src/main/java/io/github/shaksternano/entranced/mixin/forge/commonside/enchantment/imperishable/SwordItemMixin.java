@@ -20,7 +20,7 @@ abstract class SwordItemMixin {
      */
     @Inject(method = "canPerformAction", at = @At("HEAD"), cancellable = true)
     private void entranced$imperishableSwordSweeping(ItemStack stack, ToolAction toolAction, CallbackInfoReturnable<Boolean> cir) {
-        if (ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
+        if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (EnchantmentUtil.isBrokenImperishable(stack)) {
                 cir.setReturnValue(false);
             }

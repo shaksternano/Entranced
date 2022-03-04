@@ -25,7 +25,7 @@ public class DebugNetworking {
             PlayerEntity player = context.getPlayer();
 
             context.queue(() -> {
-                if (Entranced.INSTANCE.getConfig().isDebugMode()) {
+                if (Entranced.getConfig().isDebugMode()) {
                     ItemStack stack = player.getMainHandStack();
                     switch (slot) {
                         /*

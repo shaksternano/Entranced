@@ -24,7 +24,7 @@ abstract class AbstractBlockMixin {
      */
     @Inject(method = "getDroppedStacks", at = @At("RETURN"))
     private void entranced$setDroppedItemStackEnchantments(BlockState state, LootContext.Builder builder, CallbackInfoReturnable<List<ItemStack>> cir) {
-        if (Entranced.INSTANCE.getConfig().isBlockEntitiesStoreEnchantments()) {
+        if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
             if (state.getBlock() instanceof BlockWithEntity) {
                 List<ItemStack> stacks = cir.getReturnValue();
 

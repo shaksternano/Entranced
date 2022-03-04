@@ -33,7 +33,7 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
      */
     @Inject(method = "writeNbt", at = @At("RETURN"))
     private void entranced$getEnchantmentsForNbt(NbtCompound nbt, CallbackInfo ci) {
-        if (Entranced.INSTANCE.getConfig().isBlockEntitiesStoreEnchantments()) {
+        if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
             entranced$getEnchantments().ifPresent(enchantmentsNbt -> nbt.put(ItemStack.ENCHANTMENTS_KEY, enchantmentsNbt));
             entranced$getRepairCost().ifPresent(repairCost -> nbt.putInt(ItemStackAccessor.entranced$getRepairCostKey(), repairCost));
         }
@@ -45,7 +45,7 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
      */
     @Inject(method = "readNbt", at = @At("RETURN"))
     private void entranced$setEnchantmentsFromNbt(NbtCompound nbt, CallbackInfo ci) {
-        if (Entranced.INSTANCE.getConfig().isBlockEntitiesStoreEnchantments()) {
+        if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
             NbtElement enchantments = nbt.get(ItemStack.ENCHANTMENTS_KEY);
 
             if (enchantments != null) {
@@ -65,7 +65,7 @@ abstract class BlockEntityMixin implements EnchantmentHolder {
     @SuppressWarnings("ConstantConditions")
     @Inject(method = "setStackNbt", at = @At("RETURN"))
     private void entranced$setBlockEntityItemEnchantments(ItemStack stack, CallbackInfo ci) {
-        if (Entranced.INSTANCE.getConfig().isBlockEntitiesStoreEnchantments()) {
+        if (Entranced.getConfig().isBlockEntitiesStoreEnchantments()) {
             BlockEntityUtil.setDroppedItemStackEnchantments((BlockEntity) (Object) this, stack);
         }
     }

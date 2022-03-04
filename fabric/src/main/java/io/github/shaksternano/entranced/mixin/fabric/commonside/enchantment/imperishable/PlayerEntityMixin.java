@@ -35,6 +35,6 @@ abstract class PlayerEntityMixin extends LivingEntity {
             to = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I")
     ))
     private boolean entranced$imperishableSwordSweeping(boolean onGround) {
-        return onGround && !(!isCreative() && ImperishableBlacklists.INSTANCE.isItemProtected(getMainHandStack(), ImperishableBlacklists.ProtectionType.BREAK_PROTECTION) && EnchantmentUtil.isBrokenImperishable(getMainHandStack()));
+        return onGround && !(!isCreative() && ImperishableBlacklists.isItemProtected(getMainHandStack(), ImperishableBlacklists.ProtectionType.BREAK_PROTECTION) && EnchantmentUtil.isBrokenImperishable(getMainHandStack()));
     }
 }

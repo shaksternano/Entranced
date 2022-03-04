@@ -25,6 +25,6 @@ abstract class ItemEntityMixin {
     ))
     private boolean entranced$imperishableNoItemDespawn(ItemEntity thisItemEntity) {
         ItemStack stack = thisItemEntity.getStack();
-        return !EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.IMPERISHABLE) || !ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION);
+        return !EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.IMPERISHABLE) || !ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION);
     }
 }

@@ -23,6 +23,6 @@ abstract class TripwireBlockMixin {
     @SuppressWarnings("unused")
     @ModifyExpressionValue(method = "onBreak", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
     private boolean entranced$imperishableDisarmTripwire(boolean isOf, World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        return isOf && !(!player.isCreative() && ImperishableBlacklists.INSTANCE.isItemProtected(player.getMainHandStack(), ImperishableBlacklists.ProtectionType.BREAK_PROTECTION) && EnchantmentUtil.isBrokenImperishable(player.getMainHandStack()));
+        return isOf && !(!player.isCreative() && ImperishableBlacklists.isItemProtected(player.getMainHandStack(), ImperishableBlacklists.ProtectionType.BREAK_PROTECTION) && EnchantmentUtil.isBrokenImperishable(player.getMainHandStack()));
     }
 }

@@ -18,12 +18,11 @@ import net.minecraft.text.TranslatableText;
  */
 public class ImperishableEnchantment extends ConfigurableEnchantment {
 
+    /**
+     * Do not call this, call {@link ImperishableEnchantment#newInstance()} instead.
+     */
     public ImperishableEnchantment(EnchantmentTarget enchantmentTarget) {
-        super(Entranced.INSTANCE.getConfig().getImperishableRarity(), enchantmentTarget, EquipmentSlot.values());
-    }
-
-    public ImperishableEnchantment() {
-        this(EnchantmentTarget.VANISHABLE);
+        super(Entranced.getConfig().getImperishableRarity(), enchantmentTarget, EquipmentSlot.values());
     }
 
     @Override
@@ -33,27 +32,27 @@ public class ImperishableEnchantment extends ConfigurableEnchantment {
 
     @Override
     public boolean isTreasure() {
-        return Entranced.INSTANCE.getConfig().isImperishableTreasure();
+        return Entranced.getConfig().isImperishableTreasure();
     }
 
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return Entranced.INSTANCE.getConfig().isImperishableSoldByVillagers();
+        return Entranced.getConfig().isImperishableSoldByVillagers();
     }
 
     @Override
     public boolean isEnabled() {
-        return Entranced.INSTANCE.getConfig().isImperishableEnabled();
+        return Entranced.getConfig().isImperishableEnabled();
     }
 
     @Override
     protected int minPower() {
-        return Entranced.INSTANCE.getConfig().getImperishableMinPower();
+        return Entranced.getConfig().getImperishableMinPower();
     }
 
     @Override
     protected int maxPowerAboveMin() {
-        return Entranced.INSTANCE.getConfig().getImperishableMaxPowerAboveMin();
+        return Entranced.getConfig().getImperishableMaxPowerAboveMin();
     }
 
     @Override
@@ -61,6 +60,10 @@ public class ImperishableEnchantment extends ConfigurableEnchantment {
         return "imperishable";
     }
 
+    /**
+     * Creates a new {@link ImperishableEnchantment} instance with a custom {@link EnchantmentTarget}.
+     * @return A new Imperishable enchantment instance with a custom enchantment target.
+     */
     @ExpectPlatform
     public static ImperishableEnchantment newInstance() {
         throw new AssertionError();
@@ -68,7 +71,7 @@ public class ImperishableEnchantment extends ConfigurableEnchantment {
 
     // Removes the "(Broken)" string from the name of tools with Imperishable at 0 durability, so it doesn't mess with anvil renaming.
     public static String itemNameRemoveBroken(String name, ItemStack stack) {
-        if (ImperishableBlacklists.INSTANCE.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
+        if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
             if (EnchantmentUtil.isBrokenImperishable(stack)) {
                 Text broken = new TranslatableText("item.name." + EntrancedEnchantments.IMPERISHABLE.getTranslationKey() + ".broken");
                 return name.replace(broken.getString(), "");
