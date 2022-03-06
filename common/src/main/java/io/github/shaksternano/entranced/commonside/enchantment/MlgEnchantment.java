@@ -18,6 +18,16 @@ public class MlgEnchantment extends ConfigurableEnchantment {
         super(Entranced.getConfig().getMlgRarity(), enchantmentTarget, EquipmentSlot.values());
     }
 
+    /**
+     * Creates a new {@link MlgEnchantment} instance with a custom {@link EnchantmentTarget}.
+     *
+     * @return A new Imperishable enchantment instance with a custom enchantment target.
+     */
+    @ExpectPlatform
+    public static MlgEnchantment newInstance() {
+        throw new AssertionError();
+    }
+
     @Override
     public boolean isTreasure() {
         return Entranced.getConfig().isMlgTreasure();
@@ -46,14 +56,5 @@ public class MlgEnchantment extends ConfigurableEnchantment {
     @Override
     public String getPath() {
         return "mlg";
-    }
-
-    /**
-     * Creates a new {@link MlgEnchantment} instance with a custom {@link EnchantmentTarget}.
-     * @return A new Imperishable enchantment instance with a custom enchantment target.
-     */
-    @ExpectPlatform
-    public static MlgEnchantment newInstance() {
-        throw new AssertionError();
     }
 }

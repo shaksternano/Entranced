@@ -18,7 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemEntity.class)
 abstract class ItemEntityMixin extends EntityMixin {
 
-    @Shadow public abstract ItemStack getStack();
+    @Shadow
+    public abstract ItemStack getStack();
 
     /**
      * Items with the {@link ImperishableEnchantment}
@@ -84,7 +85,7 @@ abstract class ItemEntityMixin extends EntityMixin {
     }
 
     /**
-     *  Items with the {@link ImperishableEnchantment} don't get removed when 64 blocks below the world's minimum Y position.
+     * Items with the {@link ImperishableEnchantment} don't get removed when 64 blocks below the world's minimum Y position.
      */
     @SuppressWarnings("unused")
     @Override

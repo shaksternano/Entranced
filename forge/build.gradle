@@ -41,10 +41,11 @@ dependencies {
 
     modApi("me.shedaniel.cloth:cloth-config-forge:${rootProject.cloth_config_version}")
 
-    modRuntimeOnly("curse.maven:enchantment-descriptions-250419:${rootProject.enchantment_descriptions_forge_id}")
+    modRuntimeOnly("mezz.jei:jei-${rootProject.minecraft_version}:${rootProject.jei_version}")
 
-    // modRuntimeOnly("mezz.jei:jei-${rootProject.minecraft_version}:${rootProject.jei_version}")
-    modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-forge:${rootProject.rei_version}")
+    modRuntimeOnly("curse.maven:catalogue-459701:${rootProject.catalogue_forge_id}")
+    modRuntimeOnly("curse.maven:configured-457570:${rootProject.configured_forge_id}")
+    modRuntimeOnly("curse.maven:enchantment-descriptions-250419:${rootProject.enchantment_descriptions_forge_id}")
 }
 
 processResources {

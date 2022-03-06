@@ -8,9 +8,12 @@ import org.spongepowered.asm.mixin.Shadow;
 abstract class PersistentProjectileEntityMixin extends EntityMixin {
 
     @SuppressWarnings("unused")
-    @Shadow protected boolean inGround;
+    @Shadow
+    protected boolean inGround;
 
-    @Shadow public abstract boolean isNoClip();
+    @Shadow
+    public abstract boolean isNoClip();
 
-    @Shadow public abstract void setNoClip(boolean noClip);
+    @Shadow
+    public abstract void setNoClip(boolean noClip);
 }

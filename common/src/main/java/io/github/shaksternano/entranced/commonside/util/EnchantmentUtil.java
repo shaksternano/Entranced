@@ -68,6 +68,7 @@ public class EnchantmentUtil {
 
     /**
      * Gets the enchantability of an {@link ItemStack}.
+     *
      * @param stack The stack to get the enchantability of.
      * @return The ItemStack's enchantability.
      */

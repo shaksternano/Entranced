@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[38,)"
+loaderVersion = "[40,)"
 issueTrackerURL = "https://github.com/ShakterNano/Entranced/issues"
 license = "MIT"
 
@@ -7,36 +7,37 @@ license = "MIT"
     modId = "entranced"
     version = "${version}"
     displayName = "Entranced"
+    displayURL = "https://github.com/ShakterNano/Entranced"
     authors = "ShaksterNano"
     description = '''
-    An enchantment mod
+        An enchantment mod
     '''
-    #logoFile = ""
+    logoFile = "icon.png"
 
 [[dependencies.entranced]]
     modId = "forge"
     mandatory = true
-    versionRange = "[38,)"
+    versionRange = "[40,)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.entranced]]
     modId = "minecraft"
     mandatory = true
-    versionRange = "[1.18,)"
+    versionRange = "[1.18.2,)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.entranced]]
     modId = "architectury"
     mandatory = true
-    versionRange = "[3.1.44,)"
+    versionRange = "[4.0.27,)"
     ordering = "AFTER"
     side = "BOTH"
 
 [[dependencies.entranced]]
     modId = "cloth_config"
     mandatory = true
-    versionRange = "[6.0.43,)"
+    versionRange = "[6.2.57,)"
     ordering = "AFTER"
     side = "BOTH"

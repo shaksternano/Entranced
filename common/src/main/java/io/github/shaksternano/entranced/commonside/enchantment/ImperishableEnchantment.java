@@ -25,6 +25,28 @@ public class ImperishableEnchantment extends ConfigurableEnchantment {
         super(Entranced.getConfig().getImperishableRarity(), enchantmentTarget, EquipmentSlot.values());
     }
 
+    /**
+     * Creates a new {@link ImperishableEnchantment} instance with a custom {@link EnchantmentTarget}.
+     *
+     * @return A new Imperishable enchantment instance with a custom enchantment target.
+     */
+    @ExpectPlatform
+    public static ImperishableEnchantment newInstance() {
+        throw new AssertionError();
+    }
+
+    // Removes the "(Broken)" string from the name of tools with Imperishable at 0 durability, so it doesn't mess with anvil renaming.
+    public static String itemNameRemoveBroken(String name, ItemStack stack) {
+        if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
+            if (EnchantmentUtil.isBrokenImperishable(stack)) {
+                Text broken = new TranslatableText("item.name." + EntrancedEnchantments.IMPERISHABLE.getTranslationKey() + ".broken");
+                return name.replace(broken.getString(), "");
+            }
+        }
+
+        return name;
+    }
+
     @Override
     public int getMaxLevel() {
         return 1;
@@ -58,26 +80,5 @@ public class ImperishableEnchantment extends ConfigurableEnchantment {
     @Override
     public String getPath() {
         return "imperishable";
-    }
-
-    /**
-     * Creates a new {@link ImperishableEnchantment} instance with a custom {@link EnchantmentTarget}.
-     * @return A new Imperishable enchantment instance with a custom enchantment target.
-     */
-    @ExpectPlatform
-    public static ImperishableEnchantment newInstance() {
-        throw new AssertionError();
-    }
-
-    // Removes the "(Broken)" string from the name of tools with Imperishable at 0 durability, so it doesn't mess with anvil renaming.
-    public static String itemNameRemoveBroken(String name, ItemStack stack) {
-        if (ImperishableBlacklists.isItemProtected(stack, ImperishableBlacklists.ProtectionType.BREAK_PROTECTION)) {
-            if (EnchantmentUtil.isBrokenImperishable(stack)) {
-                Text broken = new TranslatableText("item.name." + EntrancedEnchantments.IMPERISHABLE.getTranslationKey() + ".broken");
-                return name.replace(broken.getString(), "");
-            }
-        }
-
-        return name;
     }
 }

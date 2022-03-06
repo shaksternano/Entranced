@@ -23,19 +23,20 @@ import java.util.Optional;
 abstract class PlayerEntityMixin extends LivingEntity implements PlayerEntityAccess {
 
     @SuppressWarnings("unused")
-    private PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
-        super(entityType, world);
-    }
+    @Shadow
+    protected int enchantmentTableSeed;
 
-    @SuppressWarnings("unused")
-    @Shadow protected int enchantmentTableSeed;
+    @Unique
+    private static final String ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY = "Entranced:LastUsedEnchantingCatalystType";
 
     @Unique
     @Nullable
     private EnchantingCatalystConfig.EnchantingCatalystType entranced$lastUsedEnchantingCatalystType;
 
-    @Unique
-    private static final String ENTRANCED$LAST_USED_ENCHANTING_CATALYST_TYPE_KEY = "Entranced:LastUsedEnchantingCatalystType";
+    @SuppressWarnings("unused")
+    private PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+        super(entityType, world);
+    }
 
     /**
      * Reads the last used enchanting catalyst from disk.

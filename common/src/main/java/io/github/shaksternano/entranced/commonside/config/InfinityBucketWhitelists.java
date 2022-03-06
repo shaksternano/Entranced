@@ -43,6 +43,7 @@ public class InfinityBucketWhitelists {
     /**
      * Determines whether a {@link Fluid} is whitelisted to work with the {@link InfinityEnchantment},
      * for example, {@link Fluids#WATER}.
+     *
      * @param fluid The fluid to check
      * @return {@code true} if a fluid is whitelisted, {@code false} otherwise.
      */
@@ -53,6 +54,7 @@ public class InfinityBucketWhitelists {
     /**
      * Determines whether a {@link Block} is whitelisted to work with the {@link InfinityEnchantment},
      * for example, {@link Blocks#POWDER_SNOW}.
+     *
      * @param block The block to check
      * @return {@code true} if a block is whitelisted, {@code false} otherwise.
      */
@@ -63,6 +65,7 @@ public class InfinityBucketWhitelists {
     /**
      * Determines whether an {@link Item} is whitelisted to work with the {@link InfinityEnchantment},
      * for example, {@link Items#MILK_BUCKET}.
+     *
      * @param item The item to check
      * @return {@code true} if an item is whitelisted, {@code false} otherwise.
      */

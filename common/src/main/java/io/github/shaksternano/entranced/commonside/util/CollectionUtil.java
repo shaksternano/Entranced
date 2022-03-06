@@ -1,6 +1,5 @@
 package io.github.shaksternano.entranced.commonside.util;
 
-import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
 import com.google.common.collect.SetMultimap;
 import io.github.shaksternano.entranced.commonside.Entranced;
@@ -16,15 +15,16 @@ import net.minecraft.util.registry.DefaultedRegistry;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Set;
 
 public class CollectionUtil {
 
     /**
-     * @return A new {@link Multimap} using an {@link Enum} for the keys and
+     * @return A new {@link SetMultimap} using an {@link Enum} for the keys and
      * a hash {@link Set} for the values.
      */
-    public static <K extends Enum<K>, V> SetMultimap<K, V> createEnumMultimap(Class<K> keyClass) {
+    public static <K extends Enum<K>, V> SetMultimap<K, V> createEnumSetMultimap(Class<K> keyClass) {
         return MultimapBuilder.enumKeys(keyClass).hashSetValues().build();
     }
 
@@ -75,6 +75,6 @@ public class CollectionUtil {
      * Outputs to the log if there is an invalid {@link Identifier}.
      */
     public static void notifyInvalidId(String id, String idType) {
-        Entranced.LOGGER.warn("\"" + id + "\" in the " + Entranced.MOD_ID + ".json5 config file is not a valid " + idType + " ID, ignoring value!");
+        Entranced.LOGGER.info("\"" + id + "\" in the " + Entranced.MOD_ID + ".json5 config file is not a valid " + idType + " ID, ignoring value!");
     }
 }

@@ -18,6 +18,10 @@ public class FrenzyEnchantment extends ConfigurableEnchantment {
         super(Entranced.getConfig().getFrenzyRarity(), EnchantmentTarget.WEAPON, EquipmentSlot.MAINHAND);
     }
 
+    public static double getAttackSpeed(ItemStack stack, double baseAttackSpeed) {
+        return Entranced.getConfig().getFrenzyExtraAttackSpeedPerLevel() * EnchantmentHelper.getLevel(EntrancedEnchantments.FRENZY, stack) + baseAttackSpeed;
+    }
+
     @Override
     public int getMaxLevel() {
         return Entranced.getConfig().getFrenzyMaxLevel();
@@ -57,9 +61,5 @@ public class FrenzyEnchantment extends ConfigurableEnchantment {
     @Override
     public String getPath() {
         return "frenzy";
-    }
-
-    public static double getAttackSpeed(ItemStack stack, double baseAttackSpeed) {
-        return Entranced.getConfig().getFrenzyExtraAttackSpeedPerLevel() * EnchantmentHelper.getLevel(EntrancedEnchantments.FRENZY, stack) + baseAttackSpeed;
     }
 }

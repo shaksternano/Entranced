@@ -5,6 +5,7 @@
     "compatibilityLevel": "JAVA_16",
     "mixins": [
         "client.enchantment.imperishable.AnvilScreenMixin",
+        "commonside.IForgeItemMixin",
         "commonside.enchantingtablefilter.EnchantmentScreenHandlerMixin",
         "commonside.enchantment.imperishable.GrindstoneScreenHandlerMixin",
         "commonside.enchantment.imperishable.ItemDispenserBehaviorMixin",
@@ -13,10 +14,7 @@
         "commonside.enchantment.infinity.bucket.ItemDispenserBehaviorMixin",
         "commonside.enchantment.infinity.bucket.PowderSnowBucketItemMixin",
         "commonside.retainenchantment.item.ItemDispenserBehaviorMixin",
-        "commonside.retainenchantment.item.PowderSnowBucketItemMixin",
-        "commonside.IForgeItemMixin"
-    ],
-    "client": [
+        "commonside.retainenchantment.item.PowderSnowBucketItemMixin"
     ],
     "injectors": {
         "defaultRequire": 1

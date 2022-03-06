@@ -21,6 +21,7 @@ public class EntrancedEnchantments {
 
     /**
      * Sets a {@link ConfigurableEnchantment} to be registered if it's enabled and returns it.
+     *
      * @param enchantment The enchantment to be registered.
      * @return The enchantment.
      */

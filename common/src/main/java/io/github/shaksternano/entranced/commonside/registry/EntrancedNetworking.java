@@ -30,6 +30,7 @@ public class EntrancedNetworking {
 
     /**
      * Convenience method for creating a new {@link PacketByteBuf}.
+     *
      * @return A new {@link PacketByteBuf} instance.
      */
     public static PacketByteBuf createPacketByteBuf() {

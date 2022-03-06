@@ -9,6 +9,7 @@ public class ImperishableEnchantmentImpl {
 
     /**
      * Creates a new {@link ImperishableEnchantment} instance with a custom {@link EnchantmentTarget}.
+     *
      * @return A new Imperishable enchantment instance with a custom enchantment target.
      */
     public static ImperishableEnchantment newInstance() {

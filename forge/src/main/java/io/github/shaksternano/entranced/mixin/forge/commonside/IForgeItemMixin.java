@@ -12,9 +12,11 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(value = IForgeItem.class, remap = false)
 interface IForgeItemMixin {
 
-    @Shadow boolean hasContainerItem(ItemStack stack);
+    @Shadow
+    boolean hasContainerItem(ItemStack stack);
 
-    @Shadow Item self();
+    @Shadow
+    Item self();
 
     /**
      * Used to make the recipe remainder have the same enchantments as the
@@ -22,7 +24,7 @@ interface IForgeItemMixin {
      * {@link InfinityEnchantment} enchantment a copy of the original {@link ItemStack}.
      *
      * <br><br>
-     *
+     * <p>
      * Fabric equivalents are:
      * <ul>
      * <li>io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.infinity.bucket.RecipeMixin#entranced$infinityKeepItem</li>

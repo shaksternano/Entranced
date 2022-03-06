@@ -44,10 +44,10 @@ dependencies {
 
     modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}")
 
+    modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}")
+
     modRuntimeOnly("curse.maven:enchantment-descriptions-250419:${rootProject.enchantment_descriptions_fabric_id}")
     modRuntimeOnly("curse.maven:tooltipfix-411557:${rootProject.tooltipfix_fabric_id}")
-
-    modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:${rootProject.rei_version}")
 }
 
 processResources {

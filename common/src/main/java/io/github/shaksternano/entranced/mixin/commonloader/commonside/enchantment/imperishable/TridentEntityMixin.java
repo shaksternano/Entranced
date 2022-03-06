@@ -16,7 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(TridentEntity.class)
 abstract class TridentEntityMixin extends PersistentProjectileEntityMixin {
 
-    @Shadow private ItemStack tridentStack;
+    @Shadow
+    private ItemStack tridentStack;
 
     /**
      * Tridents with the {@link ImperishableEnchantment}

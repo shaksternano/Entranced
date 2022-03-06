@@ -27,8 +27,8 @@ abstract class ItemUsageContextMixin implements ExtraItemStackArgument {
 
     /**
      * Pass the powder snow bucket {@link ItemStack} as "an extra parameter". Used in:
-     *      io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.infinity.bucket.PowderSnowBucketItemMixin#entranced$infinityPowderSnowBucket
-     *      io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.infinity.bucket.PowderSnowBucketItemMixin#entranced$infinityPowderSnowBucket
+     * io.github.shaksternano.entranced.mixin.fabric.commonside.enchantment.infinity.bucket.PowderSnowBucketItemMixin#entranced$infinityPowderSnowBucket
+     * io.github.shaksternano.entranced.mixin.forge.commonside.enchantment.infinity.bucket.PowderSnowBucketItemMixin#entranced$infinityPowderSnowBucket
      */
     @Inject(method = "<init>(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/hit/BlockHitResult;)V", at = @At("RETURN"))
     private void entranced$setInfinityPowderSnowBucket(World world, PlayerEntity player, Hand hand, ItemStack stack, BlockHitResult hit, CallbackInfo ci) {

@@ -4,7 +4,6 @@ import dev.architectury.networking.NetworkManager;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.EnchantmentScreenHandlerAccess;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.screen.EnchantmentScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.Identifier;
 
@@ -23,8 +22,8 @@ public class EnchantingScreenNetworking {
                 if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
                     ScreenHandler screenHandler = player.currentScreenHandler;
 
-                    if (screenHandler instanceof EnchantmentScreenHandler) {
-                        ((EnchantmentScreenHandlerAccess) screenHandler).entranced$applyEnchantingCatalyst();
+                    if (screenHandler instanceof EnchantmentScreenHandlerAccess access) {
+                        access.entranced$applyEnchantingCatalyst();
                     } else {
                         Entranced.LOGGER.warn("Received an apply enchanting catalyst packet when not using an enchanting table, this shouldn't happen!");
                     }

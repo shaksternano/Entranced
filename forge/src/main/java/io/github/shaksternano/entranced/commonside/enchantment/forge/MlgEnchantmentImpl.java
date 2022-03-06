@@ -9,6 +9,7 @@ public class MlgEnchantmentImpl {
 
     /**
      * Creates a new {@link MlgEnchantment} instance with a custom {@link EnchantmentTarget}.
+     *
      * @return A new Imperishable enchantment instance with a custom enchantment target.
      */
     public static MlgEnchantment newInstance() {

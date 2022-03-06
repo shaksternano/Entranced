@@ -1,6 +1,7 @@
 package io.github.shaksternano.entranced.commonside.registry.forge;
 
-import io.github.shaksternano.entranced.commonside.eventhook.enchantment.forge.*;
+import io.github.shaksternano.entranced.commonside.eventhook.enchantment.forge.FrenzyEventHooksForge;
+import io.github.shaksternano.entranced.commonside.eventhook.enchantment.forge.ImperishableEventHooksForge;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 

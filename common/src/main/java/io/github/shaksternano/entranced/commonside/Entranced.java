@@ -27,7 +27,7 @@ public class Entranced {
     /**
      * Mod initialization run on both the logical client and logical server.
      */
-    public static void init () {
+    public static void init() {
         registerConfig();
         EntrancedNetworking.registerServerReceivers();
         EntrancedEventHooks.registerServerEventHooks();
@@ -62,6 +62,7 @@ public class Entranced {
 
     /**
      * Gets the mod's config.
+     *
      * @return An instance of the mod's config class.
      */
     public static EntrancedConfig getConfig() {

@@ -37,15 +37,20 @@ import java.util.Random;
 @Mixin(ItemStack.class)
 abstract class ItemStackMixin {
 
-    @Shadow public abstract Item getItem();
+    @Shadow
+    public abstract Item getItem();
 
-    @Shadow public abstract boolean isDamageable();
+    @Shadow
+    public abstract boolean isDamageable();
 
-    @Shadow public abstract int getDamage();
+    @Shadow
+    public abstract int getDamage();
 
-    @Shadow public abstract void setDamage(int damage);
+    @Shadow
+    public abstract void setDamage(int damage);
 
-    @Shadow public abstract int getMaxDamage();
+    @Shadow
+    public abstract int getMaxDamage();
 
     /**
      * Items with the {@link ImperishableEnchantment}

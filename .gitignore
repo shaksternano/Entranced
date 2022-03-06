@@ -1,22 +1,43 @@
-build/
-*.ipr
-run/
-*.iws
-out/
-*.iml
-.gradle/
-output/
-bin/
-libs/
+# Gradle
 
+.gradle/
+build/
+out/
+classes/
+
+# Eclipse
+
+*.launch
+
+# IntelliJ IDEA
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Visual Studio Code
+
+.settings/
+.vscode/
+bin/
 .classpath
 .project
-.idea/
-classes/
+
+# macOS
+
+*.DS_Store
+
+# Architectury
+
+.architectury-transformer/
+run/
+remappedSrc/
+
+# Other
+
+output/
+libs/
 .metadata
 .vscode
 .settings
-*.launch
-
-.architectury-transformer/
-remappedSrc/

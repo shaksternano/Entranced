@@ -47,11 +47,14 @@
     },
 
     "depends": {
-        "fabricloader": ">=0.12.0",
-        "fabric": ">=0.43.1",
-        "minecraft": "1.18.x",
+        "fabricloader": ">=0.13.0",
+        "fabric": ">=0.47.8",
+        "minecraft": ">=1.18.2",
         "java": ">=17",
-        "architectury": ">=3.0.39",
-        "cloth-config": ">=6.0.42"
+        "architectury": ">=4.0.30",
+        "cloth-config": ">=6.2.57"
+    },
+    "suggests": {
+        "modmenu": "*"
     }
 }

@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 public class ImperishableBlacklists {
 
     private static final Set<Item> globalBlacklist = new HashSet<>();
-    private static final SetMultimap<ProtectionType, Item> blacklists = CollectionUtil.createEnumMultimap(ProtectionType.class);
+    private static final SetMultimap<ProtectionType, Item> blacklists = CollectionUtil.createEnumSetMultimap(ProtectionType.class);
 
     /**
      * Produces Item blacklists from the Item ID String blacklists in the {@link EntrancedConfig}.
@@ -39,6 +39,7 @@ public class ImperishableBlacklists {
     /**
      * Determines whether an {@link Item} is blacklisted from being protected by the
      * {@link ImperishableEnchantment} or not.
+     *
      * @param item The item to check.
      * @return {@code true} if the item is blacklisted, {@code false} otherwise.
      */
@@ -49,6 +50,7 @@ public class ImperishableBlacklists {
     /**
      * Determines whether an {@link ItemStack} is blacklisted from being protected by the
      * {@link ImperishableEnchantment} or not.
+     *
      * @param stack The item stack to check.
      * @return {@code true} if the item stack is blacklisted, {@code false} otherwise.
      */
@@ -59,7 +61,8 @@ public class ImperishableBlacklists {
     /**
      * Determines whether an {@link Item} is blacklisted from being protected by the
      * {@link ImperishableEnchantment} for a certain {@link ProtectionType} or not.
-     * @param item The item to check.
+     *
+     * @param item           The item to check.
      * @param protectionType The protection type to check for.
      * @return {@code true} if an item is on the blacklist for
      * the specified {@link ProtectionType}, {@code false} otherwise.
@@ -70,7 +73,8 @@ public class ImperishableBlacklists {
 
     /**
      * Determines whether the {@link ImperishableEnchantment} protects an {@link Item} from a certain {@link ProtectionType} or not.
-     * @param item The item to check.
+     *
+     * @param item           The item to check.
      * @param protectionType The protection type to check for.
      * @return {@code true} if the Imperishable enchantment protects the item for the specified protection type, {@code false} otherwise.
      */
@@ -80,7 +84,8 @@ public class ImperishableBlacklists {
 
     /**
      * Determines whether the {@link ImperishableEnchantment} protects an {@link ItemStack} from a certain {@link ProtectionType} or not.
-     * @param stack The item stack to check.
+     *
+     * @param stack          The item stack to check.
      * @param protectionType The protection type to check for.
      * @return {@code true} if the Imperishable enchantment protects the item stack for the specified protection type, {@code false} otherwise.
      */

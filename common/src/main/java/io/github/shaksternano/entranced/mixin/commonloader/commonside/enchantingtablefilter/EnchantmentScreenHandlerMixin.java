@@ -30,14 +30,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EnchantmentScreenHandler.class)
 abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements EnchantmentScreenHandlerAccess {
 
-    @SuppressWarnings("unused")
-    private EnchantmentScreenHandlerMixin(@Nullable ScreenHandlerType<?> screenHandlerType, int i) {
-        super(screenHandlerType, i);
-    }
-
-    @Shadow @Final private Inventory inventory;
-    @Shadow @Final private ScreenHandlerContext context;
-    @Shadow @Final private Property seed;
+    @Shadow
+    @Final
+    private Inventory inventory;
+    @Shadow
+    @Final
+    private ScreenHandlerContext context;
+    @Shadow
+    @Final
+    private Property seed;
 
     @Unique
     private int entranced$catalystInventoryIndex;
@@ -45,6 +46,10 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     private int entranced$catalystSlotIndex;
     @Unique
     private PlayerEntity entranced$currentPlayer;
+    @SuppressWarnings("unused")
+    private EnchantmentScreenHandlerMixin(@Nullable ScreenHandlerType<?> screenHandlerType, int i) {
+        super(screenHandlerType, i);
+    }
 
     /**
      * Adds the enchanting catalyst slot to the enchanting table screen.
@@ -100,7 +105,8 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     /**
      * Clear the last used enchanting catalyst after it has been used.
      */
-    @Inject(method = "method_17410", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;applyEnchantmentCosts(Lnet/minecraft/item/ItemStack;I)V"))
+    @SuppressWarnings("UnresolvedMixinReference")
+    @Inject(method = {"method_17410", "m_39475_"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;applyEnchantmentCosts(Lnet/minecraft/item/ItemStack;I)V"))
     private void entranced$resetEnchantingCatalyst(ItemStack itemStack, int i, PlayerEntity player, int j, ItemStack itemStack2, World world, BlockPos pos, CallbackInfo ci) {
         ((PlayerEntityAccess) player).entranced$setEnchantingCatalystType(null);
         ((ExtraEnchantingCatalystTypeArgument) (Object) inventory.getStack(0)).entranced$setArgument(null);

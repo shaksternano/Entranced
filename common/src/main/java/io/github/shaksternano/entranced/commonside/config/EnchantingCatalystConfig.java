@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 public class EnchantingCatalystConfig {
 
-    private static final SetMultimap<EnchantingCatalystType, Enchantment> catalystAffectedEnchantments = CollectionUtil.createEnumMultimap(EnchantingCatalystType.class);
+    private static final SetMultimap<EnchantingCatalystType, Enchantment> catalystAffectedEnchantments = CollectionUtil.createEnumSetMultimap(EnchantingCatalystType.class);
     private static final Map<Item, EnchantingCatalyst> catalystItems = new HashMap<>();
 
     /**
@@ -45,9 +45,10 @@ public class EnchantingCatalystConfig {
 
     /**
      * Sets an item to be an enchanting catalyst.
-     * @param itemId The ID of the item.
+     *
+     * @param itemId       The ID of the item.
      * @param catalystType The type of enchantments the item will affect.
-     * @param consumable Whether the item is consumed when used or not.
+     * @param consumable   Whether the item is consumed when used or not.
      */
     private static void addCatalystItem(String itemId, EnchantingCatalystType catalystType, boolean consumable) {
         Item item = Registry.ITEM.get(Identifier.tryParse(itemId));
@@ -61,8 +62,9 @@ public class EnchantingCatalystConfig {
 
     /**
      * Determines whether an {@link Enchantment} is filtered out by the enchanting catalyst or not.
+     *
      * @param catalystType The enchanting catalyst being used.
-     * @param enchantment The enchantment to check.
+     * @param enchantment  The enchantment to check.
      * @return {@code true} if enchantment is not filtered out, {@code false} otherwise.
      */
     public static boolean isCatalystAllowed(EnchantingCatalystType catalystType, Enchantment enchantment) {
@@ -71,6 +73,7 @@ public class EnchantingCatalystConfig {
 
     /**
      * Determines whether an {@link Item} is an enchanting catalyst or not.
+     *
      * @param item The item to check.
      * @return {@code true} if the item is an enchanting catalyst, false otherwise.
      */
@@ -80,6 +83,7 @@ public class EnchantingCatalystConfig {
 
     /**
      * Determines whether an {@link ItemStack} is an enchanting catalyst or not.
+     *
      * @param stack The item stack to check.
      * @return {@code true} if the item stack is an enchanting catalyst, false otherwise.
      */
@@ -89,6 +93,7 @@ public class EnchantingCatalystConfig {
 
     /**
      * Gets the enchanting catalyst type of an item.
+     *
      * @param item The item to get the enchanting catalyst type of.
      * @return An {@link Optional} describing the enchanting catalyst type.
      */
@@ -122,5 +127,6 @@ public class EnchantingCatalystConfig {
     /**
      * For associating an {@link Item} with an {@link EnchantingCatalystType}, and determining whether the item is consumed when used or not.
      */
-    public record EnchantingCatalyst(EnchantingCatalystType catalystType, boolean catalystConsumed) {}
+    public record EnchantingCatalyst(EnchantingCatalystType catalystType, boolean catalystConsumed) {
+    }
 }
