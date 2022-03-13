@@ -1,5 +1,7 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.plugin.enchdesc;
 
+import io.github.shaksternano.entranced.commonside.Entranced;
+import io.github.shaksternano.entranced.commonside.config.EntrancedConfig;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableText;
 import org.spongepowered.asm.mixin.Final;
@@ -24,11 +26,26 @@ abstract class TranslatableTextMixin implements MutableText {
             "enchantment.minecraft.infinity.desc"
     );
 
-    @Inject(method = "<init>*", at = @At(value = "RETURN"))
-    private void entranced$addExtraDescription(String string, CallbackInfo ci) {
+    @Inject(method = "<init>(Ljava/lang/String;)V", at = @At(value = "RETURN"))
+    private void entranced$addExtraDescription(String key, CallbackInfo ci) {
+        entranced$addExtraDescriptionImpl();
+    }
+
+    @Inject(method = "<init>(Ljava/lang/String;[Ljava/lang/Object;)V", at = @At("RETURN"))
+    private void entranced$addExtraDescription(String key, Object[] args, CallbackInfo ci) {
+        entranced$addExtraDescriptionImpl();
+    }
+
+    private void entranced$addExtraDescriptionImpl() {
         if (key != null) {
-            if (ENTRANCED$DESCRIPTIONS_TO_MODIFY.contains(key)) {
-                append(new TranslatableText(key + ".entranced.extraDesc"));
+            EntrancedConfig config = Entranced.getConfig();
+
+            if (config != null) {
+                if (config.isInfinityAllowedOnBuckets()) {
+                    if (ENTRANCED$DESCRIPTIONS_TO_MODIFY.contains(key)) {
+                        append(new TranslatableText(key + ".entranced.extraDesc"));
+                    }
+                }
             }
         }
     }

@@ -46,6 +46,7 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
     private int entranced$catalystSlotIndex;
     @Unique
     private PlayerEntity entranced$currentPlayer;
+
     @SuppressWarnings("unused")
     private EnchantmentScreenHandlerMixin(@Nullable ScreenHandlerType<?> screenHandlerType, int i) {
         super(screenHandlerType, i);

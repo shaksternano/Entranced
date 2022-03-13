@@ -1,10 +1,9 @@
 {
     "required": true,
     "package": "io.github.shaksternano.entranced.mixin.forge",
-    "minVersion": "0.7",
-    "compatibilityLevel": "JAVA_16",
+    "minVersion": "0.8",
+    "compatibilityLevel": "JAVA_17",
     "mixins": [
-        "client.enchantment.imperishable.AnvilScreenMixin",
         "commonside.IForgeItemMixin",
         "commonside.enchantingtablefilter.EnchantmentScreenHandlerMixin",
         "commonside.enchantment.imperishable.GrindstoneScreenHandlerMixin",
@@ -15,6 +14,9 @@
         "commonside.enchantment.infinity.bucket.PowderSnowBucketItemMixin",
         "commonside.retainenchantment.item.ItemDispenserBehaviorMixin",
         "commonside.retainenchantment.item.PowderSnowBucketItemMixin"
+    ],
+    "client": [
+        "client.enchantment.imperishable.AnvilScreenMixin"
     ],
     "injectors": {
         "defaultRequire": 1

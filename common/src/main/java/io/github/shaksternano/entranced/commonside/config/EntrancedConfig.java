@@ -1,5 +1,6 @@
 package io.github.shaksternano.entranced.commonside.config;
 
+import dev.architectury.platform.Platform;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
 import me.shedaniel.autoconfig.ConfigData;
@@ -96,13 +97,18 @@ public class EntrancedConfig implements ConfigData {
     }
 
     /**
-     * Sets the default collection values and saves it to the config file.
+     * Sets the default config values.
      *
      * @param configHolder The config holder associated with this config object.
      * @throws IllegalArgumentException if the config object in {@code configHolder} is not equal to this config object.
      */
-    public void initCollectionDefaultValues(ConfigHolder<EntrancedConfig> configHolder) {
+    public void initDefaultConfigValues(ConfigHolder<EntrancedConfig> configHolder) {
         if (configHolder.getConfig() == this) {
+            if (Platform.isDevelopmentEnvironment()) {
+                Entranced.LOGGER.info("Development environment detected, enabling debug mode!");
+                debugMode = true;
+            }
+
             setDefaultCollectionValues(infinity.fluidWhitelist,
                     "minecraft:water"
             );
@@ -538,14 +544,14 @@ public class EntrancedConfig implements ConfigData {
 
     private static class InfinityCollapsible {
 
+        @Comment("Is the Infinity enchantment allowed on buckets?\n\nDefault value is true.")
+        private boolean allowedOnBuckets = true;
         @Comment("IDs of fluids that are affected by Infinity.\nFor example \"minecraft:lava\".\n\nContains \"minecraft:water\" by default.")
         private final List<String> fluidWhitelist = new ArrayList<>();
         @Comment("IDs of blocks that are placed by\nbuckets that are affected by Infinity.\nFor example \"minecraft:powder_snow\".\n\nEmpty by default.")
         private final List<String> blockWhitelist = new ArrayList<>();
         @Comment("IDs of bucket items that are affected by Infinity.\nFor example \"minecraft:milk_bucket\".\n\nEmpty by default.")
         private final List<String> itemWhitelist = new ArrayList<>();
-        @Comment("Is the Infinity enchantment allowed on buckets?\n\nDefault value is true.")
-        private boolean allowedOnBuckets = true;
     }
 
     private static class MlgCollapsible {

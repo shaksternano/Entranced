@@ -1,5 +1,6 @@
 package io.github.shaksternano.entranced.commonside.util;
 
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.enchantment.ImperishableEnchantment;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedEnchantments;
@@ -72,9 +73,8 @@ public class EnchantmentUtil {
      * @param stack The stack to get the enchantability of.
      * @return The ItemStack's enchantability.
      */
-    //@ExpectPlatform
+    @ExpectPlatform
     public static int getItemEnchantability(ItemStack stack) {
-        return stack.getItem().getEnchantability();
-        //throw new AssertionError();
+        throw new AssertionError();
     }
 }

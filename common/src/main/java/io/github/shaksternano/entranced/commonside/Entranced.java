@@ -51,7 +51,7 @@ public class Entranced {
         config = AutoConfig.getConfigHolder(EntrancedConfig.class).getConfig();
 
         if (createdNewConfigFile) {
-            config.initCollectionDefaultValues(configHolder);
+            config.initDefaultConfigValues(configHolder);
         }
 
         configHolder.registerSaveListener((holder, config) -> {
