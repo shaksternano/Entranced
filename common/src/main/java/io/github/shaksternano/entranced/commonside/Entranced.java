@@ -10,13 +10,14 @@ import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.ActionResult;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Entranced {
 
     public static final String MOD_ID = "entranced";
-    public static final String MOD_NAME = "Entranced";
+    public static final String MOD_NAME = StringUtils.capitalize(MOD_ID);
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
@@ -55,7 +56,7 @@ public class Entranced {
         }
 
         configHolder.registerSaveListener((holder, config) -> {
-            EntrancedConfig.updateConfigCollections();
+            EntrancedConfig.updateConfig();
             return ActionResult.PASS;
         });
     }

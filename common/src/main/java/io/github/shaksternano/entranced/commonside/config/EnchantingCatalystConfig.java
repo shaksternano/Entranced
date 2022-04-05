@@ -24,7 +24,7 @@ public class EnchantingCatalystConfig {
     /**
      * Updates the enchanting catalyst collections with values from the config.
      */
-    public static void updateCatalystConfigCollections() {
+    public static void updateCatalystConfig() {
         catalystAffectedEnchantments.clear();
         catalystItems.clear();
 

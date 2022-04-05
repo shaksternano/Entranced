@@ -13,7 +13,7 @@ public class EnchantmentEventHooks {
         // Initialises all enchantment blacklists and whitelists when the world loads.
         LifecycleEvent.SERVER_LEVEL_LOAD.register(world -> {
             if (world.getDimension().equals(DimensionTypeAccessor.entranced$getOverworld())) {
-                EntrancedConfig.updateConfigCollections();
+                EntrancedConfig.updateConfig();
             }
         });
     }

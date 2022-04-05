@@ -10,6 +10,7 @@
         "commonside.accessor.DimensionTypeAccessor",
         "commonside.accessor.ItemAccessor",
         "commonside.accessor.ItemStackAccessor",
+        "commonside.config.TranslatableTextMixin",
         "commonside.enchantingtablefilter.EnchantmentHelperMixin",
         "commonside.enchantingtablefilter.EnchantmentScreenHandlerMixin",
         "commonside.enchantingtablefilter.EnchantmentScreenHandlerSimpleInventoryMixin",
@@ -47,6 +48,7 @@
         "client.accessor.HandledScreenAccessor",
         "client.debug.MinecraftClientMixin",
         "client.enchantingtablefilter.EnchantmentScreenMixin",
+        "client.enchantingtablefilter.HandledScreenMixin",
         "client.enchantment.imperishable.AnvilScreenMixin",
         "client.invoker.MinecraftClientInvoker"
     ],

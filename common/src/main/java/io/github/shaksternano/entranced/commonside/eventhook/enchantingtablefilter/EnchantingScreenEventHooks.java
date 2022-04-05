@@ -1,22 +1,20 @@
 package io.github.shaksternano.entranced.commonside.eventhook.enchantingtablefilter;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import dev.architectury.event.events.client.ClientGuiEvent;
 import dev.architectury.networking.NetworkManager;
+import io.github.shaksternano.entranced.client.gui.widget.EnchantingCatalystButton;
 import io.github.shaksternano.entranced.commonside.Entranced;
+import io.github.shaksternano.entranced.commonside.gui.EnchantingCatalystPanel;
 import io.github.shaksternano.entranced.commonside.network.enchantingtablefilter.EnchantingScreenNetworking;
 import io.github.shaksternano.entranced.commonside.registry.EntrancedNetworking;
 import io.github.shaksternano.entranced.mixin.commonloader.client.accessor.HandledScreenAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.EnchantmentScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.item.Items;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
 
 public class EnchantingScreenEventHooks {
-
-    private static final Identifier ENCHANTING_CATALYST_GUI_TEXTURE = new Identifier(Entranced.MOD_ID, "textures/gui/container/test.png");
 
     /**
      * Registers client event hooks related to the enchanting catalyst.
@@ -26,16 +24,21 @@ public class EnchantingScreenEventHooks {
         ClientGuiEvent.INIT_POST.register((screen, access) -> {
             if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
                 if (screen instanceof EnchantmentScreen) {
-                    access.addRenderableWidget(new ButtonWidget(
-                            10,
-                            50,
-                            150,
-                            20,
-                            new TranslatableText("container.enchant.entranced.applyCatalyst"),
+                    HandledScreenAccessor handledScreenAccessor = (HandledScreenAccessor) screen;
+
+                    access.addRenderableWidget(new EnchantingCatalystButton(
+                            EnchantingCatalystPanel.INSTANCE.getButtonX(handledScreenAccessor.entranced$getX()),
+                            EnchantingCatalystPanel.INSTANCE.getButtonY(handledScreenAccessor.entranced$getY()),
+                            -1,
+                            -1,
+                            null,
                             button -> NetworkManager.sendToServer(
                                     EnchantingScreenNetworking.APPLY_ENCHANTING_CATALYST,
                                     EntrancedNetworking.createPacketByteBuf()
-                            )
+                            ),
+                            screen,
+                            Items.BLAZE_POWDER,
+                            new TranslatableText("gui.screen.enchant.tooltip.entranced.applyCatalyst")
                     ));
                 }
             }

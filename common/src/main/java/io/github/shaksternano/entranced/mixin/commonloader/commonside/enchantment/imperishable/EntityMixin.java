@@ -81,6 +81,7 @@ abstract class EntityMixin {
         return collisions;
     }
 
+    @SuppressWarnings("CancellableInjectionUsage")
     @Inject(method = "isInvulnerableTo", at = @At("HEAD"), cancellable = true)
     protected void entranced$damageImperishable(DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
     }

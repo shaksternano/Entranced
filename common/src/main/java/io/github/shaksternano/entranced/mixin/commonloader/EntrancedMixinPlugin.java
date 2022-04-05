@@ -1,13 +1,18 @@
 package io.github.shaksternano.entranced.mixin.commonloader;
 
 import com.llamalad7.mixinextras.MixinExtrasBootstrap;
+import net.minecraft.util.annotation.MethodsReturnNonnullByDefault;
+import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Set;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class EntrancedMixinPlugin implements IMixinConfigPlugin {
 
     /**
@@ -18,6 +23,7 @@ public class EntrancedMixinPlugin implements IMixinConfigPlugin {
         MixinExtrasBootstrap.init();
     }
 
+    @Nullable
     @Override
     public String getRefMapperConfig() {
         return null;
@@ -32,6 +38,7 @@ public class EntrancedMixinPlugin implements IMixinConfigPlugin {
     public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
     }
 
+    @Nullable
     @Override
     public List<String> getMixins() {
         return null;

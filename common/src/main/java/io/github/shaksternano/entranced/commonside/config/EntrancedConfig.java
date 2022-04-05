@@ -90,10 +90,10 @@ public class EntrancedConfig implements ConfigData {
     /**
      * Updates collections that are filled with objects corresponding to {@link String} IDs in the config.
      */
-    public static void updateConfigCollections() {
+    public static void updateConfig() {
         InfinityBucketWhitelists.updateWhitelists();
         ImperishableBlacklists.updateBlacklists();
-        EnchantingCatalystConfig.updateCatalystConfigCollections();
+        EnchantingCatalystConfig.updateCatalystConfig();
     }
 
     /**

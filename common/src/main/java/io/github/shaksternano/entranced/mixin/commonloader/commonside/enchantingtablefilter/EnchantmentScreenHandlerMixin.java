@@ -7,6 +7,7 @@ import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.
 import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.ExtraEnchantingCatalystTypeArgument;
 import io.github.shaksternano.entranced.commonside.access.enchantingtablefilter.PlayerEntityAccess;
 import io.github.shaksternano.entranced.commonside.config.EnchantingCatalystConfig;
+import io.github.shaksternano.entranced.commonside.gui.EnchantingCatalystPanel;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -61,7 +62,12 @@ abstract class EnchantmentScreenHandlerMixin extends ScreenHandler implements En
         entranced$currentPlayer = playerInventory.player;
 
         if (Entranced.getConfig().isEnchantingCatalystEnabled()) {
-            addSlot(new Slot(inventory, entranced$catalystInventoryIndex, -10, 47) {
+            addSlot(new Slot(
+                    inventory,
+                    entranced$catalystInventoryIndex,
+                    EnchantingCatalystPanel.INSTANCE.getSlotX(),
+                    EnchantingCatalystPanel.INSTANCE.getSlotY()
+            ) {
 
                 @Override
                 public boolean canInsert(ItemStack stack) {

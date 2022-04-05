@@ -1,5 +1,6 @@
 package io.github.shaksternano.entranced.mixin.commonloader.commonside.plugin.enchdesc;
 
+import com.google.common.collect.ImmutableSet;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import io.github.shaksternano.entranced.commonside.config.EntrancedConfig;
 import net.minecraft.text.MutableText;
@@ -12,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Set;
-
 @Mixin(TranslatableText.class)
 abstract class TranslatableTextMixin implements MutableText {
 
@@ -22,7 +21,7 @@ abstract class TranslatableTextMixin implements MutableText {
     private String key;
 
     @Unique
-    private static final Set<String> ENTRANCED$DESCRIPTIONS_TO_MODIFY = Set.of(
+    private static final ImmutableSet<String> ENTRANCED$DESCRIPTIONS_TO_MODIFY = ImmutableSet.of(
             "enchantment.minecraft.infinity.desc"
     );
 
@@ -36,6 +35,7 @@ abstract class TranslatableTextMixin implements MutableText {
         entranced$addExtraDescriptionImpl();
     }
 
+    @Unique
     private void entranced$addExtraDescriptionImpl() {
         if (key != null) {
             EntrancedConfig config = Entranced.getConfig();

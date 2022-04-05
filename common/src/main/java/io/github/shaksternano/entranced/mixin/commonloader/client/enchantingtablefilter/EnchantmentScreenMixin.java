@@ -1,40 +1,67 @@
 package io.github.shaksternano.entranced.mixin.commonloader.client.enchantingtablefilter;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import io.github.shaksternano.entranced.commonside.Entranced;
+import io.github.shaksternano.entranced.commonside.gui.EnchantingCatalystPanel;
+import io.github.shaksternano.entranced.mixin.commonloader.client.accessor.HandledScreenAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.EnchantmentScreen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.EnchantmentScreenHandler;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Environment(EnvType.CLIENT)
 @Mixin(EnchantmentScreen.class)
-abstract class EnchantmentScreenMixin extends HandledScreen<EnchantmentScreenHandler> {
-
-    private static final Identifier ENCHANTING_CATALYST_GUI_TEXTURE = new Identifier(Entranced.MOD_ID, "textures/gui/container/test.png");
+abstract class EnchantmentScreenMixin extends HandledScreenMixin {
 
     @SuppressWarnings("unused")
-    private EnchantmentScreenMixin(EnchantmentScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, title);
+    private EnchantmentScreenMixin(Text title) {
+        super(title);
     }
 
     @Inject(method = "drawBackground", at = @At("RETURN"))
-    private void addEnchantingCatalystGui(MatrixStack matrices, float delta, int mouseX, int mouseY, CallbackInfo ci) {
-        /*
-        int x = (this.width - this.backgroundWidth) / 2;
-        int y = (this.height - this.backgroundHeight) / 2;
-        RenderSystem.setShaderTexture(0, ENCHANTING_CATALYST_GUI_TEXTURE);
-        drawTexture(matrices, x + 100, y, 0, 0, backgroundWidth, backgroundHeight);
+    private void entranced$addEnchantingCatalystGui(MatrixStack matrices, float delta, int mouseX, int mouseY, CallbackInfo ci) {
+        RenderSystem.setShaderTexture(0, EnchantingCatalystPanel.INSTANCE.getGuiTexture());
 
+        /*
+        Need to use this instead of using a @Shadow on the x and y fields to avoid a NoSuchFieldError on Forge.
          */
+        HandledScreenAccessor handledScreenAccessor = (HandledScreenAccessor) this;
+        int x = handledScreenAccessor.entranced$getX();
+        int y = handledScreenAccessor.entranced$getY();
+
+        drawTexture(
+                matrices,
+                EnchantingCatalystPanel.INSTANCE.getTextureX(x),
+                EnchantingCatalystPanel.INSTANCE.getTextureY(y),
+                0,
+                0,
+                EnchantingCatalystPanel.INSTANCE.getGuiTextureWidth(),
+                EnchantingCatalystPanel.INSTANCE.getGuiTextureHeight()
+        );
+    }
+
+    @Override
+    protected void entranced$expandBounds(double mouseX, double mouseY, int left, int top, int button, CallbackInfoReturnable<Boolean> cir) {
+        /*
+        Need to use this instead of using a @Shadow on the x and y fields to avoid a NoSuchFieldError on Forge.
+         */
+        HandledScreenAccessor handledScreenAccessor = (HandledScreenAccessor) this;
+        int x = handledScreenAccessor.entranced$getX();
+        int y = handledScreenAccessor.entranced$getY();
+
+        if (mouseX >= EnchantingCatalystPanel.INSTANCE.getTextureX(x)) {
+            if (mouseX <= EnchantingCatalystPanel.INSTANCE.getTextureX(x) + EnchantingCatalystPanel.INSTANCE.getGuiTextureWidth()) {
+                if (mouseY >= EnchantingCatalystPanel.INSTANCE.getTextureY(y)) {
+                    if (mouseY <= EnchantingCatalystPanel.INSTANCE.getTextureY(y) + EnchantingCatalystPanel.INSTANCE.getGuiTextureHeight()) {
+                        cir.setReturnValue(false);
+                    }
+                }
+            }
+        }
     }
 }
