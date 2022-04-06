@@ -48,6 +48,7 @@ dependencies {
 
     modRuntimeOnly("curse.maven:enchantment-descriptions-250419:${rootProject.enchantment_descriptions_fabric_id}")
     modRuntimeOnly("curse.maven:tooltipfix-411557:${rootProject.tooltipfix_fabric_id}")
+    // modRuntimeOnly("com.github.ShaksterNano.WMITAF:wmitaf-fabric:1.18-SNAPSHOT")
 }
 
 processResources {

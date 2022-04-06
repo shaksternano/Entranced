@@ -41,7 +41,7 @@ dependencies {
 
     modApi("me.shedaniel.cloth:cloth-config-forge:${rootProject.cloth_config_version}")
 
-    modImplementation("mezz.jei:jei-${rootProject.minecraft_version}:${rootProject.jei_version}")
+    modRuntimeOnly("mezz.jei:jei-${rootProject.minecraft_version}:${rootProject.jei_version}")
 
     modRuntimeOnly("curse.maven:catalogue-459701:${rootProject.catalogue_forge_id}")
     modRuntimeOnly("curse.maven:configured-457570:${rootProject.configured_forge_id}")

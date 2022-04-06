@@ -1,13 +1,13 @@
 modLoader = "javafml"
 loaderVersion = "[40,)"
-issueTrackerURL = "https://github.com/ShakterNano/Entranced/issues"
+issueTrackerURL = "https://github.com/ShaksterNano/Entranced/issues"
 license = "MIT"
 
 [[mods]]
     modId = "entranced"
     version = "${version}"
     displayName = "Entranced"
-    displayURL = "https://github.com/ShakterNano/Entranced"
+    displayURL = "https://github.com/ShaksterNano/Entranced"
     authors = "ShaksterNano"
     description = '''
         An enchantment mod
@@ -40,4 +40,11 @@ license = "MIT"
     mandatory = true
     versionRange = "[6.2.57,)"
     ordering = "AFTER"
+    side = "BOTH"
+
+[[dependencies.entranced]]
+    modId = "jei"
+    mandatory = false
+    versionRange = "[9.5.5.174,)"
+    ordering = "NONE"
     side = "BOTH"

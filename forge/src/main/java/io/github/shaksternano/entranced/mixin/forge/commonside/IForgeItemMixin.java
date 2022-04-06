@@ -8,6 +8,7 @@ import net.minecraftforge.common.extensions.IForgeItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.Inject;
 
 @Mixin(value = IForgeItem.class, remap = false)
 interface IForgeItemMixin {
@@ -34,7 +35,8 @@ interface IForgeItemMixin {
      * </ul>
      *
      * @author ShaksterNano
-     * @reason Injecting into default methods in interfaces on Forge is not allowed for now.
+     * @reason {@link Inject}ing into default methods in interfaces on Forge is not allowed for now,
+     * you can only {@link Overwrite} them.
      */
     @SuppressWarnings("deprecation")
     @Overwrite

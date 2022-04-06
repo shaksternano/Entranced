@@ -10,8 +10,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@OnlyIn(Dist.CLIENT)
 @SuppressWarnings("unused")
+@OnlyIn(Dist.CLIENT)
 @Mixin(AnvilScreen.class)
 abstract class AnvilScreenMixin {
 

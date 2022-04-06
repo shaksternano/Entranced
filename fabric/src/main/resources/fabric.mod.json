@@ -10,9 +10,9 @@
     ],
 
     "contact": {
-        "homepage": "https://github.com/ShakterNano/Entranced",
-        "sources": "https://github.com/ShakterNano/Entranced",
-        "issues": "https://github.com/ShakterNano/Entranced/issues"
+        "homepage": "https://github.com/ShaksterNano/Entranced",
+        "sources": "https://github.com/ShaksterNano/Entranced",
+        "issues": "https://github.com/ShaksterNano/Entranced/issues"
     },
 
     "license": "MIT",
@@ -42,7 +42,7 @@
     "accessWidener": "entranced.accesswidener",
 
     "custom": {
-        "notify_gradle_properties_url": "https://raw.githubusercontent.com/ShakterNano/Entranced/1.18/gradle.properties",
+        "notify_gradle_properties_url": "https://raw.githubusercontent.com/ShaksterNano/Entranced/1.18/gradle.properties",
         "notify_gradle_properties_key": "mod_version"
     },
 
