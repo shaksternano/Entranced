@@ -3,10 +3,16 @@ package io.github.shaksternano.entranced.commonside.gui;
 import io.github.shaksternano.entranced.commonside.Entranced;
 import net.minecraft.util.Identifier;
 
+/**
+ * Used to connect the enchanting catalyst GUI texture, slot, and button.
+ */
 public enum EnchantingCatalystPanel {
 
+    /**
+     * The instance of this object.
+     */
     INSTANCE(
-            new Identifier(Entranced.MOD_ID, "textures/gui/screen/enchanting_catalyst_panel.png"),
+            Entranced.newIdentifier("textures/gui/screen/enchanting_catalyst_panel.png"),
             35,
             56,
             -30,

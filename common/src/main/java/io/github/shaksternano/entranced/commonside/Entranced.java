@@ -10,14 +10,14 @@ import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.ActionResult;
-import org.apache.commons.lang3.StringUtils;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Entranced {
 
     public static final String MOD_ID = "entranced";
-    public static final String MOD_NAME = StringUtils.capitalize(MOD_ID);
+    public static final String MOD_NAME = "Entranced";
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
@@ -72,5 +72,14 @@ public class Entranced {
 
     public static void setCreatedNewConfigFile(boolean createdNewConfigFile) {
         Entranced.createdNewConfigFile = createdNewConfigFile;
+    }
+
+    /**
+     * Convience method for constructing an {@link Identifier} belonging to this mod.
+     * @param path The path of the Identifier.
+     * @return An Identifier with this mod's ID as the namespace and the specified path.
+     */
+    public static Identifier newIdentifier(String path) {
+        return new Identifier(MOD_ID, path);
     }
 }

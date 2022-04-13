@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 
 public class EnchantingScreenNetworking {
 
-    public static final Identifier APPLY_ENCHANTING_CATALYST = new Identifier(Entranced.MOD_ID, "apply_enchanting_catalyst");
+    public static final Identifier APPLY_ENCHANTING_CATALYST = Entranced.newIdentifier("apply_enchanting_catalyst");
 
     /**
      * Registers logical server receivers related to the enchanting catalyst.

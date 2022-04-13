@@ -32,6 +32,7 @@ abstract class ItemStackMixin {
     @Inject(method = "getAttributeModifiers", at = @At("RETURN"), cancellable = true)
     private void entranced$frenzyIncreaseAttackSpeed(EquipmentSlot slot, CallbackInfoReturnable<Multimap<EntityAttribute, EntityAttributeModifier>> cir) {
         ItemStack stack = (ItemStack) (Object) this;
+
         if (slot == EquipmentSlot.MAINHAND) {
             if (Entranced.getConfig().isFrenzyEnabled()) {
                 if (EnchantmentUtil.hasEnchantment(stack, EntrancedEnchantments.FRENZY)) {
@@ -44,6 +45,7 @@ abstract class ItemStackMixin {
                     }
 
                     double attackSpeed = 0.0D;
+
                     for (EntityAttributeModifier attributeModifier : attributes.get(EntityAttributes.GENERIC_ATTACK_SPEED)) {
                         attackSpeed += attributeModifier.getValue();
                     }

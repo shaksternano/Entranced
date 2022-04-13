@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 
 public class ImperishableNetworking {
 
-    public static final Identifier EQUIPMENT_BREAK_EFFECTS = new Identifier(Entranced.MOD_ID, "equipment_break_effects");
+    public static final Identifier EQUIPMENT_BREAK_EFFECTS = Entranced.newIdentifier("equipment_break_effects");
 
     /**
      * Registers client receivers related to the {@link ImperishableEnchantment}.
@@ -23,11 +23,10 @@ public class ImperishableNetworking {
     public static void registerClientReceivers() {
         // Plays item break effects when the durability of an item reaches 0.
         NetworkManager.registerReceiver(NetworkManager.serverToClient(), EQUIPMENT_BREAK_EFFECTS, (buf, context) -> {
+            PlayerEntity player = context.getPlayer();
             int itemId = buf.readInt();
 
             context.queue(() -> {
-                PlayerEntity player = context.getPlayer();
-
                 if (player != null) {
                     Item item = Item.byRawId(itemId);
 

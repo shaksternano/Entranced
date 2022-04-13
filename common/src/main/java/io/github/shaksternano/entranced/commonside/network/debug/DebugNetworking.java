@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 public class DebugNetworking {
 
-    public static final Identifier DEBUG_HOTBAR_SLOT = new Identifier(Entranced.MOD_ID, "debug_hotbar_slot");
+    public static final Identifier DEBUG_HOTBAR_SLOT = Entranced.newIdentifier("debug_hotbar_slot");
 
     /**
      * Registers logical server receivers related to debugging.
@@ -21,8 +21,8 @@ public class DebugNetworking {
     public static void registerServerReceivers() {
         // For debug mode.
         NetworkManager.registerReceiver(NetworkManager.clientToServer(), DEBUG_HOTBAR_SLOT, (buf, context) -> {
-            int slot = buf.readInt();
             PlayerEntity player = context.getPlayer();
+            int slot = buf.readInt();
 
             context.queue(() -> {
                 if (Entranced.getConfig().isDebugMode()) {

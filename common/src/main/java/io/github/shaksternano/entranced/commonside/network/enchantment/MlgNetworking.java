@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 
 public class MlgNetworking {
 
-    public static final Identifier CLIENT_HOTBAR_SWAP = new Identifier(Entranced.MOD_ID, "client_hotbar_swap");
+    public static final Identifier CLIENT_HOTBAR_SWAP = Entranced.newIdentifier("client_hotbar_swap");
 
     /**
      * Registers client receivers related to the {@link MlgEnchantment}.
