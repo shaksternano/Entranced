@@ -21,6 +21,9 @@ abstract class ItemEntityMixin extends EntityMixin {
     @Shadow
     public abstract ItemStack getStack();
 
+    @Shadow
+    public abstract void setNeverDespawn();
+
     /**
      * Items with the {@link ImperishableEnchantment}
      * are invulnerable to all damage sources.
@@ -31,6 +34,18 @@ abstract class ItemEntityMixin extends EntityMixin {
         if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DAMAGE_PROTECTION)) {
             if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
                 cir.setReturnValue(true);
+            }
+        }
+    }
+
+    /**
+     * Item entities with the {@link ImperishableEnchantment} don't despawn.
+     */
+    @Inject(method = "setStack", at = @At("RETURN"))
+    private void entranced$imperishableNeverDespawn(ItemStack stack, CallbackInfo ci) {
+        if (EnchantmentUtil.hasEnchantment(getStack(), EntrancedEnchantments.IMPERISHABLE)) {
+            if (ImperishableBlacklists.isItemProtected(getStack(), ImperishableBlacklists.ProtectionType.DESPAWN_PROTECTION)) {
+                setNeverDespawn();
             }
         }
     }

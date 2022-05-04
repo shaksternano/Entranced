@@ -8,7 +8,6 @@
         "commonside.enchantment.frenzy.ItemStackMixin",
         "commonside.enchantment.imperishable.GrindstoneScreenHandlerMixin",
         "commonside.enchantment.imperishable.ItemDispenserBehaviorMixin",
-        "commonside.enchantment.imperishable.ItemEntityMixin",
         "commonside.enchantment.imperishable.PlayerEntityMixin",
         "commonside.enchantment.imperishable.TripwireBlockMixin",
         "commonside.enchantment.infinity.bucket.ItemDispenserBehaviorMixin",
