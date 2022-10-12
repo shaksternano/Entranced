@@ -8,5 +8,5 @@ An enchantment mod
 3. The JAR should appear in `${projectDir}/forge/build/libs` for Forge, and `${projectDir}/fabric/build/libs` for Fabric. Use the JAR with the longest filename.
 
 # Installing
-1. Install the Forge or Fabric modloader.
+1. Install the Forge or Fabric mod-loader.
 2. Place the JAR file in the mods folder along with its dependencies.
